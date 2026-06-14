@@ -39,10 +39,10 @@ function Index() {
       <Navbar />
       <Hero />
       <About />
-      <Skills />
       <Experience />
       <Projects />
       <Achievements />
+      <Skills />
       <Education />
       <ContactForm />
       <Footer />
