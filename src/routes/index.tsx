@@ -9,6 +9,7 @@ import { Achievements } from "@/components/portfolio/Achievements";
 import { Education } from "@/components/portfolio/Education";
 import { ContactForm } from "@/components/portfolio/ContactForm";
 import { Footer } from "@/components/portfolio/Footer";
+import { SoundToggle } from "@/components/portfolio/SoundToggle";
 import { Toaster } from "sonner";
 
 export const Route = createFileRoute("/")({
@@ -46,6 +47,7 @@ function Index() {
       <Education />
       <ContactForm />
       <Footer />
+      <SoundToggle />
       <Toaster position="bottom-right" richColors />
     </main>
   );
