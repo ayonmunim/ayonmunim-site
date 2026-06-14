@@ -7,25 +7,14 @@ import { AnimatedSection } from "./AnimatedSection";
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.05, 1, 1.08]);
-  const y = useTransform(scrollYProgress, [0, 1], [60, -60]);
-
-  const accentVar = `var(--${project.accent})`;
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.08, 1, 1.06]);
+  const y = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
   return (
-    <div
-      ref={ref}
-      className="sticky top-24 mb-8"
-      style={{ zIndex: index + 1 }}
-    >
-      <div className="relative overflow-hidden rounded-[2rem] border border-foreground/10 bg-card shadow-[var(--shadow-card)]">
+    <div ref={ref} className="sticky top-24 mb-6" style={{ zIndex: index + 1 }}>
+      <div className="overflow-hidden rounded-3xl border border-line bg-bone">
         <div className="grid grid-cols-1 lg:grid-cols-12">
-          {/* image */}
-          <div className="relative h-[44vh] overflow-hidden lg:col-span-7 lg:h-[70vh]">
-            <div
-              className="absolute inset-0 opacity-60 blur-3xl"
-              style={{ background: `radial-gradient(60% 60% at 50% 40%, ${accentVar} 0%, transparent 70%)` }}
-            />
+          <div className="relative h-[44vh] overflow-hidden bg-soft lg:col-span-7 lg:h-[68vh]">
             <motion.img
               src={project.image}
               alt={project.title}
@@ -33,63 +22,67 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               width={1600}
               height={1000}
               style={{ scale, y }}
-              className="absolute inset-0 h-full w-full object-cover"
+              className="absolute inset-0 h-full w-full object-cover grayscale"
             />
+            <div className="absolute left-6 top-6 text-[11px] font-mono uppercase tracking-[0.2em] text-bone mix-blend-difference">
+              0{index + 1} / 0{projects.length}
+            </div>
           </div>
 
-          {/* content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7 }}
-            className="flex flex-col justify-between p-8 lg:col-span-5 lg:p-14"
+            className="flex flex-col justify-between p-8 lg:col-span-5 lg:p-12"
           >
             <div>
-              <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-                <span className="font-mono">0{index + 1}</span>
-                <span className="h-px w-8 bg-foreground/20" />
-                <span style={{ color: accentVar }}>{project.tagline}</span>
+              <div className="text-[11px] uppercase tracking-[0.25em] text-ink/50">
+                {project.tagline}
               </div>
-              <h3 className="mt-4 font-display text-3xl font-medium leading-tight md:text-5xl">
+              <h3 className="mt-4 font-display text-3xl font-medium tracking-[-0.02em] md:text-5xl">
                 {project.title}
               </h3>
-              <p className="mt-5 text-base text-foreground/80 md:text-lg">
+              <p className="mt-5 text-[15px] leading-relaxed text-ink/70">
                 {project.description}
               </p>
-              <ul className="mt-6 space-y-2">
+              <ul className="mt-6 space-y-2.5">
                 {project.features.map((f) => (
-                  <li key={f} className="flex gap-3 text-sm text-foreground/75">
-                    <span className="mt-1.5 size-1 shrink-0 rounded-full" style={{ background: accentVar }} />
+                  <li key={f} className="flex gap-3 text-sm text-ink/75">
+                    <span className="mt-2 size-1 shrink-0 rounded-full bg-ink/40" />
                     {f}
                   </li>
                 ))}
               </ul>
-              <div className="mt-6 flex flex-wrap gap-2">
+              <div className="mt-7 flex flex-wrap gap-1.5">
                 {project.tech.map((t) => (
-                  <span key={t} className="rounded-full border border-foreground/10 bg-background/60 px-3 py-1 text-xs font-medium">
+                  <span
+                    key={t}
+                    className="rounded-full border border-line bg-soft px-3 py-1 text-xs font-medium text-ink/70"
+                  >
                     {t}
                   </span>
                 ))}
               </div>
             </div>
 
-            <div className="mt-8 flex gap-3">
+            <div className="mt-10 flex gap-2">
               <a
                 href={project.live}
                 target="_blank"
                 rel="noreferrer"
-                className="group inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm font-medium text-background transition hover:opacity-90"
+                className="group inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-medium text-bone transition hover:bg-ink/85"
               >
-                Live preview <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                View Project
+                <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
               <a
                 href={project.github}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-foreground/15 px-5 py-3 text-sm font-medium transition hover:bg-foreground/5"
+                className="inline-flex items-center gap-2 rounded-full border border-ink/15 px-5 py-3 text-sm font-medium text-ink transition hover:border-ink"
               >
-                <Github className="size-4" /> Code
+                <Github className="size-4" /> GitHub
               </a>
             </div>
           </motion.div>
@@ -101,12 +94,14 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 export function Projects() {
   return (
-    <section id="projects" className="relative py-28 md:py-40">
+    <section id="projects" className="relative border-t border-line py-28 md:py-40">
       <div className="mx-auto max-w-7xl px-6">
-        <AnimatedSection className="mb-16 max-w-4xl">
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--electric)]">04 — Selected work</p>
-          <h2 className="mt-4 font-display text-4xl font-medium leading-tight md:text-6xl">
-            Products built with <span className="italic text-gradient">care</span>, shipped with intent.
+        <AnimatedSection className="mb-20 max-w-4xl">
+          <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-ink/50">
+            (03) Selected Work
+          </p>
+          <h2 className="mt-6 font-display text-4xl font-medium leading-[1.05] tracking-[-0.03em] md:text-6xl">
+            Products built with care, shipped with intent.
           </h2>
         </AnimatedSection>
 

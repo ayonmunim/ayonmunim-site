@@ -3,42 +3,39 @@ import { resume } from "@/data/resume";
 
 export function Experience() {
   return (
-    <section id="work" className="py-28 md:py-40">
+    <section id="work" className="border-t border-line py-28 md:py-40">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
-          <AnimatedSection className="lg:col-span-4">
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--plasma)]">03 — Work</p>
-            <h2 className="mt-4 font-display text-4xl font-medium leading-tight md:text-6xl">
-              Where I've <span className="italic text-gradient">built</span>.
-            </h2>
-            <p className="mt-6 max-w-md text-muted-foreground">
-              A small sample of recent collaborations across product, engineering and design teams.
-            </p>
-          </AnimatedSection>
+        <AnimatedSection>
+          <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-ink/50">
+            (02) Experience
+          </p>
+          <h2 className="mt-6 max-w-3xl font-display text-4xl font-medium leading-[1.05] tracking-[-0.03em] md:text-6xl">
+            A timeline of teams, products, and problems worth solving.
+          </h2>
+        </AnimatedSection>
 
-          <div className="lg:col-span-8">
-            <div className="relative border-l border-foreground/10 pl-8">
-              {resume.experience.map((exp, i) => (
-                <AnimatedSection key={exp.role} delay={i * 0.1} className="relative pb-14 last:pb-0">
-                  <span className="absolute -left-[37px] top-2 size-3 rounded-full bg-foreground ring-4 ring-background" />
-                  <div className="flex flex-wrap items-baseline justify-between gap-2">
-                    <h3 className="font-display text-2xl font-medium md:text-3xl">{exp.role}</h3>
-                    <span className="text-sm text-muted-foreground">{exp.period}</span>
-                  </div>
-                  <div className="mt-1 text-sm uppercase tracking-wider text-[var(--electric)]">
-                    {exp.company} · {exp.location}
-                  </div>
-                  <ul className="mt-5 space-y-3">
-                    {exp.bullets.map((b) => (
-                      <li key={b} className="flex gap-3 text-foreground/80">
-                        <span className="mt-2 size-1 shrink-0 rounded-full bg-foreground/40" />
-                        <span>{b}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </AnimatedSection>
-              ))}
-            </div>
+        <div className="mt-20 lg:pl-[28%]">
+          <div className="relative border-l border-line pl-10">
+            {resume.experience.map((exp, i) => (
+              <AnimatedSection key={exp.role} delay={i * 0.1} className="relative pb-16 last:pb-0">
+                <span className="absolute -left-[45px] top-2 size-2.5 rounded-full bg-ink ring-4 ring-bone" />
+                <div className="text-[11px] uppercase tracking-[0.2em] text-ink/50">{exp.period}</div>
+                <h3 className="mt-3 font-display text-3xl font-medium tracking-[-0.02em] md:text-4xl">
+                  {exp.role}
+                </h3>
+                <div className="mt-2 text-sm text-ink/60">
+                  {exp.company} — {exp.location}
+                </div>
+                <ul className="mt-6 space-y-3 text-ink/75">
+                  {exp.bullets.map((b) => (
+                    <li key={b} className="flex gap-3 text-[15px] leading-relaxed">
+                      <span className="mt-2.5 size-1 shrink-0 rounded-full bg-ink/40" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+              </AnimatedSection>
+            ))}
           </div>
         </div>
       </div>
