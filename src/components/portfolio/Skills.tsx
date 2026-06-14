@@ -1,31 +1,45 @@
 import { AnimatedSection } from "./AnimatedSection";
-import { resume } from "@/data/resume";
 import { motion } from "motion/react";
 
+const skillGroups: { name: string; items: string[] }[] = [
+  { name: "Frontend", items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"] },
+  { name: "Backend", items: ["Django", "Node.js", "Express", "REST APIs", "GraphQL"] },
+  { name: "Data Analytics", items: ["MySQL", "PostgreSQL", "pandas", "Power BI", "SQL"] },
+  { name: "Machine Learning", items: ["scikit-learn", "TensorFlow", "NumPy", "Python"] },
+  { name: "UI/UX Design", items: ["Figma", "Design Systems", "Prototyping", "Accessibility"] },
+  { name: "Tools & Platforms", items: ["Git", "Docker", "Vercel", "Linux", "Jira"] },
+];
+
 export function Skills() {
-  const groups = Object.entries(resume.skills);
   return (
-    <section className="relative bg-foreground py-28 text-background md:py-40">
+    <section className="border-t border-line py-28 md:py-40">
       <div className="mx-auto max-w-7xl px-6">
         <AnimatedSection>
-          <p className="text-xs font-medium uppercase tracking-[0.2em] text-[var(--ember)]">02 — Stack</p>
-          <h2 className="mt-4 max-w-4xl font-display text-4xl font-medium leading-tight md:text-6xl">
-            Tools I reach for — chosen for <span className="italic text-gradient">precision</span>, not novelty.
+          <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-ink/50">
+            (05) Skills
+          </p>
+          <h2 className="mt-6 max-w-3xl font-display text-4xl font-medium leading-[1.05] tracking-[-0.03em] md:text-6xl">
+            A toolkit chosen for precision, not novelty.
           </h2>
         </AnimatedSection>
 
-        <div className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {groups.map(([group, items], gi) => (
-            <AnimatedSection key={group} delay={gi * 0.05}>
-              <div className="group relative h-full overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-8 transition hover:bg-white/[0.06]">
-                <div className="absolute -right-12 -top-12 size-40 rounded-full bg-[var(--electric)]/20 blur-3xl transition-opacity group-hover:opacity-100 opacity-40" />
-                <div className="text-[10px] uppercase tracking-[0.25em] text-background/60">{group}</div>
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {items.map((it) => (
+        <div className="mt-16 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-2 lg:grid-cols-3">
+          {skillGroups.map((group, gi) => (
+            <AnimatedSection key={group.name} delay={gi * 0.05}>
+              <div className="h-full bg-bone p-8 transition-colors hover:bg-soft">
+                <div className="flex items-baseline justify-between">
+                  <h3 className="font-display text-lg font-medium tracking-tight">{group.name}</h3>
+                  <span className="font-mono text-[10px] text-ink/40">
+                    0{gi + 1}
+                  </span>
+                </div>
+                <div className="mt-6 flex flex-wrap gap-1.5">
+                  {group.items.map((it) => (
                     <motion.span
                       key={it}
                       whileHover={{ scale: 1.06, y: -2 }}
-                      className="inline-flex cursor-default items-center rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-sm font-medium text-background/90 backdrop-blur"
+                      transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                      className="inline-flex cursor-default items-center rounded-full border border-ink/15 bg-bone px-3 py-1.5 text-xs font-medium text-ink/80 transition-colors hover:border-ink hover:bg-ink hover:text-bone"
                     >
                       {it}
                     </motion.span>
@@ -34,19 +48,6 @@ export function Skills() {
               </div>
             </AnimatedSection>
           ))}
-        </div>
-
-        {/* marquee */}
-        <div className="mt-20 overflow-hidden">
-          <div className="flex w-max marquee gap-12 whitespace-nowrap font-display text-5xl text-background/30 md:text-7xl">
-            {Array.from({ length: 2 }).flatMap((_, k) =>
-              ["React", "TypeScript", "Django", "Python", "MySQL", "Tailwind", "Figma", "ML/AI", "Next.js"].map((w, i) => (
-                <span key={`${k}-${i}`} className="flex items-center gap-12">
-                  {w} <span className="text-[var(--ember)]">✦</span>
-                </span>
-              )),
-            )}
-          </div>
         </div>
       </div>
     </section>
