@@ -9,20 +9,12 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.15, 1, 1.1]);
   const y = useTransform(scrollYProgress, [0, 1], [60, -60]);
-  const cardScale = useTransform(
-    scrollYProgress,
-    [0, 0.4, 0.6, 1],
-    [0.92, 1, 1, 0.94]
-  );
-  const opacity = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [0.4, 1, 1, 0.5]);
 
   return (
-    <motion.div
+    <div
       ref={ref}
-      style={{ scale: cardScale, opacity }}
-      className="sticky top-24 mb-8"
-      // stack effect
-      {...{ "data-idx": index }}
+      className="sticky mb-8"
+      style={{ top: `calc(6rem + ${index * 12}px)`, zIndex: index + 1 }}
     >
       {/* blurry background glow */}
       <div aria-hidden className="pointer-events-none absolute -inset-10 -z-10">
@@ -35,7 +27,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-120px" }}
         transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-        whileHover={{ scale: 1.01 }}
         className="group relative overflow-hidden rounded-[2rem] border border-white/40 bg-white/50 shadow-[0_20px_80px_-20px_rgba(0,0,0,0.25)] backdrop-blur-2xl"
       >
         <div className="grid grid-cols-1 lg:grid-cols-12">
@@ -110,7 +101,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           </motion.div>
         </div>
       </motion.div>
-    </motion.div>
+    </div>
+
   );
 }
 
