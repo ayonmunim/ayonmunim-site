@@ -101,7 +101,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           </motion.div>
         </div>
       </motion.div>
-    </motion.div>
+    </div>
+
   );
 }
 
