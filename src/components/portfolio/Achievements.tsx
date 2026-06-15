@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
+import { Award } from "lucide-react";
 import { resume } from "@/data/resume";
 import { AnimatedSection } from "./AnimatedSection";
 
@@ -9,33 +10,36 @@ export function Achievements() {
   const x = useTransform(scrollYProgress, [0, 1], ["8%", "-12%"]);
 
   return (
-    <section id="awards" className="relative border-t border-line bg-ink py-28 text-bone md:py-40">
-      <div className="mx-auto max-w-7xl px-6">
+    <section id="awards" className="relative overflow-hidden border-t border-line bg-ink py-28 text-bone md:py-40">
+      {/* Decorative gold blobs for glassmorphism context */}
+      <div className="pointer-events-none absolute -top-32 left-1/4 size-[460px] rounded-full bg-sun/20 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-0 right-0 size-[520px] rounded-full bg-sun/10 blur-3xl" />
+
+      <div className="relative mx-auto max-w-7xl px-6">
         <AnimatedSection className="max-w-4xl">
-          <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-bone/55">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-sun">
             (04) Awards & Recognition
           </p>
-          <h2 className="mt-6 font-display text-5xl font-medium leading-[0.95] tracking-[-0.03em] md:text-7xl">
-            Awarded for work that pushes the medium.
+          <h2 className="mt-6 font-display text-5xl uppercase leading-[0.95] tracking-[0.01em] md:text-7xl">
+            Awarded for work that <span className="text-sun">pushes the medium.</span>
           </h2>
-          <p className="mt-6 max-w-xl text-bone/60 md:text-lg">
+          <p className="mt-6 max-w-xl text-bone/65 md:text-lg">
             Selected recognitions from international and national competitions in
             engineering, data, and design.
           </p>
         </AnimatedSection>
 
-        {/* Editorial card grid */}
-        <div ref={ref} className="mt-20 space-y-4">
+        {/* Glassmorphism card grid */}
+        <div ref={ref} className="mt-20 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
           {resume.achievements.map((a, i) => (
-            <AchievementRow key={a.title} item={a} index={i} />
+            <AchievementCard key={a.title} item={a} index={i} />
           ))}
         </div>
       </div>
 
-      {/* Marquee — oversized typography */}
       <motion.div
         style={{ x }}
-        className="mt-28 whitespace-nowrap font-display text-[18vw] font-medium leading-none tracking-[-0.05em] text-bone/[0.06]"
+        className="relative mt-28 whitespace-nowrap font-display text-[18vw] uppercase leading-none tracking-[-0.04em] text-bone/[0.06]"
       >
         Recognition · Craft · Recognition · Craft ·
       </motion.div>
@@ -43,7 +47,7 @@ export function Achievements() {
   );
 }
 
-function AchievementRow({
+function AchievementCard({
   item,
   index,
 }: {
@@ -56,21 +60,26 @@ function AchievementRow({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.7, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-      className="group grid grid-cols-12 items-center gap-6 border-t border-bone/10 py-8 transition-all hover:bg-bone/[0.02] md:py-10"
+      whileHover={{ y: -6, scale: 1.015 }}
+      className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-xl transition-all duration-500 hover:border-sun/60 hover:bg-white/[0.09] hover:shadow-[0_30px_80px_-30px_rgba(245,196,0,0.45)]"
     >
-      <div className="col-span-12 text-[11px] uppercase tracking-[0.25em] text-bone/45 md:col-span-2">
-        {item.year}
+      {/* Hover shine */}
+      <div className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        style={{
+          background:
+            "linear-gradient(140deg, rgba(245,196,0,0.18) 0%, rgba(255,255,255,0) 45%)",
+        }}
+      />
+      <div className="relative flex items-start justify-between">
+        <span className="grid size-11 place-items-center rounded-xl border border-white/15 bg-white/5 text-sun transition-colors group-hover:border-sun group-hover:bg-sun/15">
+          <Award className="size-5" />
+        </span>
+        <span className="text-[11px] uppercase tracking-[0.25em] text-bone/50">{item.year}</span>
       </div>
-      <div className="col-span-12 md:col-span-6">
-        <h3 className="font-display text-2xl font-medium leading-tight tracking-[-0.02em] md:text-4xl">
-          <span className="inline-block transition-transform duration-500 group-hover:translate-x-2">
-            {item.title}
-          </span>
-        </h3>
-      </div>
-      <div className="col-span-12 text-sm leading-relaxed text-bone/60 md:col-span-4">
-        {item.detail}
-      </div>
+      <h3 className="relative mt-6 font-display text-2xl uppercase leading-tight tracking-wide md:text-3xl">
+        {item.title}
+      </h3>
+      <p className="relative mt-4 text-sm leading-relaxed text-bone/65">{item.detail}</p>
     </motion.div>
   );
 }
