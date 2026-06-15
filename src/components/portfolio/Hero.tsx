@@ -14,24 +14,29 @@ import prothom from "@/assets/press/Prothom_Alo_2023_2.png.asset.json";
 type Floater = {
   src: string;
   alt: string;
-  // final position in % offset from center
   x: string;
   y: string;
-  w: number; // width in px (desktop)
+  w: number;
   rotate: number;
   delay: number;
+  blur: number; // px — depth
 };
 
+// Harvard-Online style scatter. A few crisp foreground tiles, the rest
+// softly blurred for depth. All emerge outward from dead-center.
 const floaters: Floater[] = [
-  { src: nsac.url,     alt: "NASA Space Apps Challenge 2022",   x: "-38%", y: "-30%", w: 280, rotate: -6, delay: 0.1 },
-  { src: nasa.url,     alt: "NASA Earth Data",                  x: "32%",  y: "-34%", w: 300, rotate: 5,  delay: 0.18 },
-  { src: daily23.url,  alt: "The Daily Star 2023",              x: "-44%", y: "6%",   w: 260, rotate: -8, delay: 0.26 },
-  { src: daily24.url,  alt: "The Daily Star 2024",              x: "40%",  y: "10%",  w: 270, rotate: 7,  delay: 0.34 },
-  { src: observer.url, alt: "Daily Observer",                   x: "-30%", y: "34%",  w: 240, rotate: 4,  delay: 0.42 },
-  { src: prothom.url,  alt: "Prothom Alo",                      x: "30%",  y: "36%",  w: 250, rotate: -5, delay: 0.5 },
-  { src: kaler.url,    alt: "Kaler Kantho",                     x: "-52%", y: "-4%",  w: 220, rotate: 9,  delay: 0.58 },
-  { src: samakal.url,  alt: "Samakal",                          x: "50%",  y: "-6%",  w: 230, rotate: -7, delay: 0.66 },
-  { src: news24.url,   alt: "NEWS24",                           x: "0%",   y: "-44%", w: 260, rotate: 2,  delay: 0.74 },
+  // Foreground — sharp
+  { src: nsac.url,     alt: "NASA Space Apps Challenge 2022",   x: "-38%", y: "-34%", w: 320, rotate: -5, delay: 0.10, blur: 0 },
+  { src: daily24.url,  alt: "The Daily Star 2024",              x: "38%",  y: "30%",  w: 310, rotate: 6,  delay: 0.18, blur: 0 },
+  { src: prothom.url,  alt: "Prothom Alo",                      x: "-42%", y: "26%",  w: 260, rotate: -7, delay: 0.26, blur: 0 },
+  { src: nasa.url,     alt: "NASA Earth Data",                  x: "36%",  y: "-32%", w: 280, rotate: 4,  delay: 0.22, blur: 0 },
+  // Mid — light blur
+  { src: daily23.url,  alt: "The Daily Star 2023",              x: "-54%", y: "-4%",  w: 240, rotate: -9, delay: 0.34, blur: 4 },
+  { src: observer.url, alt: "Daily Observer",                   x: "52%",  y: "2%",   w: 250, rotate: 7,  delay: 0.38, blur: 4 },
+  // Background — heavy blur
+  { src: kaler.url,    alt: "Kaler Kantho",                     x: "6%",   y: "-46%", w: 270, rotate: 3,  delay: 0.46, blur: 10 },
+  { src: samakal.url,  alt: "Samakal",                          x: "-10%", y: "46%",  w: 290, rotate: -4, delay: 0.50, blur: 10 },
+  { src: news24.url,   alt: "NEWS24",                           x: "58%",  y: "-24%", w: 230, rotate: 8,  delay: 0.58, blur: 14 },
 ];
 
 export function Hero() {
@@ -40,7 +45,7 @@ export function Hero() {
       id="top"
       className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 pt-28 pb-16"
     >
-      {/* Floating press collage — emerges from center outward */}
+      {/* Floating press collage — emerges outward from dead center */}
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
         <div className="relative h-full w-full max-w-6xl">
           {floaters.map((f, i) => (
@@ -48,11 +53,11 @@ export function Hero() {
               key={i}
               initial={{
                 opacity: 0,
-                scale: 0.2,
+                scale: 0.05,
                 x: "-50%",
                 y: "-50%",
                 rotate: 0,
-                filter: "blur(20px)",
+                filter: `blur(${Math.max(f.blur, 18)}px)`,
               }}
               animate={{
                 opacity: 1,
@@ -60,10 +65,10 @@ export function Hero() {
                 x: `calc(-50% + ${f.x})`,
                 y: `calc(-50% + ${f.y})`,
                 rotate: f.rotate,
-                filter: "blur(2px)",
+                filter: `blur(${f.blur}px)`,
               }}
               transition={{
-                duration: 1.4,
+                duration: 1.6,
                 delay: f.delay,
                 ease: [0.22, 1, 0.36, 1],
               }}
@@ -78,13 +83,13 @@ export function Hero() {
                   ease: "easeInOut",
                   delay: i * 0.2,
                 }}
-                className="overflow-hidden rounded-xl ring-1 ring-ink/10 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.35)]"
+                className="overflow-hidden rounded-2xl ring-1 ring-ink/10 shadow-[0_30px_80px_-25px_rgba(0,0,0,0.35)]"
               >
                 <img
                   src={f.src}
                   alt={f.alt}
                   loading="lazy"
-                  className="block h-auto w-full opacity-90"
+                  className="block h-auto w-full"
                 />
               </motion.div>
             </motion.div>
@@ -92,9 +97,14 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Glassmorphism center spotlight */}
-      <div className="pointer-events-none absolute left-1/2 top-1/2 -z-0 size-[680px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-bone/40 backdrop-blur-2xl" />
-      <div className="pointer-events-none absolute left-1/2 top-1/2 -z-0 size-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-bone/70 blur-2xl" />
+      {/* Soft radial vignette so the headline stays legible over the collage */}
+      <div
+        className="pointer-events-none absolute left-1/2 top-1/2 -z-0 size-[860px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+        style={{
+          background:
+            "radial-gradient(closest-side, rgba(245,245,245,0.92), rgba(245,245,245,0.7) 45%, rgba(245,245,245,0) 78%)",
+        }}
+      />
 
       {/* Foreground content */}
       <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center text-center">
