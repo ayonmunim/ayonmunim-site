@@ -39,6 +39,8 @@
   --color-bone: #ffffff;
   --color-soft: #f5f5f5;
   --color-line: #e5e5e5;
+  --color-sun: #FFD60A;
+  --color-sun-deep: #F5C400;
 }
 
 :root {

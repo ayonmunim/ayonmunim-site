@@ -98,7 +98,7 @@ export function ContactForm() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 disabled={loading}
-                className="inline-flex items-center gap-2 rounded-full bg-ink px-8 py-4 text-sm font-medium text-bone transition hover:bg-ink/85 disabled:opacity-60"
+                className="inline-flex items-center gap-2 rounded-full bg-sun px-8 py-4 text-sm font-semibold text-ink shadow-[0_10px_30px_-10px_rgba(245,196,0,0.7)] transition hover:bg-sun-deep disabled:opacity-60"
               >
                 {loading ? <Loader2 className="size-4 animate-spin" /> : <Send className="size-4" />}
                 {loading ? "Sending..." : "Send message"}
