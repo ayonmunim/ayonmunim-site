@@ -39,39 +39,41 @@ export function Navbar() {
       initial={{ y: -32, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        scrolled ? "border-b border-line/80 bg-white/80 backdrop-blur-xl py-3" : "border-b border-transparent py-5"
-      }`}
+      className="fixed inset-x-0 top-4 z-50 flex justify-center px-4"
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6">
-        <a href="#top" className="font-display text-base font-semibold tracking-tight">
-          Munim Ahmed
+      <div
+        className={`flex w-full max-w-5xl items-center justify-between gap-4 rounded-full border px-3 py-2 transition-all duration-500 ${
+          scrolled
+            ? "border-ink/10 bg-white/70 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.25)] backdrop-blur-xl"
+            : "border-white/40 bg-white/40 backdrop-blur-md"
+        }`}
+      >
+        <a href="#top" className="pl-3 font-display text-base uppercase tracking-[0.08em]">
+          <span className="text-sun-deep">M</span>UNIM
         </a>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-1 md:flex">
           {links.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              className={`relative text-[13px] font-medium tracking-wide transition ${
-                active === l.href ? "text-ink" : "text-ink/55 hover:text-ink"
+              className={`group relative rounded-full px-4 py-2 text-[13px] font-medium tracking-wide transition ${
+                active === l.href ? "text-ink" : "text-ink/65 hover:text-ink"
               }`}
             >
               {l.label}
-              {active === l.href && (
-                <motion.span
-                  layoutId="nav-active"
-                  className="absolute -bottom-1.5 left-0 right-0 mx-auto h-px w-4 bg-ink"
-                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                />
-              )}
+              <span
+                className={`pointer-events-none absolute bottom-1 left-1/2 h-[2px] -translate-x-1/2 rounded-full bg-sun-deep transition-all duration-400 ease-out ${
+                  active === l.href ? "w-6 opacity-100" : "w-0 opacity-0 group-hover:w-5 group-hover:opacity-100"
+                }`}
+              />
             </a>
           ))}
         </nav>
 
         <a
           href="#contact"
-          className="hidden rounded-full border border-ink px-5 py-2 text-[13px] font-medium text-ink transition hover:bg-ink hover:text-bone md:inline-block"
+          className="hidden rounded-full bg-sun px-5 py-2 text-[13px] font-semibold text-ink shadow-[0_8px_24px_-10px_rgba(245,196,0,0.8)] transition hover:bg-sun-deep md:inline-block"
         >
           Get in touch
         </a>
