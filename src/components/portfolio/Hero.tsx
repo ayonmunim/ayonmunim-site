@@ -14,13 +14,98 @@ import prothom from "@/assets/press/Prothom_Alo_2023_2.png.asset.json";
 type Floater = {
   src: string;
   alt: string;
-  x: string;
-  y: string;
   w: number;
   rotate: number;
-  delay: number;
-  blur: number; // px — depth
+  blur: number;
+  /** angle in degrees around center (0 = right, 90 = down) */
+  angle: number;
+  /** radial distance in % of container width */
+  radius: number;
 };
+
+// Evenly distributed around the center (every 40°) so the collage
+// spreads outward in every direction of the circle.
+const RAW = [
+  { src: nsac.url,     alt: "NASA Space Apps Challenge 2022", w: 320, rotate: -5, blur: 0,  radius: 34 },
+  { src: nasa.url,     alt: "NASA Earth Data",                w: 280, rotate: 4,  blur: 0,  radius: 34 },
+  { src: daily24.url,  alt: "The Daily Star 2024",            w: 310, rotate: 6,  blur: 0,  radius: 34 },
+  { src: prothom.url,  alt: "Prothom Alo",                    w: 260, rotate: -7, blur: 0,  radius: 34 },
+  { src: daily23.url,  alt: "The Daily Star 2023",            w: 240, rotate: -9, blur: 4,  radius: 42 },
+  { src: observer.url, alt: "Daily Observer",                 w: 250, rotate: 7,  blur: 4,  radius: 42 },
+  { src: kaler.url,    alt: "Kaler Kantho",                   w: 270, rotate: 3,  blur: 10, radius: 46 },
+  { src: samakal.url,  alt: "Samakal",                        w: 290, rotate: -4, blur: 10, radius: 46 },
+  { src: news24.url,   alt: "NEWS24",                         w: 230, rotate: 8,  blur: 14, radius: 50 },
+] as const;
+
+const floaters: Floater[] = RAW.map((f, i) => ({
+  ...f,
+  angle: -90 + (360 / RAW.length) * i,
+}));
+
+export function Hero() {
+  return (
+    <section
+      id="top"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 pt-28 pb-16"
+    >
+      {/* Floating press collage — spreads radially outward from dead center */}
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+        <div className="relative h-full w-full max-w-6xl">
+          {floaters.map((f, i) => {
+            const rad = (f.angle * Math.PI) / 180;
+            // Elliptical spread: wider horizontally than vertically
+            const tx = `${Math.cos(rad) * f.radius * 1.15}%`;
+            const ty = `${Math.sin(rad) * f.radius * 0.85}%`;
+            return (
+              <motion.div
+                key={i}
+                initial={{
+                  opacity: 0,
+                  scale: 0,
+                  x: "-50%",
+                  y: "-50%",
+                  rotate: 0,
+                  filter: "blur(24px)",
+                }}
+                animate={{
+                  opacity: 1,
+                  scale: 1,
+                  x: `calc(-50% + ${tx})`,
+                  y: `calc(-50% + ${ty})`,
+                  rotate: f.rotate,
+                  filter: `blur(${f.blur}px)`,
+                }}
+                transition={{
+                  duration: 2.4,
+                  delay: 0.15 + i * 0.12,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="absolute left-1/2 top-1/2"
+                style={{ width: `${f.w}px` }}
+              >
+                <motion.div
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{
+                    duration: 6 + (i % 4),
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: i * 0.2,
+                  }}
+                  className="overflow-hidden rounded-2xl ring-1 ring-ink/10 shadow-[0_30px_80px_-25px_rgba(0,0,0,0.35)]"
+                >
+                  <img
+                    src={f.src}
+                    alt={f.alt}
+                    loading="lazy"
+                    className="block h-auto w-full"
+                  />
+                </motion.div>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+
 
 // Harvard-Online style scatter. A few crisp foreground tiles, the rest
 // softly blurred for depth. All emerge outward from dead-center.
