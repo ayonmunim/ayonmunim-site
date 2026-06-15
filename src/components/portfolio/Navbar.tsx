@@ -94,31 +94,45 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 top-0 z-40 flex flex-col bg-bone md:hidden"
+            className="fixed inset-0 top-0 z-40 flex flex-col bg-ink text-bone md:hidden"
           >
-            <div className="flex items-center justify-between px-6 py-5 border-b border-line">
-              <span className="font-display text-base font-semibold">Munim Ahmed</span>
-              <button onClick={() => setOpen(false)} aria-label="Close" className="p-2">
+            <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
+              <span className="font-display text-base uppercase tracking-wide">
+                <span className="text-sun">M</span>UNIM
+              </span>
+              <button onClick={() => setOpen(false)} aria-label="Close" className="rounded-full p-2 hover:bg-white/10">
                 <X className="size-5" />
               </button>
             </div>
-            <nav className="flex flex-1 flex-col justify-center gap-6 px-8">
+            <nav className="grid flex-1 grid-cols-2 gap-3 overflow-y-auto p-5 content-start">
               {links.map((l, i) => (
                 <motion.a
                   key={l.href}
                   href={l.href}
                   onClick={() => setOpen(false)}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.05 + i * 0.05, duration: 0.4 }}
-                  className="font-display text-4xl font-medium tracking-tight"
+                  className="group relative flex h-32 flex-col justify-between overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-md transition-colors hover:border-sun/60 hover:bg-white/[0.08]"
                 >
-                  {l.label}
+                  <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-sun">
+                    0{i + 1}
+                  </span>
+                  <span className="font-display text-2xl uppercase leading-tight tracking-wide">
+                    {l.label}
+                  </span>
                 </motion.a>
               ))}
             </nav>
-            <div className="border-t border-line px-8 py-6 text-xs text-ink/60">
-              ayonmunim26@gmail.com
+            <div className="border-t border-white/10 p-5">
+              <a
+                href="#contact"
+                onClick={() => setOpen(false)}
+                className="flex items-center justify-center rounded-full bg-sun px-5 py-3 text-sm font-semibold text-ink shadow-[0_10px_30px_-10px_rgba(245,196,0,0.8)]"
+              >
+                Get in touch
+              </a>
+              <div className="mt-4 text-center text-xs text-bone/55">ayonmunim26@gmail.com</div>
             </div>
           </motion.div>
         )}

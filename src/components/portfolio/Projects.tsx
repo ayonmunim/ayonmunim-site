@@ -22,7 +22,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               width={1600}
               height={1000}
               style={{ scale, y }}
-              className="absolute inset-0 h-full w-full object-cover grayscale"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700"
             />
             <div className="absolute left-6 top-6 text-[11px] font-mono uppercase tracking-[0.2em] text-bone mix-blend-difference">
               0{index + 1} / 0{projects.length}

@@ -52,8 +52,15 @@ export function ContactForm() {
   };
 
   return (
-    <section id="contact" className="relative border-t border-line py-28 md:py-40">
-      <div className="mx-auto max-w-3xl px-6 text-center">
+    <section
+      id="contact"
+      className="relative py-28 md:py-40"
+      style={{
+        background:
+          "radial-gradient(120% 90% at 50% 0%, #FFFBEC 0%, #FBE9A8 50%, #F5C400 140%)",
+      }}
+    >
+      <div className="relative mx-auto max-w-3xl px-6 text-center">
         <AnimatedSection>
           <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-ink/50">
             (07) Contact
