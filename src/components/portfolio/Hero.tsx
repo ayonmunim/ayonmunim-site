@@ -53,9 +53,10 @@ export function Hero() {
       <div className="pointer-events-none absolute inset-0">
         {floaters.map((f, i) => {
           const rad = (f.angle * Math.PI) / 180;
-          // Viewport-relative spread so images fill the hero, not just the center
           const tx = `${Math.cos(rad) * f.radius}vw`;
           const ty = `${Math.sin(rad) * f.radius * 0.85}vh`;
+          // One-by-one sequential reveal from dead center outward
+          const delay = 0.6 + i * 0.45;
           return (
             <motion.div
               key={i}
@@ -65,7 +66,7 @@ export function Hero() {
                 x: "-50%",
                 y: "-50%",
                 rotate: 0,
-                filter: "blur(28px)",
+                filter: "blur(32px)",
               }}
               animate={{
                 opacity: 1,
@@ -76,11 +77,11 @@ export function Hero() {
                 filter: `blur(${f.blur}px)`,
               }}
               transition={{
-                duration: 2.6,
-                delay: 0.2 + i * 0.13,
+                duration: 1.6,
+                delay,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="absolute left-1/2 top-1/2"
+              className="pointer-events-auto absolute left-1/2 top-1/2"
               style={{ width: `${f.w}px` }}
             >
               <motion.div
@@ -89,15 +90,15 @@ export function Hero() {
                   duration: 6 + (i % 4),
                   repeat: Infinity,
                   ease: "easeInOut",
-                  delay: 1.8 + i * 0.2,
+                  delay: delay + 1.4,
                 }}
-                className="overflow-hidden rounded-2xl ring-1 ring-ink/10 shadow-[0_30px_80px_-25px_rgba(0,0,0,0.35)]"
+                className="group overflow-hidden rounded-2xl bg-ink ring-2 ring-ink shadow-[0_30px_80px_-25px_rgba(0,0,0,0.45)] transition-transform duration-500 hover:scale-105 hover:ring-sun"
               >
                 <img
                   src={f.src}
                   alt={f.alt}
                   loading="lazy"
-                  className="block h-auto w-full"
+                  className="block h-auto w-full grayscale transition-all duration-500 group-hover:grayscale-0"
                 />
               </motion.div>
             </motion.div>
@@ -124,18 +125,18 @@ export function Hero() {
           transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
           className="relative mb-10"
         >
-          <div className="absolute inset-0 -z-10 rounded-full bg-sun/40 blur-3xl glow-pulse" style={{ transform: "scale(1.85)" }} />
+          <div className="absolute inset-0 -z-10 rounded-full bg-ink/10 blur-3xl glow-pulse" style={{ transform: "scale(1.85)" }} />
           <motion.div
             animate={{ y: [0, -8, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="relative size-40 overflow-hidden rounded-full ring-4 ring-sun shadow-[0_20px_60px_-20px_rgba(0,0,0,0.35)] md:size-48"
+            className="group relative size-40 overflow-hidden rounded-full bg-ink ring-4 ring-ink shadow-[0_20px_60px_-20px_rgba(0,0,0,0.45)] md:size-48"
           >
             <img
               src={portrait}
               alt="Munim Ahmed"
               width={480}
               height={480}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
             />
           </motion.div>
         </motion.div>
