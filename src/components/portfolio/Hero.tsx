@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { ArrowRight, Mail } from "lucide-react";
-import portrait from "@/assets/munim-hero.jpg";
+import portraitAsset from "@/assets/munim-formal.jpg.asset.json";
+const portrait = portraitAsset.url;
 import daily23 from "@/assets/press/Daily_23.png.asset.json";
 import daily24 from "@/assets/press/Daily_24.png.asset.json";
 import kaler from "@/assets/press/Kaler_Kantho.png.asset.json";
@@ -123,18 +124,18 @@ export function Hero() {
           transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
           className="relative mb-10"
         >
-          <div className="absolute inset-0 -z-10 rounded-full bg-ink/[0.04] blur-3xl glow-pulse" style={{ transform: "scale(1.8)" }} />
+          <div className="absolute inset-0 -z-10 rounded-full bg-sun/40 blur-3xl glow-pulse" style={{ transform: "scale(1.85)" }} />
           <motion.div
             animate={{ y: [0, -8, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="relative size-40 overflow-hidden rounded-full ring-1 ring-line shadow-[0_20px_60px_-20px_rgba(0,0,0,0.25)] md:size-48"
+            className="relative size-40 overflow-hidden rounded-full ring-4 ring-sun shadow-[0_20px_60px_-20px_rgba(0,0,0,0.35)] md:size-48"
           >
             <img
               src={portrait}
               alt="Munim Ahmed"
               width={480}
               height={480}
-              className="h-full w-full object-cover grayscale"
+              className="h-full w-full object-cover"
             />
           </motion.div>
         </motion.div>
@@ -179,7 +180,7 @@ export function Hero() {
         >
           <a
             href="#projects"
-            className="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-medium text-bone transition hover:bg-ink/85"
+            className="group inline-flex items-center gap-2 rounded-full bg-sun px-6 py-3 text-sm font-semibold text-ink shadow-[0_10px_30px_-10px_rgba(245,196,0,0.7)] transition hover:bg-sun-deep"
           >
             View Projects
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
