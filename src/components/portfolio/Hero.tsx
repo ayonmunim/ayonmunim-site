@@ -117,7 +117,20 @@ export function Hero() {
     <section
       id="top"
       className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 pt-28 pb-16"
+      style={{
+        background:
+          "radial-gradient(120% 80% at 50% 0%, #FFFDF8 0%, #F7F3E8 45%, #F4EBD1 100%)",
+      }}
     >
+      {/* Subtle warm glow */}
+      <div
+        className="pointer-events-none absolute inset-0 -z-0"
+        style={{
+          background:
+            "radial-gradient(50% 40% at 50% 55%, rgba(245,196,0,0.18), rgba(245,196,0,0) 70%)",
+        }}
+      />
+
       {/* Floating press collage — continuous loop, one-by-one outward drift */}
       <div className="pointer-events-none absolute inset-0">
         {FLOATERS.map((f, i) => (
@@ -125,35 +138,36 @@ export function Hero() {
         ))}
       </div>
 
-      {/* Soft radial vignette so the headline stays legible over the collage */}
+      {/* Focal vignette — keeps area near portrait crisp, blurs the periphery */}
       <div
-        className="pointer-events-none absolute left-1/2 top-1/2 -z-0 size-[860px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+        className="pointer-events-none absolute left-1/2 top-1/2 z-[1] size-[920px] -translate-x-1/2 -translate-y-1/2 rounded-full"
         style={{
           background:
-            "radial-gradient(closest-side, rgba(245,245,245,0.92), rgba(245,245,245,0.7) 45%, rgba(245,245,245,0) 78%)",
+            "radial-gradient(closest-side, rgba(255,253,248,0.96), rgba(255,253,248,0.78) 42%, rgba(255,253,248,0) 78%)",
+          backdropFilter: "blur(2px)",
         }}
       />
 
       {/* Foreground content */}
-      <div className="relative z-10 mx-auto flex w-full max-w-4xl flex-col items-center text-center">
+      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center text-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
           className="relative mb-10"
         >
-          <div className="absolute inset-0 -z-10 rounded-full bg-ink/10 blur-3xl glow-pulse" style={{ transform: "scale(1.85)" }} />
+          <div className="absolute inset-0 -z-10 rounded-full bg-sun/30 blur-3xl glow-pulse" style={{ transform: "scale(1.95)" }} />
           <motion.div
-            animate={{ y: [0, -8, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="group relative size-40 overflow-hidden rounded-full bg-ink ring-4 ring-ink shadow-[0_20px_60px_-20px_rgba(0,0,0,0.45)] md:size-48"
+            animate={{ y: [0, -10, 0], scale: [1, 1.025, 1] }}
+            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+            className="group relative size-48 overflow-hidden rounded-full bg-ink ring-[6px] ring-ink shadow-[0_30px_80px_-25px_rgba(0,0,0,0.55)] md:size-60"
           >
             <img
               src={portrait}
               alt="Munim Ahmed"
-              width={480}
-              height={480}
-              className="h-full w-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0"
+              width={560}
+              height={560}
+              className="h-full w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0"
             />
           </motion.div>
         </motion.div>
@@ -162,33 +176,29 @@ export function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}
-          className="text-[11px] font-medium uppercase tracking-[0.28em] text-ink/55"
+          className="text-[11px] font-medium uppercase tracking-[0.32em] text-ink/60"
         >
-          Software Engineer · Full Stack Developer
+          A FOOTSLOGGER WHO WANTS TO AID WITH HIS HAND
         </motion.p>
 
-        <h1 className="mt-6 font-display text-6xl font-medium leading-[0.95] tracking-[-0.04em] md:text-8xl">
-          {"Munim Ahmed".split("").map((c, i) => (
-            <motion.span
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 + i * 0.04, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="inline-block"
-            >
-              {c === " " ? "\u00A0" : c}
-            </motion.span>
-          ))}
+        <h1 className="mt-6 font-display text-7xl uppercase leading-[0.92] tracking-[0.01em] md:text-9xl">
+          <motion.span
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="inline-block text-sun-deep drop-shadow-[0_4px_24px_rgba(245,196,0,0.35)]"
+          >
+            Munim
+          </motion.span>{" "}
+          <motion.span
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.55, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="inline-block text-ink"
+          >
+            Ahmed
+          </motion.span>
         </h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.7 }}
-          className="mt-6 max-w-xl text-base text-ink/65 md:text-lg"
-        >
-          Building meaningful digital experiences through design, code, and data.
-        </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -198,14 +208,14 @@ export function Hero() {
         >
           <a
             href="#projects"
-            className="group inline-flex items-center gap-2 rounded-full bg-sun px-6 py-3 text-sm font-semibold text-ink shadow-[0_10px_30px_-10px_rgba(245,196,0,0.7)] transition hover:bg-sun-deep"
+            className="group inline-flex items-center gap-2 rounded-full bg-sun px-7 py-3.5 text-sm font-semibold text-ink shadow-[0_14px_40px_-12px_rgba(245,196,0,0.75)] transition hover:bg-sun-deep hover:shadow-[0_18px_50px_-12px_rgba(245,196,0,0.9)]"
           >
             View Projects
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
           </a>
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 rounded-full border border-ink/15 px-6 py-3 text-sm font-medium text-ink transition hover:border-ink hover:bg-ink hover:text-bone"
+            className="inline-flex items-center gap-2 rounded-full bg-ink px-7 py-3.5 text-sm font-semibold text-bone transition hover:bg-ink/85"
           >
             <Mail className="size-4" /> Contact Me
           </a>
