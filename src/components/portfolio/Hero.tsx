@@ -1,4 +1,5 @@
-import { motion } from "motion/react";
+import { motion, useAnimationControls } from "motion/react";
+import { useEffect } from "react";
 import { ArrowRight, Mail } from "lucide-react";
 import portraitAsset from "@/assets/munim-formal.jpg.asset.json";
 const portrait = portraitAsset.url;
@@ -16,32 +17,100 @@ type Floater = {
   src: string;
   alt: string;
   w: number;
-  rotate: number;
-  blur: number;
-  /** angle in degrees around center (0 = right, 90 = down) */
-  angle: number;
-  /** radial distance in % of container width */
-  radius: number;
 };
 
-// Evenly distributed around the center so the collage spreads outward
-// across the entire hero section (viewport-relative).
-const RAW = [
-  { src: nsac.url,     alt: "NASA Space Apps Challenge 2022", w: 240, rotate: -5, blur: 0,  radius: 36 },
-  { src: nasa.url,     alt: "NASA Earth Data",                w: 220, rotate: 4,  blur: 0,  radius: 38 },
-  { src: daily24.url,  alt: "The Daily Star 2024",            w: 250, rotate: 6,  blur: 0,  radius: 40 },
-  { src: prothom.url,  alt: "Prothom Alo",                    w: 210, rotate: -7, blur: 0,  radius: 38 },
-  { src: daily23.url,  alt: "The Daily Star 2023",            w: 200, rotate: -9, blur: 3,  radius: 44 },
-  { src: observer.url, alt: "Daily Observer",                 w: 210, rotate: 7,  blur: 3,  radius: 44 },
-  { src: kaler.url,    alt: "Kaler Kantho",                   w: 220, rotate: 3,  blur: 8,  radius: 48 },
-  { src: samakal.url,  alt: "Samakal",                        w: 230, rotate: -4, blur: 8,  radius: 48 },
-  { src: news24.url,   alt: "NEWS24",                         w: 190, rotate: 8,  blur: 12, radius: 50 },
-] as const;
+const FLOATERS: Floater[] = [
+  { src: nsac.url,     alt: "NASA Space Apps Challenge 2022", w: 220 },
+  { src: nasa.url,     alt: "NASA Earth Data",                w: 200 },
+  { src: daily24.url,  alt: "The Daily Star 2024",            w: 230 },
+  { src: prothom.url,  alt: "Prothom Alo",                    w: 200 },
+  { src: daily23.url,  alt: "The Daily Star 2023",            w: 190 },
+  { src: observer.url, alt: "Daily Observer",                 w: 200 },
+  { src: kaler.url,    alt: "Kaler Kantho",                   w: 210 },
+  { src: samakal.url,  alt: "Samakal",                        w: 220 },
+  { src: news24.url,   alt: "NEWS24",                         w: 180 },
+];
 
-const floaters: Floater[] = RAW.map((f, i) => ({
-  ...f,
-  angle: -90 + (360 / RAW.length) * i,
-}));
+// One image: born at center → drifts outward at a random angle → fades out → loops.
+function FloatingPiece({ f, index, total }: { f: Floater; index: number; total: number }) {
+  const controls = useAnimationControls();
+
+  useEffect(() => {
+    let cancelled = false;
+    // Stagger the launches so images come out one-by-one, then keep cycling.
+    const CYCLE = 7.2; // seconds per image
+    const STAGGER = CYCLE / total; // gap between consecutive launches
+
+    const run = async () => {
+      // Initial wait so each piece starts in sequence (one after another).
+      await new Promise((r) => setTimeout(r, (0.4 + index * STAGGER) * 1000));
+
+      while (!cancelled) {
+        // Pick a fresh angle/distance every cycle so the spread looks shuffled.
+        const angle = Math.random() * Math.PI * 2;
+        const dist = 38 + Math.random() * 18; // vmin
+        const tx = `${Math.cos(angle) * dist}vmin`;
+        const ty = `${Math.sin(angle) * dist * 0.95}vmin`;
+        const rot = (Math.random() - 0.5) * 20;
+        const endBlur = 4 + Math.random() * 10;
+
+        // Reset to center, invisible.
+        await controls.set({
+          x: "-50%",
+          y: "-50%",
+          scale: 0.2,
+          opacity: 0,
+          rotate: 0,
+          filter: "blur(24px)",
+        });
+
+        // Slow, smooth drift outward with fade in then fade out as it leaves.
+        await controls.start({
+          x: [`-50%`, `calc(-50% + ${tx})`],
+          y: [`-50%`, `calc(-50% + ${ty})`],
+          scale: [0.2, 1, 1, 1.05],
+          opacity: [0, 1, 1, 0],
+          rotate: [0, rot * 0.4, rot, rot],
+          filter: [
+            "blur(24px)",
+            "blur(0px)",
+            "blur(0px)",
+            `blur(${endBlur}px)`,
+          ],
+          transition: {
+            duration: CYCLE,
+            times: [0, 0.25, 0.7, 1],
+            ease: [0.22, 1, 0.36, 1],
+          },
+        });
+      }
+    };
+
+    run();
+    return () => {
+      cancelled = true;
+      controls.stop();
+    };
+  }, [controls, index, total]);
+
+  return (
+    <motion.div
+      animate={controls}
+      initial={{ opacity: 0, x: "-50%", y: "-50%", scale: 0.2 }}
+      className="pointer-events-auto absolute left-1/2 top-1/2"
+      style={{ width: `${f.w}px` }}
+    >
+      <div className="group overflow-hidden rounded-2xl bg-ink ring-2 ring-ink shadow-[0_30px_80px_-25px_rgba(0,0,0,0.45)] transition-transform duration-500 hover:scale-105 hover:ring-sun">
+        <img
+          src={f.src}
+          alt={f.alt}
+          loading="lazy"
+          className="block h-auto w-full grayscale transition-all duration-500 group-hover:grayscale-0"
+        />
+      </div>
+    </motion.div>
+  );
+}
 
 export function Hero() {
   return (
@@ -49,64 +118,12 @@ export function Hero() {
       id="top"
       className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 pt-28 pb-16"
     >
-      {/* Floating press collage — spreads radially outward across the whole hero */}
+      {/* Floating press collage — continuous loop, one-by-one outward drift */}
       <div className="pointer-events-none absolute inset-0">
-        {floaters.map((f, i) => {
-          const rad = (f.angle * Math.PI) / 180;
-          const tx = `${Math.cos(rad) * f.radius}vw`;
-          const ty = `${Math.sin(rad) * f.radius * 0.85}vh`;
-          // One-by-one sequential reveal from dead center outward
-          const delay = 0.6 + i * 0.45;
-          return (
-            <motion.div
-              key={i}
-              initial={{
-                opacity: 0,
-                scale: 0,
-                x: "-50%",
-                y: "-50%",
-                rotate: 0,
-                filter: "blur(32px)",
-              }}
-              animate={{
-                opacity: 1,
-                scale: 1,
-                x: `calc(-50% + ${tx})`,
-                y: `calc(-50% + ${ty})`,
-                rotate: f.rotate,
-                filter: `blur(${f.blur}px)`,
-              }}
-              transition={{
-                duration: 1.6,
-                delay,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="pointer-events-auto absolute left-1/2 top-1/2"
-              style={{ width: `${f.w}px` }}
-            >
-              <motion.div
-                animate={{ y: [0, -10, 0] }}
-                transition={{
-                  duration: 6 + (i % 4),
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: delay + 1.4,
-                }}
-                className="group overflow-hidden rounded-2xl bg-ink ring-2 ring-ink shadow-[0_30px_80px_-25px_rgba(0,0,0,0.45)] transition-transform duration-500 hover:scale-105 hover:ring-sun"
-              >
-                <img
-                  src={f.src}
-                  alt={f.alt}
-                  loading="lazy"
-                  className="block h-auto w-full grayscale transition-all duration-500 group-hover:grayscale-0"
-                />
-              </motion.div>
-            </motion.div>
-          );
-        })}
+        {FLOATERS.map((f, i) => (
+          <FloatingPiece key={i} f={f} index={i} total={FLOATERS.length} />
+        ))}
       </div>
-
-
 
       {/* Soft radial vignette so the headline stays legible over the collage */}
       <div
