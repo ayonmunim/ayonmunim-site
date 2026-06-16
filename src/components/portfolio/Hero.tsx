@@ -48,8 +48,7 @@ function FloatingPiece({ f, index, total }: { f: Floater; index: number; total: 
       await new Promise((r) => setTimeout(r, (0.4 + index * STAGGER) * 1000));
 
       while (!cancelled) {
-        // Drift outward in any direction EXCEPT upward (no negative y)
-        const angle = Math.random() * Math.PI; // 0..π → sin ≥ 0 (down/sideways)
+        const angle = Math.random() * Math.PI * 2;
         const dist = 46 + Math.random() * 18;
         const tx = `${Math.cos(angle) * dist}vmin`;
         const ty = `${Math.sin(angle) * dist * 0.95}vmin`;
@@ -177,24 +176,22 @@ export function Hero() {
         }}
       />
 
-      {/* Name on top — Edo paint font, bold, broken into two lines */}
+      {/* Name on top — Edo paint font, bigger & bolder */}
       <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center text-center">
-        <h1 className="font-paint paint-ink font-black leading-[0.85] tracking-[-0.01em] text-ink">
+        <h1 className="font-paint paint-ink text-[19vw] leading-[0.88] tracking-[-0.01em] text-ink md:text-[10rem]">
           <motion.span
             initial={{ clipPath: "inset(0 100% 0 0)", filter: "blur(8px)" }}
             animate={{ clipPath: "inset(0 0% 0 0)", filter: "blur(0px)" }}
             transition={{ delay: 0.2, duration: 1.2, ease: [0.65, 0, 0.35, 1] }}
-            className="block text-[18vw] drop-shadow-[0_4px_24px_rgba(245,196,0,0.45)] md:text-[9rem]"
-            style={{ fontWeight: 900 }}
+            className="inline-block drop-shadow-[0_4px_24px_rgba(245,196,0,0.45)]"
           >
             Munim
-          </motion.span>
+          </motion.span>{" "}
           <motion.span
             initial={{ clipPath: "inset(0 100% 0 0)", filter: "blur(8px)" }}
             animate={{ clipPath: "inset(0 0% 0 0)", filter: "blur(0px)" }}
             transition={{ delay: 0.7, duration: 1.2, ease: [0.65, 0, 0.35, 1] }}
-            className="block text-[18vw] md:text-[9rem]"
-            style={{ fontWeight: 900 }}
+            className="inline-block"
           >
             Ahmed
           </motion.span>
@@ -210,15 +207,15 @@ export function Hero() {
           A footslogger who wants to aid with his hand
         </motion.p>
 
-        {/* Portrait with orbit nav surrounding it (like reference) */}
-        <div className="relative mt-16 flex items-center justify-center">
-          <OrbitNav radius={210} />
+        {/* Portrait with orbit nav around it */}
+        <div className="relative mt-12 flex items-center justify-center">
+          <OrbitNav radius={200} />
 
           <motion.div
             initial={{ opacity: 0, scale: 0.85 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-10"
+            className="relative"
           >
             <div
               className="absolute inset-0 -z-10 rounded-full bg-sun/20 blur-3xl glow-pulse"
@@ -227,7 +224,7 @@ export function Hero() {
             <motion.div
               animate={{ y: [0, -8, 0], scale: [1, 1.02, 1] }}
               transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-              className="relative size-48 overflow-hidden rounded-full bg-ink ring-[6px] ring-white shadow-[0_30px_80px_-25px_rgba(0,0,0,0.55)] md:size-60"
+              className="relative size-44 overflow-hidden rounded-full bg-ink ring-[6px] ring-ink shadow-[0_30px_80px_-25px_rgba(0,0,0,0.55)] md:size-56"
             >
               <img
                 src={portrait}
@@ -245,7 +242,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.6, duration: 0.6 }}
-          className="relative z-10 mt-[280px] flex flex-wrap items-center justify-center gap-4 md:mt-[300px]"
+          className="mt-[260px] flex flex-wrap items-center justify-center gap-4 md:mt-[280px]"
         >
           <a
             href="/resume.pdf"
