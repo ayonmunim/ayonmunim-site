@@ -34,7 +34,7 @@ export function Footer() {
         >
           <h2 className="font-display text-[11vw] uppercase leading-[0.92] tracking-[0.01em] md:text-[8rem]">
             Let's build<br />something<br />
-            <a href={`mailto:${resume.email}`} className="group inline-flex items-baseline gap-3 text-sun">
+            <a href={`mailto:${resume.email}`} className="group inline-flex items-baseline gap-3 text-bone">
               meaningful.
               <ArrowUpRight className="size-10 transition-transform group-hover:translate-x-2 group-hover:-translate-y-2 md:size-20" />
             </a>
