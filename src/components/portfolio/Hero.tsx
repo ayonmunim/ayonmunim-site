@@ -97,14 +97,15 @@ function FloatingPiece({ f, index, total }: { f: Floater; index: number; total: 
   );
 }
 
-// Orbit positions: 1 top, 2 right, 1 bottom, 2 left
+// Orbit positions around the portrait:
+// 2 top, 1 right, 2 bottom, 1 left — surrounds the circle like the reference image.
 const ORBIT = [
-  { href: "#bio",      label: "Bio",        icon: User,       angle: -90 },
-  { href: "#projects", label: "Project",    icon: Briefcase,  angle: -30 },
-  { href: "#awards",   label: "Award",      icon: Award,      angle:  30 },
-  { href: "#media",    label: "Media",      icon: Newspaper,  angle:  90 },
-  { href: "#work",     label: "Experience", icon: Hammer,     angle: 150 },
-  { href: "#contact",  label: "Contact",    icon: Send,       angle: 210 },
+  { href: "#bio",      label: "Bio",        icon: User,       angle: -130 }, // top-left
+  { href: "#projects", label: "Project",    icon: Briefcase,  angle:  -50 }, // top-right
+  { href: "#awards",   label: "Award",      icon: Award,      angle:    0 }, // right
+  { href: "#media",    label: "Media",      icon: Newspaper,  angle:   50 }, // bottom-right
+  { href: "#work",     label: "Experience", icon: Hammer,     angle:  130 }, // bottom-left
+  { href: "#contact",  label: "Contact",    icon: Send,       angle:  180 }, // left
 ];
 
 function OrbitNav({ radius = 200 }: { radius?: number }) {
