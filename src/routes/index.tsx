@@ -5,9 +5,9 @@ import { About } from "@/components/portfolio/About";
 import { Experience } from "@/components/portfolio/Experience";
 import { Projects } from "@/components/portfolio/Projects";
 import { Achievements } from "@/components/portfolio/Achievements";
+import { Media } from "@/components/portfolio/Media";
 import { ContactForm } from "@/components/portfolio/ContactForm";
 import { Footer } from "@/components/portfolio/Footer";
-import { SoundToggle } from "@/components/portfolio/SoundToggle";
 import { Toaster } from "sonner";
 
 export const Route = createFileRoute("/")({
@@ -38,13 +38,14 @@ function Index() {
       <Navbar />
       <Hero />
       <About />
-      <Experience />
       <Projects />
       <Achievements />
+      <Media />
+      <Experience />
       <ContactForm />
       <Footer />
-      <SoundToggle />
       <Toaster position="bottom-right" richColors />
     </main>
   );
 }
+
