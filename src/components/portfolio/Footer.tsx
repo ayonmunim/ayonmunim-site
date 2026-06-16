@@ -44,7 +44,7 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-10 py-16 md:grid-cols-12">
           <div className="col-span-2 md:col-span-5">
             <div className="font-display text-lg uppercase tracking-wide">
-              <span className="text-sun">M</span>UNIM AHMED
+              <span className="text-bone">M</span>UNIM AHMED
             </div>
             <p className="mt-4 max-w-xs text-sm text-bone/60">
               Software engineer building intelligent, human-centered digital experiences.
@@ -52,7 +52,7 @@ export function Footer() {
             <div className="mt-6 text-sm text-bone/60">{resume.location}</div>
             <a
               href={`mailto:${resume.email}`}
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-sun px-5 py-2.5 text-sm font-semibold text-ink shadow-[0_10px_30px_-10px_rgba(245,196,0,0.8)] transition hover:bg-sun-deep"
+              className="mt-6 inline-flex items-center gap-2 rounded-full bg-bone px-5 py-2.5 text-sm font-semibold text-ink shadow-[0_10px_30px_-10px_rgba(255,255,255,0.25)] transition hover:bg-bone/85"
             >
               Get in touch <ArrowUpRight className="size-4" />
             </a>
