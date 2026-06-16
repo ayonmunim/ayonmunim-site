@@ -135,7 +135,7 @@ export function Hero() {
         className="pointer-events-none absolute left-1/2 top-1/2 z-[1] size-[1000px] -translate-x-1/2 -translate-y-1/2 rounded-full"
         style={{
           background:
-            "radial-gradient(closest-side, rgba(255,251,236,0.98) 0%, rgba(255,251,236,0.85) 38%, rgba(255,251,236,0) 78%)",
+            "radial-gradient(closest-side, rgba(255,253,248,0.98) 0%, rgba(255,253,248,0.85) 38%, rgba(255,253,248,0) 78%)",
           backdropFilter: "blur(3px)",
         }}
       />
