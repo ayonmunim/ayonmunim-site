@@ -72,7 +72,7 @@ export function Footer() {
           </div>
 
           <div className="md:col-span-3">
-            <div className="text-[10px] uppercase tracking-[0.25em] text-sun">Elsewhere</div>
+            <div className="text-[10px] uppercase tracking-[0.25em] text-bone/55">Elsewhere</div>
             <ul className="mt-5 space-y-3 text-sm">
               {elsewhere.map((l) => (
                 <li key={l.label}>
