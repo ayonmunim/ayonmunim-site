@@ -12,16 +12,16 @@ export function Achievements() {
   return (
     <section id="awards" className="relative overflow-hidden border-t border-line bg-ink py-28 text-bone md:py-40">
       {/* Decorative gold blobs for glassmorphism context */}
-      <div className="pointer-events-none absolute -top-32 left-1/4 size-[460px] rounded-full bg-sun/20 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-0 right-0 size-[520px] rounded-full bg-sun/10 blur-3xl" />
+      <div className="pointer-events-none absolute -top-32 left-1/4 size-[460px] rounded-full bg-bone/10 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-0 right-0 size-[520px] rounded-full bg-bone/5 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-6">
         <AnimatedSection className="max-w-4xl">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-sun">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-bone/70">
             (04) Awards & Recognition
           </p>
           <h2 className="mt-6 font-display text-5xl uppercase leading-[0.95] tracking-[0.01em] md:text-7xl">
-            Awarded for work that <span className="text-sun">pushes the medium.</span>
+            Awarded for work that <span className="text-bone/60">pushes the medium.</span>
           </h2>
           <p className="mt-6 max-w-xl text-bone/65 md:text-lg">
             Selected recognitions from international and national competitions in
