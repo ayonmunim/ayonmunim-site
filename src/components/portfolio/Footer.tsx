@@ -32,7 +32,7 @@ export function Footer() {
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           className="border-b border-bone/10 pb-20"
         >
-          <h2 className="font-display text-[11vw] uppercase leading-[0.92] tracking-[0.01em] md:text-[8rem]">
+          <h2 className="font-paint paint-ink text-[11vw] uppercase leading-[0.92] tracking-[0.01em] md:text-[8rem]">
             Let's build<br />something<br />
             <a href={`mailto:${resume.email}`} className="group inline-flex items-baseline gap-3 text-bone">
               meaningful.
@@ -43,7 +43,7 @@ export function Footer() {
 
         <div className="grid grid-cols-2 gap-10 py-16 md:grid-cols-12">
           <div className="col-span-2 md:col-span-5">
-            <div className="font-display text-lg uppercase tracking-wide">
+            <div className="font-paint paint-ink text-lg uppercase tracking-wide">
               <span className="text-bone">M</span>UNIM AHMED
             </div>
             <p className="mt-4 max-w-xs text-sm text-bone/60">

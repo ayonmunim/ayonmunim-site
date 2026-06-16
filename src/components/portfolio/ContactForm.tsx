@@ -65,7 +65,7 @@ export function ContactForm() {
           <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-ink/50">
             (07) Contact
           </p>
-          <h2 className="mt-6 font-display text-5xl font-medium leading-[0.95] tracking-[-0.03em] md:text-7xl">
+          <h2 className="mt-6 font-paint paint-ink text-5xl font-medium leading-[0.95] tracking-[-0.03em] md:text-7xl">
             Have a problem worth solving?
           </h2>
           <p className="mx-auto mt-6 max-w-lg text-ink/65 md:text-lg">

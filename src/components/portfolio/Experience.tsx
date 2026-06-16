@@ -16,7 +16,7 @@ export function Experience() {
           <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-ink/70">
             (02) Experience
           </p>
-          <h2 className="mt-6 max-w-3xl font-display text-5xl uppercase leading-[0.95] tracking-[0.01em] md:text-7xl">
+          <h2 className="mt-6 max-w-3xl font-paint paint-ink text-5xl uppercase leading-[0.95] tracking-[0.01em] md:text-7xl">
             A timeline of teams, products, and <span className="text-ink/70">problems worth solving.</span>
           </h2>
         </AnimatedSection>
@@ -27,7 +27,7 @@ export function Experience() {
               <AnimatedSection key={exp.role} delay={i * 0.1} className="relative pb-16 last:pb-0">
                 <span className="absolute -left-[45px] top-2 size-3 rounded-full bg-ink ring-4 ring-sun shadow-[0_0_0_2px_rgba(0,0,0,0.15)]" />
                 <div className="text-[11px] uppercase tracking-[0.2em] text-ink/60">{exp.period}</div>
-                <h3 className="mt-3 font-display text-3xl uppercase tracking-wide md:text-5xl">
+                <h3 className="mt-3 font-paint paint-ink text-3xl uppercase tracking-wide md:text-5xl">
                   {exp.role}
                 </h3>
                 <div className="mt-2 text-sm text-ink/70">

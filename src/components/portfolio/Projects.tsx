@@ -40,7 +40,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               <div className="text-[11px] uppercase tracking-[0.25em] text-ink/50">
                 {project.tagline}
               </div>
-              <h3 className="mt-4 font-display text-3xl font-medium tracking-[-0.02em] md:text-5xl">
+              <h3 className="mt-4 font-paint paint-ink text-3xl font-medium tracking-[-0.02em] md:text-5xl">
                 {project.title}
               </h3>
               <p className="mt-5 text-[15px] leading-relaxed text-ink/70">
@@ -100,7 +100,7 @@ export function Projects() {
           <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-ink/50">
             (03) Selected Work
           </p>
-          <h2 className="mt-6 font-display text-4xl font-medium leading-[1.05] tracking-[-0.03em] md:text-6xl">
+          <h2 className="mt-6 font-paint paint-ink text-4xl font-medium leading-[1.05] tracking-[-0.03em] md:text-6xl">
             Products built with care, shipped with intent.
           </h2>
         </AnimatedSection>
