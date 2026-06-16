@@ -43,16 +43,18 @@ export function Navbar() {
         <button
           aria-label="Open menu"
           onClick={() => setOpen(true)}
-          className="group flex size-12 items-center justify-center rounded-full border border-ink/15 bg-white/85 text-ink shadow-[0_10px_30px_-12px_rgba(0,0,0,0.35)] backdrop-blur-xl transition hover:bg-ink hover:text-sun"
+          className="group relative flex size-12 items-center justify-center overflow-hidden rounded-full border border-ink/15 bg-white text-ink shadow-[0_10px_30px_-12px_rgba(0,0,0,0.35)] backdrop-blur-xl transition-colors hover:border-ink/40"
         >
-          <Menu className="size-5" />
+          <span className="absolute inset-0 scale-0 rounded-full bg-sun transition-transform duration-500 ease-out group-hover:scale-100" />
+          <Menu className="relative size-5" />
         </button>
         <button
           aria-label={sound ? "Mute interface sounds" : "Enable interface sounds"}
           onClick={toggleSound}
-          className="flex size-12 items-center justify-center rounded-full border border-ink/15 bg-white/85 text-ink shadow-[0_10px_30px_-12px_rgba(0,0,0,0.35)] backdrop-blur-xl transition hover:bg-ink hover:text-sun"
+          className="group relative flex size-12 items-center justify-center overflow-hidden rounded-full border border-ink/15 bg-sun text-ink shadow-[0_10px_30px_-12px_rgba(0,0,0,0.35)] backdrop-blur-xl transition-colors hover:border-ink/40"
         >
-          {sound ? <Volume2 className="size-5" /> : <VolumeX className="size-5" />}
+          <span className="absolute inset-0 scale-0 rounded-full bg-white transition-transform duration-500 ease-out group-hover:scale-100" />
+          {sound ? <Volume2 className="relative size-5" /> : <VolumeX className="relative size-5" />}
         </button>
         <div className="mt-1 h-16 w-px bg-ink/20" />
         <span className="rotate-180 text-[10px] uppercase tracking-[0.3em] text-ink/50" style={{ writingMode: "vertical-rl" }}>
