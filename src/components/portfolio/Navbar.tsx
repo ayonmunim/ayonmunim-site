@@ -85,15 +85,20 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      className="fixed inset-0 z-[60] bg-ink text-bone overflow-y-auto"
+      className="fixed inset-0 z-[60] overflow-y-auto text-ink"
+      style={{
+        background:
+          "radial-gradient(120% 80% at 20% 0%, #FFFDF8 0%, #FFF1B8 55%, #F5C400 120%)",
+      }}
     >
       {/* Close button */}
       <button
         onClick={onClose}
         aria-label="Close menu"
-        className="fixed right-5 top-5 z-10 flex size-11 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] text-bone backdrop-blur-md transition hover:bg-white/[0.12]"
+        className="group fixed right-5 top-5 z-10 flex size-11 items-center justify-center overflow-hidden rounded-full border border-ink/20 bg-white text-ink shadow-[0_10px_30px_-12px_rgba(0,0,0,0.3)] transition-colors hover:border-ink/40"
       >
-        <X className="size-5" />
+        <span className="absolute inset-0 scale-0 rounded-full bg-sun transition-transform duration-500 ease-out group-hover:scale-100" />
+        <X className="relative size-5" />
       </button>
 
       <div className="mx-auto grid min-h-screen w-full max-w-7xl grid-cols-1 gap-10 px-6 py-20 md:grid-cols-[1fr_1.1fr_1.4fr] md:gap-8 md:px-12 md:py-16">
@@ -105,24 +110,24 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
           className="flex flex-col justify-end gap-8 md:pb-6"
         >
           <div className="space-y-3">
-            <div className="text-[10px] uppercase tracking-[0.35em] text-bone/55">
+            <div className="font-montreal text-[10px] uppercase tracking-[0.35em] text-ink/60">
               Get in touch
             </div>
             <a
               href="mailto:ayonmunim26@gmail.com"
-              className="block font-serif text-xl text-bone/95 transition hover:text-white md:text-2xl"
+              className="block font-montreal text-xl font-light text-ink/95 transition hover:text-ink md:text-2xl"
             >
               ayonmunim26@gmail.com
             </a>
           </div>
-          <ul className="space-y-3 text-[11px] uppercase tracking-[0.3em] text-bone/65">
+          <ul className="space-y-3 font-montreal text-[11px] uppercase tracking-[0.3em] text-ink/70">
             {[
               { label: "Facebook", href: "#" },
               { label: "LinkedIn", href: "#" },
               { label: "GitHub",   href: "#" },
             ].map((s) => (
               <li key={s.label}>
-                <a href={s.href} className="transition hover:text-white">{s.label}</a>
+                <a href={s.href} className="transition hover:text-ink">{s.label}</a>
               </li>
             ))}
           </ul>
@@ -135,15 +140,15 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
           transition={{ delay: 0.1, duration: 0.6 }}
           className="flex flex-col gap-4 self-center"
         >
-          <div className="overflow-hidden rounded-md shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)]">
+          <div className="overflow-hidden rounded-md ring-1 ring-ink/10 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.35)]">
             <img src={nasaAward} alt="Award ceremony" className="h-64 w-full object-cover md:h-80" />
           </div>
-          <div className="overflow-hidden rounded-md shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)]">
+          <div className="overflow-hidden rounded-md ring-1 ring-ink/10 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.35)]">
             <img src={munimHero} alt="Munim Ahmed" className="h-64 w-full object-cover md:h-80" />
           </div>
         </motion.div>
 
-        {/* Right: menu items */}
+        {/* Right: menu items — slim, light weight */}
         <nav className="flex flex-col justify-center gap-2 md:items-end md:text-right">
           {overlayLinks.map((l, i) => (
             <motion.a
@@ -153,7 +158,7 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 + i * 0.07, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative inline-block font-serif text-5xl leading-[1.05] text-bone/90 transition-colors hover:text-white md:text-[5.5rem]"
+              className="group relative inline-block font-montreal text-5xl font-extralight leading-[1.05] tracking-[-0.02em] text-ink/85 transition-colors hover:text-ink md:text-[5.5rem]"
             >
               <span className="relative">
                 {l.label}
@@ -166,4 +171,5 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
     </motion.div>
   );
 }
+
 
