@@ -19,10 +19,9 @@ const elsewhere = [
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-ink pt-24 text-bone">
-      {/* Soft white accent bar at top */}
-      <div className="absolute inset-x-0 top-0 h-px bg-bone/30" />
-      <div className="pointer-events-none absolute -top-32 right-10 size-[420px] rounded-full bg-bone/5 blur-3xl" />
+    <footer className="relative overflow-hidden bg-sun pt-24 text-ink">
+      <div className="absolute inset-x-0 top-0 h-px bg-ink/15" />
+      <div className="pointer-events-none absolute -top-32 right-10 size-[420px] rounded-full bg-white/30 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-6">
         <motion.div
@@ -30,11 +29,11 @@ export function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="border-b border-bone/10 pb-20"
+          className="border-b border-ink/15 pb-20"
         >
           <h2 className="font-paint paint-ink text-[11vw] uppercase leading-[0.92] tracking-[0.01em] md:text-[8rem]">
             Let's build<br />something<br />
-            <a href={`mailto:${resume.email}`} className="group inline-flex items-baseline gap-3 text-bone">
+            <a href={`mailto:${resume.email}`} className="group inline-flex items-baseline gap-3 text-ink">
               meaningful.
               <ArrowUpRight className="size-10 transition-transform group-hover:translate-x-2 group-hover:-translate-y-2 md:size-20" />
             </a>
@@ -43,27 +42,29 @@ export function Footer() {
 
         <div className="grid grid-cols-2 gap-10 py-16 md:grid-cols-12">
           <div className="col-span-2 md:col-span-5">
-            <div className="font-paint paint-ink text-lg uppercase tracking-wide">
-              <span className="text-bone">M</span>UNIM AHMED
+            <div className="font-paint paint-ink text-lg uppercase tracking-wide text-ink">
+              MUNIM AHMED
             </div>
-            <p className="mt-4 max-w-xs text-sm text-bone/60">
+            <p className="mt-4 max-w-xs text-sm text-ink/70">
               Software engineer building intelligent, human-centered digital experiences.
             </p>
-            <div className="mt-6 text-sm text-bone/60">{resume.location}</div>
+            <div className="mt-6 text-sm text-ink/70">{resume.location}</div>
             <a
               href={`mailto:${resume.email}`}
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-bone px-5 py-2.5 text-sm font-semibold text-ink shadow-[0_10px_30px_-10px_rgba(255,255,255,0.25)] transition hover:bg-bone/85"
+              className="group relative mt-6 inline-flex items-center gap-2 overflow-hidden rounded-full bg-white px-6 py-3 font-montreal text-sm font-semibold uppercase tracking-[0.18em] text-ink ring-1 ring-ink/15 shadow-[0_14px_40px_-12px_rgba(0,0,0,0.25)] transition-all hover:ring-ink/40"
             >
-              Get in touch <ArrowUpRight className="size-4" />
+              <span className="absolute inset-0 -translate-x-full bg-sun transition-transform duration-500 ease-out group-hover:translate-x-0" />
+              <span className="relative">Get in touch</span>
+              <ArrowUpRight className="relative size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
           </div>
 
           <div className="md:col-span-3 md:col-start-7">
-            <div className="text-[10px] uppercase tracking-[0.25em] text-bone/55">Navigate</div>
+            <div className="text-[10px] uppercase tracking-[0.25em] text-ink/60">Navigate</div>
             <ul className="mt-5 space-y-3">
               {quickLinks.map((l) => (
                 <li key={l.href}>
-                  <a href={l.href} className="story-link text-sm text-bone/85 transition hover:text-bone">
+                  <a href={l.href} className="story-link text-sm text-ink/85 transition hover:text-ink">
                     {l.label}
                   </a>
                 </li>
@@ -72,7 +73,7 @@ export function Footer() {
           </div>
 
           <div className="md:col-span-3">
-            <div className="text-[10px] uppercase tracking-[0.25em] text-bone/55">Elsewhere</div>
+            <div className="text-[10px] uppercase tracking-[0.25em] text-ink/60">Elsewhere</div>
             <ul className="mt-5 space-y-3 text-sm">
               {elsewhere.map((l) => (
                 <li key={l.label}>
@@ -80,7 +81,7 @@ export function Footer() {
                     href={l.href}
                     target={l.href.startsWith("http") ? "_blank" : undefined}
                     rel="noreferrer"
-                    className="story-link text-bone/85 transition hover:text-bone"
+                    className="story-link text-ink/85 transition hover:text-ink"
                   >
                     {l.label}
                   </a>
@@ -90,8 +91,8 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col items-start justify-between gap-3 border-t border-bone/10 py-8 text-xs text-bone/55 md:flex-row md:items-center">
-          <div>© {new Date().getFullYear()} <span className="text-bone">Munim Ahmed</span>. All rights reserved.</div>
+        <div className="flex flex-col items-start justify-between gap-3 border-t border-ink/15 py-8 text-xs text-ink/70 md:flex-row md:items-center">
+          <div>© {new Date().getFullYear()} <span className="text-ink font-semibold">Munim Ahmed</span>. All rights reserved.</div>
           <div>Built with React, TypeScript, Tailwind & Framer Motion.</div>
         </div>
       </div>
