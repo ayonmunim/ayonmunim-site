@@ -57,7 +57,7 @@ export function ContactForm() {
       className="relative py-28 md:py-40"
       style={{
         background:
-          "radial-gradient(120% 90% at 50% 0%, #FFFBEC 0%, #FBE9A8 50%, #F5C400 140%)",
+          "radial-gradient(120% 90% at 50% 0%, #FFFDF8 0%, #FFF7DF 55%, #FCEBB0 130%)",
       }}
     >
       <div className="relative mx-auto max-w-3xl px-6 text-center">

@@ -12,16 +12,16 @@ export function Achievements() {
   return (
     <section id="awards" className="relative overflow-hidden border-t border-line bg-ink py-28 text-bone md:py-40">
       {/* Decorative gold blobs for glassmorphism context */}
-      <div className="pointer-events-none absolute -top-32 left-1/4 size-[460px] rounded-full bg-sun/20 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-0 right-0 size-[520px] rounded-full bg-sun/10 blur-3xl" />
+      <div className="pointer-events-none absolute -top-32 left-1/4 size-[460px] rounded-full bg-bone/10 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-0 right-0 size-[520px] rounded-full bg-bone/5 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-6">
         <AnimatedSection className="max-w-4xl">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-sun">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-bone/70">
             (04) Awards & Recognition
           </p>
           <h2 className="mt-6 font-display text-5xl uppercase leading-[0.95] tracking-[0.01em] md:text-7xl">
-            Awarded for work that <span className="text-sun">pushes the medium.</span>
+            Awarded for work that <span className="text-bone/60">pushes the medium.</span>
           </h2>
           <p className="mt-6 max-w-xl text-bone/65 md:text-lg">
             Selected recognitions from international and national competitions in
@@ -61,17 +61,17 @@ function AchievementCard({
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.7, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6, scale: 1.015 }}
-      className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-xl transition-all duration-500 hover:border-sun/60 hover:bg-white/[0.09] hover:shadow-[0_30px_80px_-30px_rgba(245,196,0,0.45)]"
+      className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-xl transition-all duration-500 hover:border-white/30 hover:bg-white/[0.09] hover:shadow-[0_30px_80px_-30px_rgba(255,255,255,0.25)]"
     >
       {/* Hover shine */}
       <div className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         style={{
           background:
-            "linear-gradient(140deg, rgba(245,196,0,0.18) 0%, rgba(255,255,255,0) 45%)",
+            "linear-gradient(140deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0) 45%)",
         }}
       />
       <div className="relative flex items-start justify-between">
-        <span className="grid size-11 place-items-center rounded-xl border border-white/15 bg-white/5 text-sun transition-colors group-hover:border-sun group-hover:bg-sun/15">
+        <span className="grid size-11 place-items-center rounded-xl border border-white/15 bg-white/5 text-bone transition-colors group-hover:border-white/40 group-hover:bg-white/10">
           <Award className="size-5" />
         </span>
         <span className="text-[11px] uppercase tracking-[0.25em] text-bone/50">{item.year}</span>

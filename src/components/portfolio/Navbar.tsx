@@ -98,7 +98,7 @@ export function Navbar() {
           >
             <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
               <span className="font-display text-base uppercase tracking-wide">
-                <span className="text-sun">M</span>UNIM
+                <span className="text-bone">M</span>UNIM
               </span>
               <button onClick={() => setOpen(false)} aria-label="Close" className="rounded-full p-2 hover:bg-white/10">
                 <X className="size-5" />
@@ -113,9 +113,9 @@ export function Navbar() {
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.05 + i * 0.05, duration: 0.4 }}
-                  className="group relative flex h-32 flex-col justify-between overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-md transition-colors hover:border-sun/60 hover:bg-white/[0.08]"
+                  className="group relative flex h-32 flex-col justify-between overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-md transition-colors hover:border-white/30 hover:bg-white/[0.08]"
                 >
-                  <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-sun">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-bone/55">
                     0{i + 1}
                   </span>
                   <span className="font-display text-2xl uppercase leading-tight tracking-wide">
@@ -128,7 +128,7 @@ export function Navbar() {
               <a
                 href="#contact"
                 onClick={() => setOpen(false)}
-                className="flex items-center justify-center rounded-full bg-sun px-5 py-3 text-sm font-semibold text-ink shadow-[0_10px_30px_-10px_rgba(245,196,0,0.8)]"
+                className="flex items-center justify-center rounded-full bg-bone px-5 py-3 text-sm font-semibold text-ink shadow-[0_10px_30px_-10px_rgba(255,255,255,0.25)]"
               >
                 Get in touch
               </a>

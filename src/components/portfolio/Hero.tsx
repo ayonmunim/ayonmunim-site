@@ -111,15 +111,15 @@ export function Hero() {
       className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 pt-28 pb-16"
       style={{
         background:
-          "radial-gradient(130% 90% at 50% 0%, #FFFBEC 0%, #FBE9A8 45%, #F5C400 130%)",
+          "radial-gradient(130% 90% at 50% 0%, #FFFDF8 0%, #FFF7DF 55%, #FCEBB0 120%)",
       }}
     >
-      {/* Warm yellow inner glow */}
+      {/* Soft warm inner glow */}
       <div
         className="pointer-events-none absolute inset-0 -z-0"
         style={{
           background:
-            "radial-gradient(55% 45% at 50% 55%, rgba(245,196,0,0.35), rgba(245,196,0,0) 70%)",
+            "radial-gradient(55% 45% at 50% 55%, rgba(245,196,0,0.10), rgba(245,196,0,0) 70%)",
         }}
       />
 
@@ -135,7 +135,7 @@ export function Hero() {
         className="pointer-events-none absolute left-1/2 top-1/2 z-[1] size-[1000px] -translate-x-1/2 -translate-y-1/2 rounded-full"
         style={{
           background:
-            "radial-gradient(closest-side, rgba(255,251,236,0.98) 0%, rgba(255,251,236,0.85) 38%, rgba(255,251,236,0) 78%)",
+            "radial-gradient(closest-side, rgba(255,253,248,0.98) 0%, rgba(255,253,248,0.85) 38%, rgba(255,253,248,0) 78%)",
           backdropFilter: "blur(3px)",
         }}
       />
@@ -148,7 +148,7 @@ export function Hero() {
           transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
           className="relative mb-10"
         >
-          <div className="absolute inset-0 -z-10 rounded-full bg-sun/40 blur-3xl glow-pulse" style={{ transform: "scale(1.95)" }} />
+          <div className="absolute inset-0 -z-10 rounded-full bg-sun/15 blur-3xl glow-pulse" style={{ transform: "scale(1.95)" }} />
           <motion.div
             animate={{ y: [0, -10, 0], scale: [1, 1.025, 1] }}
             transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}

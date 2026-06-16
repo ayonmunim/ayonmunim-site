@@ -37,7 +37,7 @@ export function About() {
     >
       <div className="mx-auto max-w-7xl px-6">
         <AnimatedSection>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-sun">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/70">
             (01) About
           </p>
         </AnimatedSection>
@@ -46,7 +46,7 @@ export function About() {
           <AnimatedSection className="lg:col-span-6">
             <h2 className="font-display text-5xl uppercase leading-[0.95] tracking-[0.01em] md:text-7xl">
               An engineer who treats interfaces<br />
-              as ideas — and ideas <span className="text-sun">as systems.</span>
+              as ideas — and ideas <span className="text-white/70">as systems.</span>
             </h2>
           </AnimatedSection>
 
@@ -62,7 +62,7 @@ export function About() {
                 { k: "Years", v: "3+", icon: GraduationCap },
               ].map((i) => (
                 <div key={i.k}>
-                  <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] text-sun">
+                  <div className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] text-white/70">
                     <i.icon className="size-3" /> {i.k}
                   </div>
                   <div className="mt-1.5 font-medium">{i.v}</div>
@@ -76,7 +76,7 @@ export function About() {
         <AnimatedSection delay={0.15}>
           <div className="mt-28 flex items-baseline justify-between">
             <h3 className="font-display text-3xl uppercase tracking-[0.02em] md:text-5xl">
-              <span className="text-sun">/</span> Skills
+              <span className="text-white/70">/</span> Skills
             </h3>
             <span className="text-[10px] uppercase tracking-[0.25em] text-white/40">
               Toolkit · 2026
@@ -90,11 +90,11 @@ export function About() {
               <motion.div
                 whileHover={{ y: -4 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="group relative h-full overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur-md transition-colors hover:border-sun/60 hover:bg-white/[0.06]"
+                className="group relative h-full overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur-md transition-colors hover:border-white/30 hover:bg-white/[0.06]"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <span className="grid size-10 place-items-center rounded-xl border border-white/15 bg-white/5 text-white transition-colors group-hover:border-sun group-hover:text-sun">
+                    <span className="grid size-10 place-items-center rounded-xl border border-white/15 bg-white/5 text-white transition-colors group-hover:border-white/40 group-hover:text-white/70">
                       <g.icon className="size-5" />
                     </span>
                     <h4 className="font-display text-lg uppercase tracking-wide">{g.name}</h4>
@@ -120,7 +120,7 @@ export function About() {
         <AnimatedSection delay={0.1}>
           <div className="mt-28 flex items-baseline justify-between">
             <h3 className="font-display text-3xl uppercase tracking-[0.02em] md:text-5xl">
-              <span className="text-sun">/</span> Education
+              <span className="text-white/70">/</span> Education
             </h3>
             <span className="text-[10px] uppercase tracking-[0.25em] text-white/40">
               Academic Background
@@ -132,7 +132,7 @@ export function About() {
           {resume.education.map((e, i) => (
             <AnimatedSection key={e.degree} delay={i * 0.08}>
               <div className="group grid grid-cols-12 items-baseline gap-6 py-8 transition-colors hover:bg-white/[0.03] md:py-10">
-                <div className="col-span-12 text-[11px] uppercase tracking-[0.25em] text-sun md:col-span-2">
+                <div className="col-span-12 text-[11px] uppercase tracking-[0.25em] text-white/70 md:col-span-2">
                   {e.period}
                 </div>
                 <div className="col-span-12 md:col-span-6">
