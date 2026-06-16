@@ -57,7 +57,7 @@ export function Navbar() {
           {sound ? <Volume2 className="relative size-5" /> : <VolumeX className="relative size-5" />}
         </button>
         <div className="mt-1 h-16 w-px bg-ink/20" />
-        <span className="rotate-180 text-[10px] uppercase tracking-[0.3em] text-ink/50" style={{ writingMode: "vertical-rl" }}>
+        <span className="rotate-180 font-montreal text-[10px] uppercase tracking-[0.3em] text-ink/50" style={{ writingMode: "vertical-rl" }}>
           Munim
         </span>
       </motion.div>
