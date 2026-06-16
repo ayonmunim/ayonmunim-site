@@ -91,7 +91,7 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col items-start justify-between gap-3 border-t border-bone/10 py-8 text-xs text-bone/55 md:flex-row md:items-center">
-          <div>© {new Date().getFullYear()} <span className="text-sun">Munim Ahmed</span>. All rights reserved.</div>
+          <div>© {new Date().getFullYear()} <span className="text-bone">Munim Ahmed</span>. All rights reserved.</div>
           <div>Built with React, TypeScript, Tailwind & Framer Motion.</div>
         </div>
       </div>
