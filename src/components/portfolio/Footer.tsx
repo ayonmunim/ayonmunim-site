@@ -20,9 +20,9 @@ const elsewhere = [
 export function Footer() {
   return (
     <footer className="relative overflow-hidden bg-ink pt-24 text-bone">
-      {/* Yellow accent bar at top */}
-      <div className="absolute inset-x-0 top-0 h-1 bg-sun" />
-      <div className="pointer-events-none absolute -top-32 right-10 size-[420px] rounded-full bg-sun/15 blur-3xl" />
+      {/* Soft white accent bar at top */}
+      <div className="absolute inset-x-0 top-0 h-px bg-bone/30" />
+      <div className="pointer-events-none absolute -top-32 right-10 size-[420px] rounded-full bg-bone/5 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-6">
         <motion.div
