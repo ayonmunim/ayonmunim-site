@@ -128,7 +128,7 @@ export function Navbar() {
               <a
                 href="#contact"
                 onClick={() => setOpen(false)}
-                className="flex items-center justify-center rounded-full bg-sun px-5 py-3 text-sm font-semibold text-ink shadow-[0_10px_30px_-10px_rgba(245,196,0,0.8)]"
+                className="flex items-center justify-center rounded-full bg-bone px-5 py-3 text-sm font-semibold text-ink shadow-[0_10px_30px_-10px_rgba(255,255,255,0.25)]"
               >
                 Get in touch
               </a>
