@@ -59,7 +59,7 @@ export function Footer() {
           </div>
 
           <div className="md:col-span-3 md:col-start-7">
-            <div className="text-[10px] uppercase tracking-[0.25em] text-sun">Navigate</div>
+            <div className="text-[10px] uppercase tracking-[0.25em] text-bone/55">Navigate</div>
             <ul className="mt-5 space-y-3">
               {quickLinks.map((l) => (
                 <li key={l.href}>
