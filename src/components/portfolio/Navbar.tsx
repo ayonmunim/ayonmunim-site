@@ -98,7 +98,7 @@ export function Navbar() {
           >
             <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
               <span className="font-display text-base uppercase tracking-wide">
-                <span className="text-sun">M</span>UNIM
+                <span className="text-bone">M</span>UNIM
               </span>
               <button onClick={() => setOpen(false)} aria-label="Close" className="rounded-full p-2 hover:bg-white/10">
                 <X className="size-5" />
