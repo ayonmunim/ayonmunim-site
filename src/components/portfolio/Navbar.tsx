@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Menu, X, Volume2, VolumeX } from "lucide-react";
 import { initUISound, isSoundEnabled, setSoundEnabled } from "@/lib/ui-sound";
+import nasaAward from "@/assets/nasa-award.jpg";
+import munimHero from "@/assets/munim-hero.jpg";
+
 
 const links = [
   { href: "#top",      label: "Home" },
