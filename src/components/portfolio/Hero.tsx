@@ -148,7 +148,7 @@ export function Hero() {
           transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
           className="relative mb-10"
         >
-          <div className="absolute inset-0 -z-10 rounded-full bg-sun/40 blur-3xl glow-pulse" style={{ transform: "scale(1.95)" }} />
+          <div className="absolute inset-0 -z-10 rounded-full bg-sun/15 blur-3xl glow-pulse" style={{ transform: "scale(1.95)" }} />
           <motion.div
             animate={{ y: [0, -10, 0], scale: [1, 1.025, 1] }}
             transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
