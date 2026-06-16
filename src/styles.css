@@ -1,14 +1,15 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
-@import url("https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&family=Yuji+Boku&family=Rubik+Marker+Hatched&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Outfit:wght@300;400;500;600;700;800&family=Mona+Sans:wght@300;400;500;600;700;800&family=Yuji+Boku&family=Rubik+Marker+Hatched&display=swap");
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --font-display: "Anton", "Bebas Neue", ui-sans-serif, system-ui, sans-serif;
-  --font-paint: "Yuji Boku", "Rubik Marker Hatched", "Anton", serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-paint: "Rubik Marker Hatched", "Yuji Boku", "Anton", serif;
+  --font-montreal: "Mona Sans", "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Outfit", "Mona Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
   --radius-sm: calc(var(--radius) - 4px);
