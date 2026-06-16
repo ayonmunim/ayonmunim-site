@@ -31,20 +31,20 @@ export function About() {
   return (
     <motion.section
       ref={ref}
-      id="about"
+      id="bio"
       style={{ backgroundColor: bg, color: fg }}
       className="relative py-28 md:py-40"
     >
       <div className="mx-auto max-w-7xl px-6">
         <AnimatedSection>
           <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/70">
-            (01) About
+            (01) Bio
           </p>
         </AnimatedSection>
 
         <div className="mt-14 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
           <AnimatedSection className="lg:col-span-6">
-            <h2 className="font-display text-5xl uppercase leading-[0.95] tracking-[0.01em] md:text-7xl">
+            <h2 className="font-paint paint-ink text-5xl uppercase leading-[0.95] md:text-7xl">
               An engineer who treats interfaces<br />
               as ideas — and ideas <span className="text-white/70">as systems.</span>
             </h2>

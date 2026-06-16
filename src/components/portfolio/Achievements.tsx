@@ -20,7 +20,7 @@ export function Achievements() {
           <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-bone/70">
             (04) Awards & Recognition
           </p>
-          <h2 className="mt-6 font-display text-5xl uppercase leading-[0.95] tracking-[0.01em] md:text-7xl">
+          <h2 className="mt-6 font-paint paint-ink text-5xl uppercase leading-[0.95] tracking-[0.01em] md:text-7xl">
             Awarded for work that <span className="text-bone/60">pushes the medium.</span>
           </h2>
           <p className="mt-6 max-w-xl text-bone/65 md:text-lg">
@@ -39,7 +39,7 @@ export function Achievements() {
 
       <motion.div
         style={{ x }}
-        className="relative mt-28 whitespace-nowrap font-display text-[18vw] uppercase leading-none tracking-[-0.04em] text-bone/[0.06]"
+        className="relative mt-28 whitespace-nowrap font-paint paint-ink text-[18vw] uppercase leading-none tracking-[-0.04em] text-bone/[0.06]"
       >
         Recognition · Craft · Recognition · Craft ·
       </motion.div>
@@ -76,7 +76,7 @@ function AchievementCard({
         </span>
         <span className="text-[11px] uppercase tracking-[0.25em] text-bone/50">{item.year}</span>
       </div>
-      <h3 className="relative mt-6 font-display text-2xl uppercase leading-tight tracking-wide md:text-3xl">
+      <h3 className="relative mt-6 font-paint paint-ink text-2xl uppercase leading-tight tracking-wide md:text-3xl">
         {item.title}
       </h3>
       <p className="relative mt-4 text-sm leading-relaxed text-bone/65">{item.detail}</p>
