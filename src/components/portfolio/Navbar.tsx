@@ -113,9 +113,9 @@ export function Navbar() {
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.05 + i * 0.05, duration: 0.4 }}
-                  className="group relative flex h-32 flex-col justify-between overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-md transition-colors hover:border-sun/60 hover:bg-white/[0.08]"
+                  className="group relative flex h-32 flex-col justify-between overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-md transition-colors hover:border-white/30 hover:bg-white/[0.08]"
                 >
-                  <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-sun">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-bone/55">
                     0{i + 1}
                   </span>
                   <span className="font-display text-2xl uppercase leading-tight tracking-wide">
