@@ -111,15 +111,15 @@ export function Hero() {
       className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 pt-28 pb-16"
       style={{
         background:
-          "radial-gradient(130% 90% at 50% 0%, #FFFBEC 0%, #FBE9A8 45%, #F5C400 130%)",
+          "radial-gradient(130% 90% at 50% 0%, #FFFDF8 0%, #FFF7DF 55%, #FCEBB0 120%)",
       }}
     >
-      {/* Warm yellow inner glow */}
+      {/* Soft warm inner glow */}
       <div
         className="pointer-events-none absolute inset-0 -z-0"
         style={{
           background:
-            "radial-gradient(55% 45% at 50% 55%, rgba(245,196,0,0.35), rgba(245,196,0,0) 70%)",
+            "radial-gradient(55% 45% at 50% 55%, rgba(245,196,0,0.10), rgba(245,196,0,0) 70%)",
         }}
       />
 
