@@ -22,41 +22,7 @@ export function Navbar() {
 
   return (
     <>
-      {/* Top header — solid yellow bg, white content */}
-      <motion.header
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="fixed inset-x-0 top-0 z-40 bg-sun"
-      >
-        <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-6 md:px-10">
-          <a
-            href="#top"
-            className="font-paint text-2xl leading-none text-white transition-colors hover:text-white/80 md:text-3xl"
-          >
-            M.A
-          </a>
-          <nav className="hidden items-center gap-8 md:flex">
-            {[
-              { href: "#bio", label: "Bio" },
-              { href: "#projects", label: "Project" },
-              { href: "#awards", label: "Award" },
-              { href: "#media", label: "Media" },
-              { href: "#work", label: "Experience" },
-              { href: "#contact", label: "Contact" },
-            ].map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                className="group relative font-montreal text-[11px] font-medium uppercase tracking-[0.28em] text-white"
-              >
-                <span className="transition-colors group-hover:text-white">{l.label}</span>
-                <span className="absolute -bottom-1 left-0 h-[2px] w-0 bg-white transition-all duration-500 group-hover:w-full" />
-              </a>
-            ))}
-          </nav>
-        </div>
-      </motion.header>
+
 
       {/* Vertical right-middle rail: menu + sound (yellow theme, white content) */}
       <motion.div
@@ -68,11 +34,12 @@ export function Navbar() {
         <button
           aria-label="Open menu"
           onClick={() => setOpen(true)}
-          className="group relative flex size-12 items-center justify-center overflow-hidden rounded-full bg-sun text-white shadow-[0_10px_30px_-12px_rgba(0,0,0,0.4)] ring-1 ring-white/30 transition-colors"
+          className="group relative flex size-12 items-center justify-center overflow-hidden rounded-full bg-white text-ink shadow-[0_10px_30px_-12px_rgba(0,0,0,0.4)] ring-1 ring-ink/10 transition-colors"
         >
-          <span className="absolute inset-0 scale-0 rounded-full bg-white transition-transform duration-500 ease-out group-hover:scale-100" />
-          <Menu className="relative size-5 transition-colors group-hover:text-ink" />
+          <span className="absolute inset-0 scale-0 rounded-full bg-ink transition-transform duration-500 ease-out group-hover:scale-100" />
+          <Menu className="relative size-5 transition-colors group-hover:text-white" />
         </button>
+
         <button
           aria-label={sound ? "Mute interface sounds" : "Enable interface sounds"}
           onClick={toggleSound}
@@ -85,13 +52,14 @@ export function Navbar() {
             <VolumeX className="relative size-5 transition-colors group-hover:text-white" />
           )}
         </button>
-        <div className="mt-1 h-16 w-px bg-white/40" />
+        <div className="mt-1 h-16 w-px bg-ink/30" />
         <span
-          className="rotate-180 font-montreal text-[10px] uppercase tracking-[0.3em] text-white/70"
+          className="rotate-180 font-sans text-[10px] uppercase tracking-[0.3em] text-ink/60"
           style={{ writingMode: "vertical-rl" }}
         >
           Munim
         </span>
+
       </motion.div>
 
       {/* Full-screen overlay menu */}

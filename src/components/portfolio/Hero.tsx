@@ -1,6 +1,17 @@
 import { motion, useAnimationControls } from "motion/react";
-import { useEffect, useState } from "react";
-import { ArrowRight, FileText, Download } from "lucide-react";
+import { useEffect } from "react";
+import {
+  ArrowRight,
+  FileText,
+  Download,
+  User,
+  Briefcase,
+  Award,
+  Newspaper,
+  GraduationCap,
+  Mail,
+  type LucideIcon,
+} from "lucide-react";
 import portraitAsset from "@/assets/munim-formal.jpg.asset.json";
 const portrait = portraitAsset.url;
 import daily23 from "@/assets/press/Daily_23.png.asset.json";
@@ -13,58 +24,60 @@ import news24 from "@/assets/press/NEWS24.png.asset.json";
 import samakal from "@/assets/press/Samakal.png.asset.json";
 import prothom from "@/assets/press/Prothom_Alo_2023_2.png.asset.json";
 
-type Floater = { src: string; alt: string; w: number; angle: number };
+type Floater = { src: string; alt: string; w: number; angle: number; delay: number };
 
-// Pre-distributed angles around the portrait so the final spread lands evenly
-// at the edges of the hero section.
-const RAW: { src: string; alt: string; w: number }[] = [
-  { src: nsac.url,     alt: "NASA Space Apps Challenge 2022", w: 380 },
-  { src: nasa.url,     alt: "NASA Earth Data",                w: 360 },
-  { src: daily24.url,  alt: "The Daily Star 2024",            w: 400 },
-  { src: prothom.url,  alt: "Prothom Alo",                    w: 370 },
-  { src: daily23.url,  alt: "The Daily Star 2023",            w: 340 },
-  { src: observer.url, alt: "Daily Observer",                 w: 360 },
-  { src: kaler.url,    alt: "Kaler Kantho",                   w: 380 },
-  { src: samakal.url,  alt: "Samakal",                        w: 390 },
-  { src: news24.url,   alt: "NEWS24",                         w: 330 },
+// Non-sequential angles so pieces fly out from different sides (not in order).
+const RAW: { src: string; alt: string; w: number; angle: number }[] = [
+  { src: nsac.url,     alt: "NASA Space Apps Challenge 2022", w: 360, angle: -70 },
+  { src: prothom.url,  alt: "Prothom Alo",                    w: 350, angle: 140 },
+  { src: nasa.url,     alt: "NASA Earth Data",                w: 340, angle: 30 },
+  { src: samakal.url,  alt: "Samakal",                        w: 360, angle: -150 },
+  { src: daily24.url,  alt: "The Daily Star 2024",            w: 380, angle: 75 },
+  { src: kaler.url,    alt: "Kaler Kantho",                   w: 360, angle: -20 },
+  { src: observer.url, alt: "Daily Observer",                 w: 340, angle: 165 },
+  { src: daily23.url,  alt: "The Daily Star 2023",            w: 330, angle: -110 },
+  { src: news24.url,   alt: "NEWS24",                         w: 320, angle: 105 },
 ];
 
-const FLOATERS: Floater[] = RAW.map((f, i) => ({
-  ...f,
-  // evenly distribute around full circle, offset so first piece starts top-right
-  angle: -90 + (360 / RAW.length) * i + 20,
-}));
+const PER_IMAGE_DURATION = 14; // seconds for one image to travel center → edge (very slow)
+const STAGGER = 2.2;           // gap between successive image starts
+const LOOP_GAP = 1.5;          // pause after the last image before the loop restarts
 
-const PER_IMAGE_DURATION = 6; // seconds for one image to travel center → edge
-const STAGGER = 1.2;          // delay between successive images starting
+const FLOATERS: Floater[] = RAW.map((f, i) => ({ ...f, delay: i * STAGGER }));
+const LOOP_DURATION =
+  RAW.length * STAGGER + PER_IMAGE_DURATION + LOOP_GAP; // total cycle length
 
-function FloatingPiece({ f, index }: { f: Floater; index: number }) {
+function FloatingPiece({ f }: { f: Floater }) {
   const controls = useAnimationControls();
 
   useEffect(() => {
     let cancelled = false;
+    const rad = (f.angle * Math.PI) / 180;
+    const dist = 52; // vmin — travel all the way to edge
+    const tx = `${Math.cos(rad) * dist}vmin`;
+    const ty = `${Math.sin(rad) * dist * 0.95}vmin`;
+
     const run = async () => {
-      await new Promise((r) => setTimeout(r, (1.4 + index * STAGGER) * 1000));
-      if (cancelled) return;
-
-      const rad = (f.angle * Math.PI) / 180;
-      const dist = 44 + (index % 3) * 4; // vmin
-      const tx = `${Math.cos(rad) * dist}vmin`;
-      const ty = `${Math.sin(rad) * dist * 0.95}vmin`;
-
-      await controls.start({
-        x: [`-50%`, `calc(-50% + ${tx})`],
-        y: [`-50%`, `calc(-50% + ${ty})`],
-        scale: [0.18, 0.9, 1.05, 1.05],
-        opacity: [0, 1, 1, 1],
-        // sharp during travel; final 1s blur lock-in
-        filter: ["blur(14px)", "blur(0px)", "blur(0px)", "blur(6px)"],
-        transition: {
-          duration: PER_IMAGE_DURATION,
-          times: [0, 0.55, 0.85, 1],
-          ease: [0.22, 1, 0.36, 1],
-        },
-      });
+      // initial offset before this piece starts in the first cycle
+      await new Promise((r) => setTimeout(r, (1.2 + f.delay) * 1000));
+      while (!cancelled) {
+        await controls.start({
+          x: [`-50%`, `calc(-50% + ${tx})`],
+          y: [`-50%`, `calc(-50% + ${ty})`],
+          scale: [0.18, 0.95, 1, 1],
+          opacity: [0, 1, 1, 0],
+          transition: {
+            duration: PER_IMAGE_DURATION,
+            times: [0, 0.35, 0.8, 1],
+            ease: [0.22, 1, 0.36, 1],
+          },
+        });
+        if (cancelled) break;
+        // wait until next cycle's slot for this piece
+        await new Promise((r) =>
+          setTimeout(r, (LOOP_DURATION - PER_IMAGE_DURATION) * 1000)
+        );
+      }
     };
 
     run();
@@ -72,41 +85,42 @@ function FloatingPiece({ f, index }: { f: Floater; index: number }) {
       cancelled = true;
       controls.stop();
     };
-  }, [controls, index, f.angle]);
+  }, [controls, f.angle, f.delay]);
 
   return (
     <motion.div
       animate={controls}
-      initial={{ opacity: 0, x: "-50%", y: "-50%", scale: 0.18, filter: "blur(14px)" }}
-      className="pointer-events-auto absolute left-1/2 top-1/2"
+      initial={{ opacity: 0, x: "-50%", y: "-50%", scale: 0.18 }}
+      className="pointer-events-none absolute left-1/2 top-1/2"
       style={{ width: `${f.w}px` }}
     >
-      <div className="group overflow-hidden rounded-2xl bg-ink ring-2 ring-ink shadow-[0_30px_80px_-25px_rgba(0,0,0,0.5)] transition-transform duration-500 hover:scale-105 hover:ring-sun">
+      <div className="overflow-hidden rounded-2xl bg-ink ring-2 ring-ink shadow-[0_30px_80px_-25px_rgba(0,0,0,0.5)]">
         <img src={f.src} alt={f.alt} loading="lazy" className="block h-auto w-full" />
       </div>
     </motion.div>
   );
 }
 
-// Orbit ring with navigation buttons placed on each dot, slowly rotating.
-const ORBIT_LINKS = [
-  { href: "#bio",      label: "Bio" },
-  { href: "#projects", label: "Project" },
-  { href: "#awards",   label: "Award" },
-  { href: "#media",    label: "Media" },
-  { href: "#work",     label: "Experience" },
-  { href: "#contact",  label: "Contact" },
+// Orbit nav — icon buttons with tooltip on hover, no orbit ring line, very slow rotation
+const ORBIT_LINKS: { href: string; label: string; Icon: LucideIcon }[] = [
+  { href: "#bio",      label: "Bio",        Icon: User },
+  { href: "#projects", label: "Project",    Icon: Briefcase },
+  { href: "#awards",   label: "Award",      Icon: Award },
+  { href: "#media",    label: "Media",      Icon: Newspaper },
+  { href: "#work",     label: "Experience", Icon: GraduationCap },
+  { href: "#contact",  label: "Contact",    Icon: Mail },
 ];
+
+const ORBIT_DURATION = 300; // 5 minutes per revolution — very, very slow
 
 function OrbitRing({ radius = 180 }: { radius?: number }) {
   return (
     <motion.div
       animate={{ rotate: 360 }}
-      transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+      transition={{ duration: ORBIT_DURATION, repeat: Infinity, ease: "linear" }}
       className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
       style={{ width: radius * 2, height: radius * 2 }}
     >
-      <div className="absolute inset-0 rounded-full border border-dashed border-ink/30" />
       {ORBIT_LINKS.map((l, i) => {
         const a = (i * 360) / ORBIT_LINKS.length - 90;
         const rad = (a * Math.PI) / 180;
@@ -121,29 +135,24 @@ function OrbitRing({ radius = 180 }: { radius?: number }) {
             <motion.a
               href={l.href}
               animate={{ rotate: -360 }}
-              transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-              className="pointer-events-auto group flex h-11 min-w-11 items-center justify-center rounded-full bg-ink px-4 font-montreal text-[10px] font-bold uppercase tracking-[0.22em] text-white shadow-[0_10px_28px_-10px_rgba(0,0,0,0.5)] ring-2 ring-white transition-colors hover:bg-sun hover:text-ink"
+              transition={{ duration: ORBIT_DURATION, repeat: Infinity, ease: "linear" }}
+              aria-label={l.label}
+              className="pointer-events-auto group relative flex size-12 items-center justify-center rounded-full bg-white text-ink shadow-[0_10px_28px_-10px_rgba(0,0,0,0.4)] ring-1 ring-ink/10 transition-all hover:scale-110 hover:bg-ink hover:text-white"
             >
-              {l.label}
+              <l.Icon className="size-5" strokeWidth={2} />
+              <span className="pointer-events-none absolute -bottom-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-ink px-3 py-1 font-sans text-[10px] font-medium uppercase tracking-[0.22em] text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                {l.label}
+              </span>
             </motion.a>
           </div>
         );
       })}
-
     </motion.div>
   );
 }
 
 
 export function Hero() {
-  // Lock the final blur on the floaters area after the last image lands
-  const [finalBlur, setFinalBlur] = useState(false);
-  useEffect(() => {
-    const totalMs = (1.4 + (FLOATERS.length - 1) * STAGGER + PER_IMAGE_DURATION) * 1000;
-    const t = setTimeout(() => setFinalBlur(true), totalMs);
-    return () => clearTimeout(t);
-  }, []);
-
   return (
     <section
       id="top"
@@ -161,16 +170,16 @@ export function Hero() {
         }}
       />
 
-      {/* Floating press collage — sequential, sharp during travel, blurred when settled */}
-      <motion.div
-        animate={{ filter: finalBlur ? "blur(6px)" : "blur(0px)" }}
-        transition={{ duration: 1, ease: "easeInOut" }}
-        className="pointer-events-none absolute inset-0"
+      {/* Floating press collage — looped, drifts outward and fades away.
+          Always blurred and sits BEHIND the text. */}
+      <div
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{ filter: "blur(5px)" }}
       >
         {FLOATERS.map((f, i) => (
-          <FloatingPiece key={i} f={f} index={i} />
+          <FloatingPiece key={i} f={f} />
         ))}
-      </motion.div>
+      </div>
 
       {/* Soft focal halo */}
       <div
@@ -181,30 +190,27 @@ export function Hero() {
         }}
       />
 
-      {/* Name — bold, slightly blurry */}
+      {/* Name — sharp, sans, in front of the floaters */}
       <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center text-center">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="font-paint paint-ink text-[19vw] font-black leading-[0.88] tracking-[-0.01em] text-ink md:text-[10rem]"
-          style={{ filter: "blur(1.2px)", textShadow: "0 4px 24px rgba(245,196,0,0.45)" }}
+          className="font-sans text-[19vw] font-black leading-[0.88] tracking-[-0.03em] text-ink md:text-[10rem]"
         >
           Munim Ahmed
         </motion.h1>
 
-        {/* Bio line — bold, slightly blurry */}
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.7 }}
-          className="font-montreal mt-5 max-w-3xl text-sm font-bold uppercase tracking-[0.3em] text-ink/80 md:text-base"
-          style={{ filter: "blur(0.8px)" }}
+          className="mt-5 max-w-3xl font-sans text-sm font-bold uppercase tracking-[0.3em] text-ink/80 md:text-base"
         >
           A footslogger who wants to aid with his hand
         </motion.p>
 
-        {/* Portrait with decorative orbit ring around it */}
+        {/* Portrait with orbit nav around it */}
         <div className="relative mt-12 flex items-center justify-center">
           <OrbitRing radius={180} />
 
@@ -234,33 +240,31 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Modern animated Resume button — single CTA under the orbit */}
+        {/* Resume button — white bg, modern animated */}
         <motion.div
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="relative mt-32 md:mt-40"
         >
-          <span className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-sun/50 blur-2xl animate-pulse" />
+          <span className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-white/70 blur-2xl animate-pulse" />
           <a
             href="/resume.pdf"
             download
-            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-ink px-9 py-4 font-montreal text-sm font-semibold uppercase tracking-[0.25em] text-white shadow-[0_18px_50px_-12px_rgba(0,0,0,0.45)] ring-1 ring-ink/20 transition-all hover:shadow-[0_22px_60px_-12px_rgba(245,196,0,0.55)]"
+            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-white px-9 py-4 font-sans text-sm font-semibold uppercase tracking-[0.25em] text-ink shadow-[0_18px_50px_-12px_rgba(0,0,0,0.25)] ring-1 ring-ink/10 transition-all hover:shadow-[0_22px_60px_-12px_rgba(0,0,0,0.4)]"
           >
-            {/* sweeping gradient highlight */}
-            <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-sun via-white to-sun transition-transform duration-700 ease-out group-hover:translate-x-0" />
-            {/* shimmer */}
-            <span className="pointer-events-none absolute -inset-y-1 -left-1/3 w-1/3 rotate-12 bg-white/30 blur-md transition-transform duration-1000 ease-out group-hover:translate-x-[400%]" />
-            <FileText className="relative size-4 transition-colors group-hover:text-ink" strokeWidth={2} />
-            <span className="relative transition-colors group-hover:text-ink">Download Resume</span>
+            <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-sun/0 via-sun/40 to-sun/0 transition-transform duration-700 ease-out group-hover:translate-x-0" />
+            <span className="pointer-events-none absolute -inset-y-1 -left-1/3 w-1/3 rotate-12 bg-ink/10 blur-md transition-transform duration-1000 ease-out group-hover:translate-x-[400%]" />
+            <FileText className="relative size-4" strokeWidth={2} />
+            <span className="relative">Download Resume</span>
             <motion.span
               animate={{ y: [0, 2, 0] }}
               transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
               className="relative inline-flex"
             >
-              <Download className="size-4 transition-colors group-hover:text-ink" strokeWidth={2} />
+              <Download className="size-4" strokeWidth={2} />
             </motion.span>
-            <ArrowRight className="relative size-4 transition-transform group-hover:translate-x-1 group-hover:text-ink" />
+            <ArrowRight className="relative size-4 transition-transform group-hover:translate-x-1" />
           </a>
         </motion.div>
       </div>
@@ -269,7 +273,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.9, duration: 0.8 }}
-        className="font-montreal absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-[10px] uppercase tracking-[0.3em] text-ink/50"
+        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 font-sans text-[10px] uppercase tracking-[0.3em] text-ink/50"
       >
         Scroll
       </motion.div>
