@@ -34,11 +34,12 @@ export function Navbar() {
         <button
           aria-label="Open menu"
           onClick={() => setOpen(true)}
-          className="group relative flex size-12 items-center justify-center overflow-hidden rounded-full bg-sun text-white shadow-[0_10px_30px_-12px_rgba(0,0,0,0.4)] ring-1 ring-white/30 transition-colors"
+          className="group relative flex size-12 items-center justify-center overflow-hidden rounded-full bg-white text-ink shadow-[0_10px_30px_-12px_rgba(0,0,0,0.4)] ring-1 ring-ink/10 transition-colors"
         >
-          <span className="absolute inset-0 scale-0 rounded-full bg-white transition-transform duration-500 ease-out group-hover:scale-100" />
-          <Menu className="relative size-5 transition-colors group-hover:text-ink" />
+          <span className="absolute inset-0 scale-0 rounded-full bg-ink transition-transform duration-500 ease-out group-hover:scale-100" />
+          <Menu className="relative size-5 transition-colors group-hover:text-white" />
         </button>
+
         <button
           aria-label={sound ? "Mute interface sounds" : "Enable interface sounds"}
           onClick={toggleSound}
