@@ -88,35 +88,52 @@ function FloatingPiece({ f, index }: { f: Floater; index: number }) {
   );
 }
 
-// Orbiting nav badges removed per spec — orbit is now a continuous rotating
-// decorative ring around the portrait (no menu items inside the orbit).
-function OrbitRing({ radius = 170 }: { radius?: number }) {
-  const dots = Array.from({ length: 12 });
+// Orbit ring with navigation buttons placed on each dot, slowly rotating.
+const ORBIT_LINKS = [
+  { href: "#bio",      label: "Bio" },
+  { href: "#projects", label: "Project" },
+  { href: "#awards",   label: "Award" },
+  { href: "#media",    label: "Media" },
+  { href: "#work",     label: "Experience" },
+  { href: "#contact",  label: "Contact" },
+];
+
+function OrbitRing({ radius = 180 }: { radius?: number }) {
   return (
     <motion.div
-      aria-hidden
       animate={{ rotate: 360 }}
-      transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+      transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
       className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
       style={{ width: radius * 2, height: radius * 2 }}
     >
       <div className="absolute inset-0 rounded-full border border-dashed border-ink/30" />
-      {dots.map((_, i) => {
-        const a = (i * 360) / dots.length;
+      {ORBIT_LINKS.map((l, i) => {
+        const a = (i * 360) / ORBIT_LINKS.length - 90;
         const rad = (a * Math.PI) / 180;
         const x = Math.cos(rad) * radius;
         const y = Math.sin(rad) * radius;
         return (
-          <span
-            key={i}
-            className="absolute left-1/2 top-1/2 size-2 rounded-full bg-ink"
+          <div
+            key={l.href}
+            className="absolute left-1/2 top-1/2"
             style={{ transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))` }}
-          />
+          >
+            <motion.a
+              href={l.href}
+              animate={{ rotate: -360 }}
+              transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+              className="pointer-events-auto group flex h-11 min-w-11 items-center justify-center rounded-full bg-ink px-4 font-montreal text-[10px] font-bold uppercase tracking-[0.22em] text-white shadow-[0_10px_28px_-10px_rgba(0,0,0,0.5)] ring-2 ring-white transition-colors hover:bg-sun hover:text-ink"
+            >
+              {l.label}
+            </motion.a>
+          </div>
         );
       })}
+
     </motion.div>
   );
 }
+
 
 export function Hero() {
   // Lock the final blur on the floaters area after the last image lands
@@ -189,7 +206,7 @@ export function Hero() {
 
         {/* Portrait with decorative orbit ring around it */}
         <div className="relative mt-12 flex items-center justify-center">
-          <OrbitRing radius={170} />
+          <OrbitRing radius={180} />
 
           <motion.div
             initial={{ opacity: 0, scale: 0.85 }}
@@ -222,7 +239,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mt-24 md:mt-28"
+          className="relative mt-32 md:mt-40"
         >
           <span className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-sun/50 blur-2xl animate-pulse" />
           <a

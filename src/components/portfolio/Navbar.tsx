@@ -182,7 +182,7 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 + i * 0.07, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative inline-block font-montreal text-5xl font-extralight leading-[1.05] tracking-[-0.02em] text-white transition-colors hover:text-white md:text-[5.5rem]"
+              className="group relative inline-block font-montreal text-5xl font-bold leading-[1.05] tracking-[-0.02em] text-white transition-colors hover:text-white md:text-[5.5rem]"
             >
               <span className="relative">
                 {l.label}
