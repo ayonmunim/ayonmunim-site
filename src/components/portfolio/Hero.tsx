@@ -113,19 +113,23 @@ function OrbitRing({ radius = 180 }: { radius?: number }) {
         const x = Math.cos(rad) * radius;
         const y = Math.sin(rad) * radius;
         return (
-          <motion.a
+          <div
             key={l.href}
-            href={l.href}
-            // counter-rotate so text stays upright
-            animate={{ rotate: -360 }}
-            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-            className="pointer-events-auto group absolute left-1/2 top-1/2 flex h-11 min-w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-ink px-4 font-montreal text-[10px] font-bold uppercase tracking-[0.22em] text-white shadow-[0_10px_28px_-10px_rgba(0,0,0,0.5)] ring-2 ring-white transition-colors hover:bg-sun hover:text-ink"
+            className="absolute left-1/2 top-1/2"
             style={{ transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))` }}
           >
-            {l.label}
-          </motion.a>
+            <motion.a
+              href={l.href}
+              animate={{ rotate: -360 }}
+              transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+              className="pointer-events-auto group flex h-11 min-w-11 items-center justify-center rounded-full bg-ink px-4 font-montreal text-[10px] font-bold uppercase tracking-[0.22em] text-white shadow-[0_10px_28px_-10px_rgba(0,0,0,0.5)] ring-2 ring-white transition-colors hover:bg-sun hover:text-ink"
+            >
+              {l.label}
+            </motion.a>
+          </div>
         );
       })}
+
     </motion.div>
   );
 }
