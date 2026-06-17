@@ -239,7 +239,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mt-24 md:mt-28"
+          className="relative mt-32 md:mt-40"
         >
           <span className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-sun/50 blur-2xl animate-pulse" />
           <a
