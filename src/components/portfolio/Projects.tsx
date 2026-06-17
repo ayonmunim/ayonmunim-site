@@ -95,13 +95,13 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 export function Projects() {
   return (
-    <section id="projects" className="relative border-t border-line py-28 md:py-40">
+    <section id="projects" className="relative border-t border-white/10 bg-ink py-28 text-white md:py-40">
       <div className="mx-auto max-w-7xl px-6">
         <AnimatedSection className="mb-20 max-w-4xl">
-          <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-ink/50">
+          <p className="font-sans text-[11px] font-medium uppercase tracking-[0.28em] text-white/50">
             (03) Selected Work
           </p>
-          <h2 className="mt-6 font-paint paint-ink text-4xl font-medium leading-[1.05] tracking-[-0.03em] md:text-6xl">
+          <h2 className="mt-6 font-sans text-4xl font-bold leading-[1.05] tracking-[-0.03em] text-white md:text-6xl">
             Products built with care, shipped with intent.
           </h2>
         </AnimatedSection>
@@ -115,3 +115,4 @@ export function Projects() {
     </section>
   );
 }
+
