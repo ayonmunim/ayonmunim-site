@@ -52,13 +52,14 @@ export function Navbar() {
             <VolumeX className="relative size-5 transition-colors group-hover:text-white" />
           )}
         </button>
-        <div className="mt-1 h-16 w-px bg-white/40" />
+        <div className="mt-1 h-16 w-px bg-ink/30" />
         <span
-          className="rotate-180 font-montreal text-[10px] uppercase tracking-[0.3em] text-white/70"
+          className="rotate-180 font-sans text-[10px] uppercase tracking-[0.3em] text-ink/60"
           style={{ writingMode: "vertical-rl" }}
         >
           Munim
         </span>
+
       </motion.div>
 
       {/* Full-screen overlay menu */}
