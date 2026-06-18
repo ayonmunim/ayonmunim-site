@@ -191,7 +191,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="font-sans text-[19vw] font-black leading-[0.88] tracking-[-0.03em] text-ink md:text-[10rem]"
+          className="font-sans text-[15vw] font-black leading-[0.88] tracking-[-0.03em] text-ink md:text-[8rem]"
         >
           Munim Ahmed
         </motion.h1>
@@ -207,7 +207,7 @@ export function Hero() {
 
         {/* Portrait with orbit nav around it */}
         <div className="relative mt-12 flex items-center justify-center">
-          <OrbitRing radius={180} />
+          <OrbitRing radius={215} />
 
           <motion.div
             initial={{ opacity: 0, scale: 0.85 }}
@@ -222,7 +222,7 @@ export function Hero() {
             <motion.div
               animate={{ y: [0, -8, 0], scale: [1, 1.02, 1] }}
               transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-              className="relative size-44 overflow-hidden rounded-full bg-ink ring-[6px] ring-ink shadow-[0_30px_80px_-25px_rgba(0,0,0,0.55)] md:size-56"
+              className="relative size-36 overflow-hidden rounded-full bg-ink ring-[6px] ring-ink shadow-[0_30px_80px_-25px_rgba(0,0,0,0.55)] md:size-48"
             >
               <img
                 src={portrait}
@@ -234,6 +234,7 @@ export function Hero() {
             </motion.div>
           </motion.div>
         </div>
+
 
         {/* Resume button — white bg, modern animated */}
         <motion.div
