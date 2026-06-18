@@ -39,9 +39,9 @@ const RAW: { src: string; alt: string; w: number; angle: number }[] = [
   { src: news24.url,   alt: "NEWS24",                         w: 320, angle: 105 },
 ];
 
-const PER_IMAGE_DURATION = 14; // seconds for one image to travel center → edge (very slow)
-const STAGGER = 2.2;           // gap between successive image starts
-const LOOP_GAP = 1.5;          // pause after the last image before the loop restarts
+const PER_IMAGE_DURATION = 8; // seconds for one image to travel center → edge
+const STAGGER = 2.6;          // gap between successive image starts (2-3 alive at once)
+const LOOP_GAP = 0;           // seamless loop — no pause
 
 const FLOATERS: Floater[] = RAW.map((f, i) => ({ ...f, delay: i * STAGGER }));
 const LOOP_DURATION =
@@ -165,23 +165,34 @@ export function Hero() {
         }}
       />
 
-      {/* Floating press collage — looped, drifts outward and fades away.
-          Always blurred and sits BEHIND the text. */}
-      <div
-        className="pointer-events-none absolute inset-0 z-0"
-        style={{ filter: "blur(5px)" }}
-      >
+      {/* Floating press collage — SHARP outside the central content area */}
+      <div className="pointer-events-none absolute inset-0 z-0">
         {FLOATERS.map((f, i) => (
           <FloatingPiece key={i} f={f} />
         ))}
       </div>
+
+      {/* Blur lens — only blurs floaters that pass behind the central content
+          column (name / orbit nav / portrait / resume button). */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-1/2 z-[2] h-[92%] w-[640px] max-w-[88vw] -translate-x-1/2 -translate-y-1/2 rounded-[40%]"
+        style={{
+          backdropFilter: "blur(8px)",
+          WebkitBackdropFilter: "blur(8px)",
+          maskImage:
+            "radial-gradient(closest-side, rgba(0,0,0,1) 55%, rgba(0,0,0,0.6) 75%, rgba(0,0,0,0) 100%)",
+          WebkitMaskImage:
+            "radial-gradient(closest-side, rgba(0,0,0,1) 55%, rgba(0,0,0,0.6) 75%, rgba(0,0,0,0) 100%)",
+        }}
+      />
 
       {/* Soft focal halo */}
       <div
         className="pointer-events-none absolute left-1/2 top-[58%] z-[1] size-[820px] -translate-x-1/2 -translate-y-1/2 rounded-full"
         style={{
           background:
-            "radial-gradient(closest-side, rgba(255,253,248,0.92) 0%, rgba(255,253,248,0.5) 45%, rgba(255,253,248,0) 80%)",
+            "radial-gradient(closest-side, rgba(255,253,248,0.55) 0%, rgba(255,253,248,0.25) 45%, rgba(255,253,248,0) 80%)",
         }}
       />
 
@@ -207,7 +218,7 @@ export function Hero() {
 
         {/* Portrait with orbit nav around it */}
         <div className="relative mt-12 flex items-center justify-center">
-          <OrbitRing radius={215} />
+          <OrbitRing radius={165} />
 
           <motion.div
             initial={{ opacity: 0, scale: 0.85 }}
