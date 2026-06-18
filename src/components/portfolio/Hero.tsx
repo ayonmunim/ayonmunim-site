@@ -36,8 +36,8 @@ const RAW: { src: string; alt: string; w: number; baseAngle: number }[] = [
   { src: news24.url,   alt: "NEWS24",                         w: 320, baseAngle: 105 },
 ];
 
-const PER_IMAGE_DURATION = 7; // seconds: one image travels center → fully off page
-const STAGGER = 2.4;          // ~3 alive at once
+const PER_IMAGE_DURATION = 7.5; // seconds: one image travels center → fully off page (constant speed)
+const STAGGER = 3.2;            // ~2-3 alive at once
 const LOOP_GAP = 0;
 
 const FLOATERS: Floater[] = RAW.map((f, i) => ({ ...f, delay: i * STAGGER }));
