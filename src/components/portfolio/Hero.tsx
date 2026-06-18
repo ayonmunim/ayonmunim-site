@@ -253,7 +253,7 @@ export function Hero() {
 
       </div>
 
-      {/* Resume download button — replaces "Scroll" indicator */}
+      {/* Resume download button — styled as yellow circle with dashed border below orbit nav */}
       <motion.a
         href="/resume.pdf"
         download
@@ -262,14 +262,10 @@ export function Hero() {
         transition={{ delay: 1.6, duration: 0.8 }}
         className="group absolute bottom-10 left-1/2 z-20 -translate-x-1/2"
       >
-        <span className="relative inline-flex items-center gap-3 rounded-full bg-sun px-7 py-3.5 font-sans text-sm font-black uppercase tracking-[0.22em] text-ink shadow-[0_14px_40px_-12px_rgba(240,204,66,0.9)] ring-1 ring-ink/10 transition-transform duration-300 hover:scale-[1.04]">
-          {/* Black dot pulse */}
-          <span className="relative flex size-2.5 items-center justify-center">
-            <span className="absolute inline-flex size-full animate-ping rounded-full bg-ink opacity-75" />
-            <span className="relative inline-flex size-2.5 rounded-full bg-ink" />
-          </span>
-          Download Resume
-          <Download className="size-4" strokeWidth={2.5} />
+        <span className="relative flex size-20 items-center justify-center rounded-full bg-sun shadow-[0_14px_40px_-12px_rgba(240,204,66,0.9)] transition-transform duration-300 hover:scale-110">
+          {/* Dashed border ring */}
+          <span className="absolute inset-1.5 rounded-full border-[3px] border-dashed border-ink/40" />
+          <Download className="relative size-7 text-ink" strokeWidth={2.5} />
         </span>
       </motion.a>
     </section>
