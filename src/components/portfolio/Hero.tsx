@@ -247,10 +247,10 @@ export function Hero() {
           <a
             href="/resume.pdf"
             download
-            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-white px-9 py-4 font-sans text-sm font-semibold uppercase tracking-[0.25em] text-ink shadow-[0_18px_50px_-12px_rgba(0,0,0,0.25)] ring-1 ring-ink/10 transition-all hover:shadow-[0_22px_60px_-12px_rgba(0,0,0,0.4)]"
+            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-white px-9 py-4 font-sans text-sm font-semibold uppercase tracking-[0.25em] text-ink shadow-[0_18px_50px_-12px_rgba(0,0,0,0.25)] ring-1 ring-ink/10 transition-all duration-500 hover:bg-sun hover:text-white hover:shadow-[0_22px_60px_-12px_rgba(234,179,8,0.55)]"
           >
-            <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-sun/0 via-sun/40 to-sun/0 transition-transform duration-700 ease-out group-hover:translate-x-0" />
-            <span className="pointer-events-none absolute -inset-y-1 -left-1/3 w-1/3 rotate-12 bg-ink/10 blur-md transition-transform duration-1000 ease-out group-hover:translate-x-[400%]" />
+            <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-white/0 via-white/40 to-white/0 transition-transform duration-700 ease-out group-hover:translate-x-0" />
+            <span className="pointer-events-none absolute -inset-y-1 -left-1/3 w-1/3 rotate-12 bg-white/30 blur-md transition-transform duration-1000 ease-out group-hover:translate-x-[400%]" />
             <FileText className="relative size-4" strokeWidth={2} />
             <span className="relative">Download Resume</span>
             <motion.span
