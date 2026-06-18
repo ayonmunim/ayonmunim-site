@@ -7,6 +7,7 @@ import {
   Newspaper,
   GraduationCap,
   Mail,
+  Download,
   type LucideIcon,
 } from "lucide-react";
 import portraitAsset from "@/assets/munim-formal.jpg.asset.json";
