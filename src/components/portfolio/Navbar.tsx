@@ -2,8 +2,23 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Menu, X, Volume2, VolumeX } from "lucide-react";
 import { initUISound, isSoundEnabled, setSoundEnabled } from "@/lib/ui-sound";
-import nasaAward from "@/assets/nasa-award.jpg";
-import munimHero from "@/assets/munim-hero.jpg";
+import daily23 from "@/assets/press/Daily_23.png.asset.json";
+import daily24 from "@/assets/press/Daily_24.png.asset.json";
+import kaler from "@/assets/press/Kaler_Kantho.png.asset.json";
+import nasa from "@/assets/press/NASA.png.asset.json";
+import observer from "@/assets/press/Observer.png.asset.json";
+import samakal from "@/assets/press/Samakal.png.asset.json";
+import prothom from "@/assets/press/Prothom_Alo_2023_2.png.asset.json";
+
+const NEWS_IMAGES = [
+  { src: daily24.url, alt: "The Daily Star 2024" },
+  { src: prothom.url, alt: "Prothom Alo" },
+  { src: kaler.url, alt: "Kaler Kantho" },
+  { src: samakal.url, alt: "Samakal" },
+  { src: nasa.url, alt: "NASA" },
+  { src: observer.url, alt: "Daily Observer" },
+  { src: daily23.url, alt: "The Daily Star 2023" },
+];
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
