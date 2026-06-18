@@ -111,13 +111,10 @@ const ORBIT_LINKS: { href: string; label: string; Icon: LucideIcon }[] = [
   { href: "#contact",  label: "Contact",    Icon: Mail },
 ];
 
-const ORBIT_DURATION = 300; // 5 minutes per revolution — very, very slow
-
-function OrbitRing({ radius = 180 }: { radius?: number }) {
+// Static orbit nav — interactive icon buttons with tooltip on hover, no rotation
+function OrbitRing({ radius = 215 }: { radius?: number }) {
   return (
-    <motion.div
-      animate={{ rotate: 360 }}
-      transition={{ duration: ORBIT_DURATION, repeat: Infinity, ease: "linear" }}
+    <div
       className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
       style={{ width: radius * 2, height: radius * 2 }}
     >
@@ -132,22 +129,20 @@ function OrbitRing({ radius = 180 }: { radius?: number }) {
             className="absolute left-1/2 top-1/2"
             style={{ transform: `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))` }}
           >
-            <motion.a
+            <a
               href={l.href}
-              animate={{ rotate: -360 }}
-              transition={{ duration: ORBIT_DURATION, repeat: Infinity, ease: "linear" }}
               aria-label={l.label}
-              className="pointer-events-auto group relative flex size-12 items-center justify-center rounded-full bg-white text-ink shadow-[0_10px_28px_-10px_rgba(0,0,0,0.4)] ring-1 ring-ink/10 transition-all hover:scale-110 hover:bg-ink hover:text-white"
+              className="pointer-events-auto group relative flex size-14 items-center justify-center rounded-full bg-white text-ink shadow-[0_10px_28px_-10px_rgba(0,0,0,0.4)] ring-1 ring-ink/10 transition-all duration-300 hover:scale-110 hover:bg-ink hover:text-white"
             >
               <l.Icon className="size-5" strokeWidth={2} />
-              <span className="pointer-events-none absolute -bottom-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-ink px-3 py-1 font-sans text-[10px] font-medium uppercase tracking-[0.22em] text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+              <span className="pointer-events-none absolute -bottom-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-ink px-3 py-1 font-sans text-[10px] font-bold uppercase tracking-[0.22em] text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
                 {l.label}
               </span>
-            </motion.a>
+            </a>
           </div>
         );
       })}
-    </motion.div>
+    </div>
   );
 }
 
@@ -196,7 +191,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="font-sans text-[19vw] font-black leading-[0.88] tracking-[-0.03em] text-ink md:text-[10rem]"
+          className="font-sans text-[15vw] font-black leading-[0.88] tracking-[-0.03em] text-ink md:text-[8rem]"
         >
           Munim Ahmed
         </motion.h1>
@@ -212,7 +207,7 @@ export function Hero() {
 
         {/* Portrait with orbit nav around it */}
         <div className="relative mt-12 flex items-center justify-center">
-          <OrbitRing radius={180} />
+          <OrbitRing radius={215} />
 
           <motion.div
             initial={{ opacity: 0, scale: 0.85 }}
@@ -227,7 +222,7 @@ export function Hero() {
             <motion.div
               animate={{ y: [0, -8, 0], scale: [1, 1.02, 1] }}
               transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-              className="relative size-44 overflow-hidden rounded-full bg-ink ring-[6px] ring-ink shadow-[0_30px_80px_-25px_rgba(0,0,0,0.55)] md:size-56"
+              className="relative size-36 overflow-hidden rounded-full bg-ink ring-[6px] ring-ink shadow-[0_30px_80px_-25px_rgba(0,0,0,0.55)] md:size-48"
             >
               <img
                 src={portrait}
@@ -240,6 +235,7 @@ export function Hero() {
           </motion.div>
         </div>
 
+
         {/* Resume button — white bg, modern animated */}
         <motion.div
           initial={{ opacity: 0, y: 14 }}
@@ -251,10 +247,10 @@ export function Hero() {
           <a
             href="/resume.pdf"
             download
-            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-white px-9 py-4 font-sans text-sm font-semibold uppercase tracking-[0.25em] text-ink shadow-[0_18px_50px_-12px_rgba(0,0,0,0.25)] ring-1 ring-ink/10 transition-all hover:shadow-[0_22px_60px_-12px_rgba(0,0,0,0.4)]"
+            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-white px-9 py-4 font-sans text-sm font-semibold uppercase tracking-[0.25em] text-ink shadow-[0_18px_50px_-12px_rgba(0,0,0,0.25)] ring-1 ring-ink/10 transition-all duration-500 hover:bg-sun hover:text-white hover:shadow-[0_22px_60px_-12px_rgba(234,179,8,0.55)]"
           >
-            <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-sun/0 via-sun/40 to-sun/0 transition-transform duration-700 ease-out group-hover:translate-x-0" />
-            <span className="pointer-events-none absolute -inset-y-1 -left-1/3 w-1/3 rotate-12 bg-ink/10 blur-md transition-transform duration-1000 ease-out group-hover:translate-x-[400%]" />
+            <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-white/0 via-white/40 to-white/0 transition-transform duration-700 ease-out group-hover:translate-x-0" />
+            <span className="pointer-events-none absolute -inset-y-1 -left-1/3 w-1/3 rotate-12 bg-white/30 blur-md transition-transform duration-1000 ease-out group-hover:translate-x-[400%]" />
             <FileText className="relative size-4" strokeWidth={2} />
             <span className="relative">Download Resume</span>
             <motion.span

@@ -2,8 +2,23 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Menu, X, Volume2, VolumeX } from "lucide-react";
 import { initUISound, isSoundEnabled, setSoundEnabled } from "@/lib/ui-sound";
-import nasaAward from "@/assets/nasa-award.jpg";
-import munimHero from "@/assets/munim-hero.jpg";
+import daily23 from "@/assets/press/Daily_23.png.asset.json";
+import daily24 from "@/assets/press/Daily_24.png.asset.json";
+import kaler from "@/assets/press/Kaler_Kantho.png.asset.json";
+import nasa from "@/assets/press/NASA.png.asset.json";
+import observer from "@/assets/press/Observer.png.asset.json";
+import samakal from "@/assets/press/Samakal.png.asset.json";
+import prothom from "@/assets/press/Prothom_Alo_2023_2.png.asset.json";
+
+const NEWS_IMAGES = [
+  { src: daily24.url, alt: "The Daily Star 2024" },
+  { src: prothom.url, alt: "Prothom Alo" },
+  { src: kaler.url, alt: "Kaler Kantho" },
+  { src: samakal.url, alt: "Samakal" },
+  { src: nasa.url, alt: "NASA" },
+  { src: observer.url, alt: "Daily Observer" },
+  { src: daily23.url, alt: "The Daily Star 2023" },
+];
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -131,14 +146,33 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.6 }}
-          className="flex flex-col gap-4 self-center"
+          className="relative flex h-[70vh] items-center justify-center self-center overflow-hidden"
+          style={{
+            maskImage:
+              "linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent)",
+          }}
         >
-          <div className="overflow-hidden rounded-md ring-1 ring-white/20 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.35)]">
-            <img src={nasaAward} alt="Award ceremony" className="h-64 w-full object-cover md:h-80" />
-          </div>
-          <div className="overflow-hidden rounded-md ring-1 ring-white/20 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.35)]">
-            <img src={munimHero} alt="Munim Ahmed" className="h-64 w-full object-cover md:h-80" />
-          </div>
+          <motion.div
+            animate={{ y: ["0%", "-50%"] }}
+            transition={{ duration: 40, ease: "linear", repeat: Infinity }}
+            className="flex w-full flex-col gap-5"
+          >
+            {[...NEWS_IMAGES, ...NEWS_IMAGES].map((img, i) => (
+              <div
+                key={i}
+                className="overflow-hidden rounded-md ring-1 ring-white/20 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.35)]"
+              >
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  className="block h-72 w-full object-cover md:h-80"
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </motion.div>
         </motion.div>
 
         <nav className="flex flex-col justify-center gap-2 md:items-end md:text-right">

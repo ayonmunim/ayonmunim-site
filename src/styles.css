@@ -6,10 +6,10 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-display: "Anton", "Bebas Neue", ui-sans-serif, system-ui, sans-serif;
-  --font-paint: "Rubik Marker Hatched", "Yuji Boku", "Anton", serif;
+  --font-display: "Mona Sans", "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-paint: "Mona Sans", "Outfit", ui-sans-serif, system-ui, sans-serif;
   --font-montreal: "Mona Sans", "Outfit", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Outfit", "Mona Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Mona Sans", "Outfit", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
   --radius-sm: calc(var(--radius) - 4px);
