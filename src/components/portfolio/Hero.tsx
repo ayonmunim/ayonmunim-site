@@ -7,6 +7,7 @@ import {
   Newspaper,
   GraduationCap,
   Mail,
+  Download,
   type LucideIcon,
 } from "lucide-react";
 import portraitAsset from "@/assets/munim-formal.jpg.asset.json";
@@ -36,8 +37,8 @@ const RAW: { src: string; alt: string; w: number; baseAngle: number }[] = [
   { src: news24.url,   alt: "NEWS24",                         w: 320, baseAngle: 105 },
 ];
 
-const PER_IMAGE_DURATION = 7; // seconds: one image travels center → fully off page
-const STAGGER = 2.4;          // ~3 alive at once
+const PER_IMAGE_DURATION = 7.5; // seconds: one image travels center → fully off page (constant speed)
+const STAGGER = 3.2;            // ~2-3 alive at once
 const LOOP_GAP = 0;
 
 const FLOATERS: Floater[] = RAW.map((f, i) => ({ ...f, delay: i * STAGGER }));
@@ -65,12 +66,12 @@ function FloatingPiece({ f }: { f: Floater }) {
         await controls.start({
           x: [`-50%`, `calc(-50% + ${tx})`],
           y: [`-50%`, `calc(-50% + ${ty})`],
-          scale: [0.2, 0.85, 1, 1.05],
-          opacity: [0, 1, 1, 1], // no fade — slides off the page
+          scale: [0.85, 1, 1.05],
+          opacity: [0, 1, 1],
           transition: {
             duration: PER_IMAGE_DURATION,
-            times: [0, 0.18, 0.55, 1],
-            ease: [0.16, 0.84, 0.34, 1],
+            times: [0, 0.08, 1],
+            ease: "linear", // constant speed center → off page
           },
         });
         if (cancelled) break;
@@ -219,9 +220,9 @@ export function Hero() {
           A footslogger who wants to aid with his hand
         </motion.p>
 
-        {/* Portrait with orbit nav around it */}
-        <div className="relative mt-12 flex items-center justify-center">
-          <OrbitRing radius={130} />
+        {/* Portrait with orbit nav around it — pushed further down from tagline */}
+        <div className="relative mt-24 flex items-center justify-center md:mt-32">
+          <OrbitRing radius={180} />
 
           <motion.div
             initial={{ opacity: 0, scale: 0.85 }}
@@ -252,14 +253,25 @@ export function Hero() {
 
       </div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.9, duration: 0.8 }}
-        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 font-sans text-[10px] uppercase tracking-[0.3em] text-ink/50"
+      {/* Resume download button — replaces "Scroll" indicator */}
+      <motion.a
+        href="/resume.pdf"
+        download
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.6, duration: 0.8 }}
+        className="group absolute bottom-10 left-1/2 z-20 -translate-x-1/2"
       >
-        Scroll
-      </motion.div>
+        <span className="relative inline-flex items-center gap-3 rounded-full bg-sun px-7 py-3.5 font-sans text-sm font-black uppercase tracking-[0.22em] text-ink shadow-[0_14px_40px_-12px_rgba(240,204,66,0.9)] ring-1 ring-ink/10 transition-transform duration-300 hover:scale-[1.04]">
+          {/* Black dot pulse */}
+          <span className="relative flex size-2.5 items-center justify-center">
+            <span className="absolute inline-flex size-full animate-ping rounded-full bg-ink opacity-75" />
+            <span className="relative inline-flex size-2.5 rounded-full bg-ink" />
+          </span>
+          Download Resume
+          <Download className="size-4" strokeWidth={2.5} />
+        </span>
+      </motion.a>
     </section>
   );
 }
