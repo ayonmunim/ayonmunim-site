@@ -1,9 +1,6 @@
 import { motion, useAnimationControls } from "motion/react";
 import { useEffect } from "react";
 import {
-  ArrowRight,
-  FileText,
-  Download,
   User,
   Briefcase,
   Award,
