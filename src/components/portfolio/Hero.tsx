@@ -165,7 +165,7 @@ export function Hero() {
         className="pointer-events-none absolute inset-0 -z-0"
         style={{
           background:
-            "radial-gradient(55% 45% at 50% 55%, rgba(245,196,0,0.10), rgba(245,196,0,0) 70%)",
+            "radial-gradient(55% 45% at 50% 55%, rgba(212,160,23,0.10), rgba(212,160,23,0) 70%)",
         }}
       />
 
