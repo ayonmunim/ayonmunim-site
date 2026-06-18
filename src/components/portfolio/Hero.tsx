@@ -165,7 +165,7 @@ export function Hero() {
         className="pointer-events-none absolute inset-0 -z-0"
         style={{
           background:
-            "radial-gradient(55% 45% at 50% 55%, rgba(245,196,0,0.10), rgba(245,196,0,0) 70%)",
+            "radial-gradient(55% 45% at 50% 55%, rgba(212,160,23,0.10), rgba(212,160,23,0) 70%)",
         }}
       />
 
@@ -253,21 +253,38 @@ export function Hero() {
 
       </div>
 
-      {/* Resume download button — styled as yellow circle with dashed border below orbit nav */}
-      <motion.a
-        href="/resume.pdf"
-        download
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.6, duration: 0.8 }}
-        className="group absolute bottom-10 left-1/2 z-20 -translate-x-1/2"
-      >
-        <span className="relative flex size-20 items-center justify-center rounded-full bg-sun shadow-[0_14px_40px_-12px_rgba(240,204,66,0.9)] transition-transform duration-300 hover:scale-110">
-          {/* Dashed border ring */}
-          <span className="absolute inset-1.5 rounded-full border-[3px] border-dashed border-ink/40" />
-          <Download className="relative size-7 text-ink" strokeWidth={2.5} />
-        </span>
-      </motion.a>
+        {/* Resume download — highlighted, animated, unmistakable */}
+        <motion.a
+          href="/resume.pdf"
+          download
+          aria-label="Download resume"
+          title="Download Resume"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.6, duration: 0.8 }}
+          className="group relative mt-12 flex size-14 items-center justify-center rounded-full bg-sun text-ink shadow-[0_14px_40px_-10px_rgba(212,160,23,0.85)] ring-2 ring-ink/15 transition-transform hover:scale-110"
+        >
+          {/* pulsing halo */}
+          <span className="pointer-events-none absolute inset-0 -z-10 animate-ping rounded-full bg-sun/70" />
+          <span className="pointer-events-none absolute -inset-1 -z-10 rounded-full bg-sun/40 blur-md animate-pulse" />
+          {/* rotating dashed ring */}
+          <span
+            aria-hidden
+            className="pointer-events-none absolute -inset-1 rounded-full border-2 border-dashed border-ink/60"
+            style={{ animation: "spin 8s linear infinite" }}
+          />
+          <motion.span
+            animate={{ y: [0, 3, 0] }}
+            transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+            className="relative inline-flex"
+          >
+            <Download className="size-5" strokeWidth={2.4} />
+          </motion.span>
+          {/* hover label */}
+          <span className="pointer-events-none absolute right-[110%] top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-ink px-3 py-1 font-sans text-[10px] font-bold uppercase tracking-[0.22em] text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+            Resume
+          </span>
+        </motion.a>
     </section>
   );
 }
