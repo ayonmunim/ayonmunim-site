@@ -220,9 +220,9 @@ export function Hero() {
           A footslogger who wants to aid with his hand
         </motion.p>
 
-        {/* Portrait with orbit nav around it */}
-        <div className="relative mt-12 flex items-center justify-center">
-          <OrbitRing radius={130} />
+        {/* Portrait with orbit nav around it — pushed further down from tagline */}
+        <div className="relative mt-24 flex items-center justify-center md:mt-32">
+          <OrbitRing radius={180} />
 
           <motion.div
             initial={{ opacity: 0, scale: 0.85 }}
@@ -253,14 +253,25 @@ export function Hero() {
 
       </div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.9, duration: 0.8 }}
-        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 font-sans text-[10px] uppercase tracking-[0.3em] text-ink/50"
+      {/* Resume download button — replaces "Scroll" indicator */}
+      <motion.a
+        href="/resume.pdf"
+        download
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.6, duration: 0.8 }}
+        className="group absolute bottom-10 left-1/2 z-20 -translate-x-1/2"
       >
-        Scroll
-      </motion.div>
+        <span className="relative inline-flex items-center gap-3 rounded-full bg-sun px-7 py-3.5 font-sans text-sm font-black uppercase tracking-[0.22em] text-ink shadow-[0_14px_40px_-12px_rgba(240,204,66,0.9)] ring-1 ring-ink/10 transition-transform duration-300 hover:scale-[1.04]">
+          {/* Black dot pulse */}
+          <span className="relative flex size-2.5 items-center justify-center">
+            <span className="absolute inline-flex size-full animate-ping rounded-full bg-ink opacity-75" />
+            <span className="relative inline-flex size-2.5 rounded-full bg-ink" />
+          </span>
+          Download Resume
+          <Download className="size-4" strokeWidth={2.5} />
+        </span>
+      </motion.a>
     </section>
   );
 }
