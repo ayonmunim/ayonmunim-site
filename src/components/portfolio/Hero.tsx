@@ -221,7 +221,7 @@ export function Hero() {
 
         {/* Portrait with orbit nav around it */}
         <div className="relative mt-12 flex items-center justify-center">
-          <OrbitRing radius={165} />
+          <OrbitRing radius={130} />
 
           <motion.div
             initial={{ opacity: 0, scale: 0.85 }}
