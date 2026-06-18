@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { Menu, X, Volume2, VolumeX, Download } from "lucide-react";
+import { Menu, X, Volume2, VolumeX } from "lucide-react";
 import { initUISound, isSoundEnabled, setSoundEnabled } from "@/lib/ui-sound";
 import daily23 from "@/assets/press/Daily_23.png.asset.json";
 import daily24 from "@/assets/press/Daily_24.png.asset.json";
