@@ -68,35 +68,6 @@ export function Navbar() {
           )}
         </button>
 
-        {/* Resume download — highlighted, animated, unmistakable */}
-        <a
-          href="/resume.pdf"
-          download
-          aria-label="Download resume"
-          title="Download Resume"
-          className="group relative mt-1 flex size-14 items-center justify-center rounded-full bg-sun text-ink shadow-[0_14px_40px_-10px_rgba(255,204,0,0.85)] ring-2 ring-ink/15 transition-transform hover:scale-110"
-        >
-          {/* pulsing halo */}
-          <span className="pointer-events-none absolute inset-0 -z-10 animate-ping rounded-full bg-sun/70" />
-          <span className="pointer-events-none absolute -inset-1 -z-10 rounded-full bg-sun/40 blur-md animate-pulse" />
-          {/* rotating dashed ring */}
-          <span
-            aria-hidden
-            className="pointer-events-none absolute -inset-1 rounded-full border-2 border-dashed border-ink/60"
-            style={{ animation: "spin 8s linear infinite" }}
-          />
-          <motion.span
-            animate={{ y: [0, 3, 0] }}
-            transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
-            className="relative inline-flex"
-          >
-            <Download className="size-5" strokeWidth={2.4} />
-          </motion.span>
-          {/* hover label */}
-          <span className="pointer-events-none absolute right-[110%] top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-ink px-3 py-1 font-sans text-[10px] font-bold uppercase tracking-[0.22em] text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-            Resume
-          </span>
-        </a>
         <div className="mt-1 h-16 w-px bg-ink/30" />
         <span
           className="rotate-180 font-sans text-[10px] uppercase tracking-[0.3em] text-ink/60"
