@@ -250,33 +250,6 @@ export function Hero() {
         </div>
 
 
-        {/* Resume button — white bg, modern animated */}
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mt-32 md:mt-40"
-        >
-          <span className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-white/70 blur-2xl animate-pulse" />
-          <a
-            href="/resume.pdf"
-            download
-            className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-white px-9 py-4 font-sans text-sm font-semibold uppercase tracking-[0.25em] text-ink shadow-[0_18px_50px_-12px_rgba(0,0,0,0.25)] ring-1 ring-ink/10 transition-all duration-500 hover:bg-sun hover:text-white hover:shadow-[0_22px_60px_-12px_rgba(234,179,8,0.55)]"
-          >
-            <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-white/0 via-white/40 to-white/0 transition-transform duration-700 ease-out group-hover:translate-x-0" />
-            <span className="pointer-events-none absolute -inset-y-1 -left-1/3 w-1/3 rotate-12 bg-white/30 blur-md transition-transform duration-1000 ease-out group-hover:translate-x-[400%]" />
-            <FileText className="relative size-4" strokeWidth={2} />
-            <span className="relative">Download Resume</span>
-            <motion.span
-              animate={{ y: [0, 2, 0] }}
-              transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-              className="relative inline-flex"
-            >
-              <Download className="size-4" strokeWidth={2} />
-            </motion.span>
-            <ArrowRight className="relative size-4 transition-transform group-hover:translate-x-1" />
-          </a>
-        </motion.div>
       </div>
 
       <motion.div
