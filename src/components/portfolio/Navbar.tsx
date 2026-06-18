@@ -146,14 +146,33 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.6 }}
-          className="flex flex-col gap-4 self-center"
+          className="relative flex h-[70vh] items-center justify-center self-center overflow-hidden"
+          style={{
+            maskImage:
+              "linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent)",
+          }}
         >
-          <div className="overflow-hidden rounded-md ring-1 ring-white/20 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.35)]">
-            <img src={nasaAward} alt="Award ceremony" className="h-64 w-full object-cover md:h-80" />
-          </div>
-          <div className="overflow-hidden rounded-md ring-1 ring-white/20 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.35)]">
-            <img src={munimHero} alt="Munim Ahmed" className="h-64 w-full object-cover md:h-80" />
-          </div>
+          <motion.div
+            animate={{ y: ["0%", "-50%"] }}
+            transition={{ duration: 40, ease: "linear", repeat: Infinity }}
+            className="flex w-full flex-col gap-5"
+          >
+            {[...NEWS_IMAGES, ...NEWS_IMAGES].map((img, i) => (
+              <div
+                key={i}
+                className="overflow-hidden rounded-md ring-1 ring-white/20 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.35)]"
+              >
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  className="block h-72 w-full object-cover md:h-80"
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </motion.div>
         </motion.div>
 
         <nav className="flex flex-col justify-center gap-2 md:items-end md:text-right">
