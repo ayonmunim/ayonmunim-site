@@ -24,56 +24,62 @@ import news24 from "@/assets/press/NEWS24.png.asset.json";
 import samakal from "@/assets/press/Samakal.png.asset.json";
 import prothom from "@/assets/press/Prothom_Alo_2023_2.png.asset.json";
 
-type Floater = { src: string; alt: string; w: number; angle: number; delay: number };
+type Floater = { src: string; alt: string; w: number; baseAngle: number; delay: number };
 
-// Non-sequential angles so pieces fly out from different sides (not in order).
-const RAW: { src: string; alt: string; w: number; angle: number }[] = [
-  { src: nsac.url,     alt: "NASA Space Apps Challenge 2022", w: 360, angle: -70 },
-  { src: prothom.url,  alt: "Prothom Alo",                    w: 350, angle: 140 },
-  { src: nasa.url,     alt: "NASA Earth Data",                w: 340, angle: 30 },
-  { src: samakal.url,  alt: "Samakal",                        w: 360, angle: -150 },
-  { src: daily24.url,  alt: "The Daily Star 2024",            w: 380, angle: 75 },
-  { src: kaler.url,    alt: "Kaler Kantho",                   w: 360, angle: -20 },
-  { src: observer.url, alt: "Daily Observer",                 w: 340, angle: 165 },
-  { src: daily23.url,  alt: "The Daily Star 2023",            w: 330, angle: -110 },
-  { src: news24.url,   alt: "NEWS24",                         w: 320, angle: 105 },
+// Non-sequential base angles so pieces fly out from different sides (not in order).
+const RAW: { src: string; alt: string; w: number; baseAngle: number }[] = [
+  { src: nsac.url,     alt: "NASA Space Apps Challenge 2022", w: 360, baseAngle: -70 },
+  { src: prothom.url,  alt: "Prothom Alo",                    w: 350, baseAngle: 140 },
+  { src: nasa.url,     alt: "NASA Earth Data",                w: 340, baseAngle: 30 },
+  { src: samakal.url,  alt: "Samakal",                        w: 360, baseAngle: -150 },
+  { src: daily24.url,  alt: "The Daily Star 2024",            w: 380, baseAngle: 75 },
+  { src: kaler.url,    alt: "Kaler Kantho",                   w: 360, baseAngle: -20 },
+  { src: observer.url, alt: "Daily Observer",                 w: 340, baseAngle: 165 },
+  { src: daily23.url,  alt: "The Daily Star 2023",            w: 330, baseAngle: -110 },
+  { src: news24.url,   alt: "NEWS24",                         w: 320, baseAngle: 105 },
 ];
 
-const PER_IMAGE_DURATION = 8; // seconds for one image to travel center → edge
-const STAGGER = 2.6;          // gap between successive image starts (2-3 alive at once)
-const LOOP_GAP = 0;           // seamless loop — no pause
+const PER_IMAGE_DURATION = 7; // seconds: one image travels center → fully off page
+const STAGGER = 2.4;          // ~3 alive at once
+const LOOP_GAP = 0;
 
 const FLOATERS: Floater[] = RAW.map((f, i) => ({ ...f, delay: i * STAGGER }));
 const LOOP_DURATION =
-  RAW.length * STAGGER + PER_IMAGE_DURATION + LOOP_GAP; // total cycle length
+  RAW.length * STAGGER + PER_IMAGE_DURATION + LOOP_GAP;
 
 function FloatingPiece({ f }: { f: Floater }) {
   const controls = useAnimationControls();
 
   useEffect(() => {
     let cancelled = false;
-    const rad = (f.angle * Math.PI) / 180;
-    const dist = 52; // vmin — travel all the way to edge
-    const tx = `${Math.cos(rad) * dist}vmin`;
-    const ty = `${Math.sin(rad) * dist * 0.95}vmin`;
+    const dist = 78; // vmin — travel past the edge so it slides out of the page
 
     const run = async () => {
-      // initial offset before this piece starts in the first cycle
       await new Promise((r) => setTimeout(r, (1.2 + f.delay) * 1000));
+      let cycle = 0;
       while (!cancelled) {
+        // Shuffle: jitter angle each loop so order/direction varies, but style stays same
+        const jitter = (Math.sin((f.baseAngle + cycle * 47.3) * 0.91) * 35);
+        const angle = f.baseAngle + jitter;
+        const rad = (angle * Math.PI) / 180;
+        const tx = `${Math.cos(rad) * dist}vmin`;
+        const ty = `${Math.sin(rad) * dist * 0.95}vmin`;
+
         await controls.start({
           x: [`-50%`, `calc(-50% + ${tx})`],
           y: [`-50%`, `calc(-50% + ${ty})`],
-          scale: [0.18, 0.95, 1, 1],
-          opacity: [0, 1, 1, 0],
+          scale: [0.2, 0.85, 1, 1.05],
+          opacity: [0, 1, 1, 1], // no fade — slides off the page
           transition: {
             duration: PER_IMAGE_DURATION,
-            times: [0, 0.35, 0.8, 1],
-            ease: [0.22, 1, 0.36, 1],
+            times: [0, 0.18, 0.55, 1],
+            ease: [0.16, 0.84, 0.34, 1],
           },
         });
         if (cancelled) break;
-        // wait until next cycle's slot for this piece
+        // reset to center invisibly for next cycle
+        await controls.set({ x: "-50%", y: "-50%", scale: 0.2, opacity: 0 });
+        cycle++;
         await new Promise((r) =>
           setTimeout(r, (LOOP_DURATION - PER_IMAGE_DURATION) * 1000)
         );
@@ -85,7 +91,7 @@ function FloatingPiece({ f }: { f: Floater }) {
       cancelled = true;
       controls.stop();
     };
-  }, [controls, f.angle, f.delay]);
+  }, [controls, f.baseAngle, f.delay]);
 
   return (
     <motion.div
