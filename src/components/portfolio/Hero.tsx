@@ -65,12 +65,12 @@ function FloatingPiece({ f }: { f: Floater }) {
         await controls.start({
           x: [`-50%`, `calc(-50% + ${tx})`],
           y: [`-50%`, `calc(-50% + ${ty})`],
-          scale: [0.2, 0.85, 1, 1.05],
-          opacity: [0, 1, 1, 1], // no fade — slides off the page
+          scale: [0.85, 1, 1.05],
+          opacity: [0, 1, 1],
           transition: {
             duration: PER_IMAGE_DURATION,
-            times: [0, 0.18, 0.55, 1],
-            ease: [0.16, 0.84, 0.34, 1],
+            times: [0, 0.08, 1],
+            ease: "linear", // constant speed center → off page
           },
         });
         if (cancelled) break;
