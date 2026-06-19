@@ -6,7 +6,6 @@ import { Experience } from "@/components/portfolio/Experience";
 import { Projects } from "@/components/portfolio/Projects";
 import { Achievements } from "@/components/portfolio/Achievements";
 import { Media } from "@/components/portfolio/Media";
-import { ContactForm } from "@/components/portfolio/ContactForm";
 import { Footer } from "@/components/portfolio/Footer";
 import { Toaster } from "sonner";
 
@@ -42,7 +41,6 @@ function Index() {
       <Achievements />
       <Media />
       <Experience />
-      <ContactForm />
       <Footer />
       <Toaster position="bottom-right" richColors />
     </main>
