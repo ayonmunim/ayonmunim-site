@@ -91,21 +91,34 @@ export function Footer() {
           "linear-gradient(to bottom, #FFFFFF 0%, #FFF8E0 28%, #FFE57A 58%, #FFCE00 82%, #FFCE00 100%)",
       }}
     >
-      {/* Floating press images — drift down and up across the full section */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      {/* Floating press images — circular, drift across the full section,
+          fade in as the section enters view, soft white gradient at top/bottom. */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: false, amount: 0.05 }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+        style={{
+          maskImage:
+            "linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%)",
+        }}
+      >
         {DOWN_DROPS.map((d, i) => (
           <motion.div
             key={`d-${i}`}
-            className="absolute -translate-x-1/2 rounded-2xl overflow-hidden ring-2 ring-white/70 shadow-[0_25px_60px_-20px_rgba(0,0,0,0.25)]"
+            className="absolute -translate-x-1/2 rounded-full overflow-hidden ring-2 ring-white/70 shadow-[0_25px_60px_-20px_rgba(0,0,0,0.25)]"
             style={{ left: d.left, width: d.size, height: d.size, top: 0 }}
-            initial={{ y: "-20%", opacity: 0 }}
-            animate={{ y: ["-20%", "120vh"], opacity: [0, 0.95, 0.95, 0], rotate: [-6, 6] }}
+            initial={{ y: "-10%", opacity: 0 }}
+            animate={{ y: ["-10%", "150vh"], opacity: [0, 1, 1, 0], rotate: [-4, 4] }}
             transition={{
               duration: d.dur,
               delay: d.delay,
               repeat: Infinity,
               ease: "linear",
-              times: [0, 0.1, 0.9, 1],
+              times: [0, 0.12, 0.88, 1],
             }}
           >
             <img src={d.src} alt="" className="size-full object-cover" />
@@ -114,22 +127,23 @@ export function Footer() {
         {UP_DROPS.map((d, i) => (
           <motion.div
             key={`u-${i}`}
-            className="absolute -translate-x-1/2 rounded-2xl overflow-hidden ring-2 ring-white/70 shadow-[0_25px_60px_-20px_rgba(0,0,0,0.25)]"
+            className="absolute -translate-x-1/2 rounded-full overflow-hidden ring-2 ring-white/70 shadow-[0_25px_60px_-20px_rgba(0,0,0,0.25)]"
             style={{ left: d.left, width: d.size, height: d.size, bottom: 0 }}
-            initial={{ y: "20%", opacity: 0 }}
-            animate={{ y: ["20%", "-120vh"], opacity: [0, 0.95, 0.95, 0], rotate: [6, -6] }}
+            initial={{ y: "10%", opacity: 0 }}
+            animate={{ y: ["10%", "-150vh"], opacity: [0, 1, 1, 0], rotate: [4, -4] }}
             transition={{
               duration: d.dur,
               delay: d.delay,
               repeat: Infinity,
               ease: "linear",
-              times: [0, 0.1, 0.9, 1],
+              times: [0, 0.12, 0.88, 1],
             }}
           >
             <img src={d.src} alt="" className="size-full object-cover" />
           </motion.div>
         ))}
-      </div>
+      </motion.div>
+
 
       {/* Contact form */}
       <section className="relative z-10 px-6 pt-28 pb-20 md:pt-40 md:pb-28">

@@ -88,10 +88,10 @@ export function Navbar() {
 
 const overlayLinks = [
   { href: "#bio",      label: "Bio" },
-  { href: "#media",    label: "Media" },
-  { href: "#awards",   label: "News" },
-  { href: "#work",     label: "Achievement" },
   { href: "#projects", label: "Project" },
+  { href: "#awards",   label: "Award" },
+  { href: "#media",    label: "Media" },
+  { href: "#work",     label: "Experience" },
 ];
 
 function MenuOverlay({ onClose }: { onClose: () => void }) {

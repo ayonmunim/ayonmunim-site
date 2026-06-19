@@ -222,7 +222,7 @@ export function Hero() {
 
         {/* Portrait with orbit nav around it — pushed further down from tagline */}
         <div className="relative mt-24 flex items-center justify-center md:mt-32">
-          <OrbitRing radius={180} />
+          <OrbitRing radius={110} />
 
           <motion.div
             initial={{ opacity: 0, scale: 0.85 }}
@@ -262,7 +262,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.6, duration: 0.8 }}
-          className="group relative mt-12 flex size-14 items-center justify-center rounded-full bg-sun text-ink shadow-[0_14px_40px_-10px_rgba(255,206,0,0.85)] ring-2 ring-ink/15 transition-transform hover:scale-110"
+          className="group relative mt-28 flex size-14 items-center justify-center rounded-full bg-sun text-ink shadow-[0_14px_40px_-10px_rgba(255,206,0,0.85)] ring-2 ring-ink/15 transition-transform hover:scale-110 md:mt-36"
         >
           {/* pulsing halo */}
           <span className="pointer-events-none absolute inset-0 -z-10 animate-ping rounded-full bg-sun/70" />
