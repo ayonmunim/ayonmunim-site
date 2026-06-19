@@ -130,7 +130,7 @@ export function Footer() {
             className="absolute -translate-x-1/2 rounded-full overflow-hidden ring-2 ring-white/70 shadow-[0_25px_60px_-20px_rgba(0,0,0,0.25)]"
             style={{ left: d.left, width: d.size, height: d.size, bottom: 0 }}
             initial={{ y: "10%", opacity: 0 }}
-            animate={{ y: ["10%", "-110%"], opacity: [0, 1, 1, 0], rotate: [4, -4] }}
+            animate={{ y: ["10%", "-150vh"], opacity: [0, 1, 1, 0], rotate: [4, -4] }}
             transition={{
               duration: d.dur,
               delay: d.delay,
