@@ -112,7 +112,7 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
         <X className="relative size-5 transition-colors group-hover:text-white" />
       </button>
 
-      <div className="mx-auto grid min-h-screen w-full max-w-7xl grid-cols-1 gap-10 px-6 py-20 md:grid-cols-[1fr_1.1fr_1.4fr] md:gap-8 md:px-12 md:py-16">
+      <div className="mx-auto grid min-h-screen w-full max-w-[1600px] grid-cols-1 gap-10 px-6 py-20 md:grid-cols-[1fr_1.2fr_1.3fr] md:gap-12 md:px-16 md:py-16 lg:px-24">
         <motion.aside
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -125,7 +125,7 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
             </div>
             <a
               href="mailto:ayonmunim26@gmail.com"
-              className="block font-montreal text-xl font-light text-white transition hover:text-white md:text-2xl"
+              className="block font-montreal text-lg font-light text-white transition hover:text-white md:text-xl"
             >
               ayonmunim26@gmail.com
             </a>
@@ -147,7 +147,7 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.6 }}
-          className="relative flex h-[70vh] items-center justify-center self-center overflow-hidden"
+          className="relative hidden h-[70vh] items-center justify-center self-center overflow-hidden md:flex"
           style={{
             maskImage:
               "linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent)",
@@ -157,7 +157,7 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
         >
           <motion.div
             animate={{ y: ["0%", "-50%"] }}
-            transition={{ duration: 40, ease: "linear", repeat: Infinity }}
+            transition={{ duration: 50, ease: "linear", repeat: Infinity }}
             className="flex w-full flex-col gap-5"
           >
             {[...NEWS_IMAGES, ...NEWS_IMAGES].map((img, i) => (
@@ -176,7 +176,7 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
           </motion.div>
         </motion.div>
 
-        <nav className="flex flex-col justify-center gap-2 md:items-end md:text-right">
+        <nav className="flex flex-col justify-center gap-3 md:items-end md:text-right">
           {overlayLinks.map((l, i) => (
             <motion.a
               key={l.href}
@@ -185,7 +185,7 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 + i * 0.07, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative inline-block font-montreal text-5xl font-bold leading-[1.05] tracking-[-0.02em] text-white transition-colors hover:text-white md:text-[5.5rem]"
+              className="group relative inline-block font-montreal text-3xl font-semibold leading-[1.1] tracking-[-0.02em] text-white transition-colors hover:text-white md:text-5xl lg:text-6xl"
             >
               <span className="relative">
                 {l.label}
