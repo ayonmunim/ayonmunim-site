@@ -1,99 +1,102 @@
 import { motion } from "motion/react";
-import { ArrowUpRight } from "lucide-react";
+import { Github, Linkedin, Mail, Twitter } from "lucide-react";
+import daily23 from "@/assets/press/Daily_23.png.asset.json";
+import daily24 from "@/assets/press/Daily_24.png.asset.json";
+import kaler from "@/assets/press/Kaler_Kantho.png.asset.json";
+import nasa from "@/assets/press/NASA.png.asset.json";
+import observer from "@/assets/press/Observer.png.asset.json";
+import samakal from "@/assets/press/Samakal.png.asset.json";
+import prothom from "@/assets/press/Prothom_Alo_2023_2.png.asset.json";
+import news24 from "@/assets/press/NEWS24.png.asset.json";
+import nsac from "@/assets/press/NSAC_2022.png.asset.json";
 import { resume } from "@/data/resume";
 
-const quickLinks = [
-  { href: "#about", label: "About" },
-  { href: "#work", label: "Experience" },
-  { href: "#projects", label: "Projects" },
-  { href: "#awards", label: "Awards" },
-  { href: "#contact", label: "Contact" },
+const DROPS = [
+  { src: daily23.url, left: "6%",  size: 120, delay: 0.0, dur: 6.5 },
+  { src: kaler.url,   left: "16%", size: 90,  delay: 1.2, dur: 7.5 },
+  { src: nasa.url,    left: "26%", size: 140, delay: 0.6, dur: 6.0 },
+  { src: observer.url,left: "38%", size: 100, delay: 2.0, dur: 7.0 },
+  { src: prothom.url, left: "50%", size: 130, delay: 0.3, dur: 6.8 },
+  { src: samakal.url, left: "62%", size: 95,  delay: 1.6, dur: 7.2 },
+  { src: news24.url,  left: "72%", size: 120, delay: 0.9, dur: 6.4 },
+  { src: nsac.url,    left: "82%", size: 110, delay: 2.4, dur: 7.6 },
+  { src: daily24.url, left: "92%", size: 90,  delay: 1.4, dur: 6.6 },
 ];
 
-const elsewhere = [
-  { href: `mailto:${resume.email}`, label: "Email" },
-  { href: resume.github, label: "GitHub" },
-  { href: "https://linkedin.com/in/ayonmunim", label: "LinkedIn" },
-  { href: "/resume.pdf", label: "Resume ↓" },
+const socials = [
+  { href: `mailto:${resume.email}`, label: "Email", Icon: Mail, variant: "white" as const },
+  { href: resume.github, label: "GitHub", Icon: Github, variant: "yellow" as const },
+  { href: "https://linkedin.com/in/ayonmunim", label: "LinkedIn", Icon: Linkedin, variant: "white" as const },
+  { href: "https://twitter.com/ayonmunim", label: "Twitter", Icon: Twitter, variant: "yellow" as const },
 ];
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-sun pt-24 text-white">
-      <div className="absolute inset-x-0 top-0 h-px bg-white/25" />
-      <div className="pointer-events-none absolute -top-32 right-10 size-[420px] rounded-full bg-white/20 blur-3xl" />
+    <footer className="relative overflow-hidden bg-white">
+      {/* Drop zone: images fall from top to bottom */}
+      <div className="relative h-[420px] overflow-hidden">
+        {DROPS.map((d, i) => (
+          <motion.div
+            key={i}
+            className="absolute top-0 -translate-x-1/2 rounded-full overflow-hidden ring-4 ring-white shadow-[0_20px_60px_-15px_rgba(0,0,0,0.25)]"
+            style={{ left: d.left, width: d.size, height: d.size }}
+            initial={{ y: -200, opacity: 0, rotate: -8 }}
+            animate={{ y: ["-15%", "110%"], opacity: [0, 1, 1, 0], rotate: [-8, 8] }}
+            transition={{
+              duration: d.dur,
+              delay: d.delay,
+              repeat: Infinity,
+              ease: "easeIn",
+              times: [0, 0.15, 0.85, 1],
+            }}
+          >
+            <img src={d.src} alt="" className="size-full object-cover" />
+          </motion.div>
+        ))}
+        {/* Soft fade into yellow */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-sun" />
+      </div>
 
-      <div className="relative mx-auto max-w-7xl px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="border-b border-white/25 pb-20"
-        >
-          <h2 className="font-paint text-[11vw] uppercase leading-[0.92] tracking-[0.01em] text-white md:text-[8rem]">
-            Let's build<br />something<br />
-            <a href={`mailto:${resume.email}`} className="group inline-flex items-baseline gap-3 text-white">
-              meaningful.
-              <ArrowUpRight className="size-10 transition-transform group-hover:translate-x-2 group-hover:-translate-y-2 md:size-20" />
-            </a>
-          </h2>
-        </motion.div>
+      {/* Yellow base section */}
+      <div className="bg-sun text-ink">
+        <div className="mx-auto max-w-5xl px-6 py-16 flex flex-col items-center text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="font-paint text-5xl md:text-7xl uppercase tracking-tight"
+          >
+            AyonMunim
+          </motion.div>
 
-        <div className="grid grid-cols-2 gap-10 py-16 md:grid-cols-12">
-          <div className="col-span-2 md:col-span-5">
-            <div className="font-paint text-lg uppercase tracking-wide text-white">
-              MUNIM AHMED
-            </div>
-            <p className="mt-4 max-w-xs text-sm text-white/85">
-              Software engineer building intelligent, human-centered digital experiences.
-            </p>
-            <div className="mt-6 text-sm text-white/85">{resume.location}</div>
-            <a
-              href={`mailto:${resume.email}`}
-              className="group relative mt-6 inline-flex items-center gap-2 overflow-hidden rounded-full bg-white px-6 py-3 font-montreal text-sm font-semibold uppercase tracking-[0.18em] text-ink ring-1 ring-white/40 shadow-[0_14px_40px_-12px_rgba(0,0,0,0.25)] transition-all hover:ring-white"
-            >
-              <span className="absolute inset-0 -translate-x-full bg-sun transition-transform duration-500 ease-out group-hover:translate-x-0" />
-              <span className="relative transition-colors group-hover:text-white">Get in touch</span>
-              <ArrowUpRight className="relative size-4 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-white" />
-            </a>
+          <div className="mt-5 text-sm md:text-base font-medium tracking-wide">
+            Address: Washington DC, USA
           </div>
 
-          <div className="md:col-span-3 md:col-start-7">
-            <div className="text-[10px] uppercase tracking-[0.25em] text-white/70">Navigate</div>
-            <ul className="mt-5 space-y-3">
-              {quickLinks.map((l) => (
-                <li key={l.href}>
-                  <a href={l.href} className="story-link text-sm text-white/90 transition hover:text-white">
-                    {l.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+          <div className="mt-8 flex items-center gap-4">
+            {socials.map(({ href, label, Icon, variant }) => (
+              <a
+                key={label}
+                href={href}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel="noreferrer"
+                aria-label={label}
+                className={
+                  "group inline-flex size-12 items-center justify-center rounded-full ring-2 ring-ink/15 transition-all hover:scale-110 hover:ring-ink/40 " +
+                  (variant === "white"
+                    ? "bg-white text-ink hover:bg-ink hover:text-sun"
+                    : "bg-sun-deep text-ink hover:bg-ink hover:text-sun")
+                }
+              >
+                <Icon className="size-5" />
+              </a>
+            ))}
           </div>
 
-          <div className="md:col-span-3">
-            <div className="text-[10px] uppercase tracking-[0.25em] text-white/70">Elsewhere</div>
-            <ul className="mt-5 space-y-3 text-sm">
-              {elsewhere.map((l) => (
-                <li key={l.label}>
-                  <a
-                    href={l.href}
-                    target={l.href.startsWith("http") ? "_blank" : undefined}
-                    rel="noreferrer"
-                    className="story-link text-white/90 transition hover:text-white"
-                  >
-                    {l.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+          <div className="mt-10 text-xs tracking-[0.2em] uppercase opacity-80">
+            © Ayon Munim 2026
           </div>
-        </div>
-
-        <div className="flex flex-col items-start justify-between gap-3 border-t border-white/25 py-8 text-xs text-white/80 md:flex-row md:items-center">
-          <div>© {new Date().getFullYear()} <span className="font-semibold text-white">Munim Ahmed</span>. All rights reserved.</div>
-          <div>Built with React, TypeScript, Tailwind & Framer Motion.</div>
         </div>
       </div>
     </footer>
