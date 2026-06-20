@@ -189,7 +189,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="font-sans text-[15vw] font-black leading-[0.88] tracking-[-0.03em] text-ink md:text-[8rem]"
+          className="font-montreal text-[15vw] font-black leading-[0.88] tracking-[-0.03em] text-ink md:text-[8rem]"
         >
           Munim Ahmed
         </motion.h1>
