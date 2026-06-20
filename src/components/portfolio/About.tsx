@@ -2,25 +2,25 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { AnimatedSection } from "./AnimatedSection";
 import { resume } from "@/data/resume";
+import portraitAsset from "@/assets/munim-portrait.jpg.asset.json";
 import {
   Code2, Database, Brain, Palette, Wrench, Server,
   GraduationCap, MapPin, Mail as MailIcon, Briefcase,
 } from "lucide-react";
 
+// UI/UX Design first, then the rest in clean order.
 const skillGroups = [
-  { name: "Frontend",        icon: Code2,    items: ["React", "Next.js", "TypeScript", "Tailwind", "Framer Motion"] },
-  { name: "Backend",         icon: Server,   items: ["Django", "Node.js", "Express", "REST", "GraphQL"] },
-  { name: "Data & Analytics",icon: Database, items: ["PostgreSQL", "MySQL", "pandas", "Power BI", "SQL"] },
-  { name: "Machine Learning",icon: Brain,    items: ["scikit-learn", "TensorFlow", "NumPy", "Python"] },
-  { name: "UI / UX Design",  icon: Palette,  items: ["Figma", "Design Systems", "Prototyping", "A11y"] },
-  { name: "Tools",           icon: Wrench,   items: ["Git", "Docker", "Vercel", "Linux", "Jira"] },
+  { name: "UI / UX Design",   icon: Palette,  items: ["Figma", "Design Systems", "Prototyping", "A11y"] },
+  { name: "Frontend",         icon: Code2,    items: ["React", "Next.js", "TypeScript", "Tailwind", "Framer Motion"] },
+  { name: "Backend",          icon: Server,   items: ["Django", "Node.js", "Express", "REST", "GraphQL"] },
+  { name: "Data & Analytics", icon: Database, items: ["PostgreSQL", "MySQL", "pandas", "Power BI", "SQL"] },
+  { name: "Machine Learning", icon: Brain,    items: ["scikit-learn", "TensorFlow", "NumPy", "Python"] },
+  { name: "Tools",            icon: Wrench,   items: ["Git", "Docker", "Vercel", "Linux", "Jira"] },
 ];
 
 export function About() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-
-  // Smooth transition from cream → full black as the section enters
   const bg = useTransform(
     scrollYProgress,
     [0, 0.18, 0.35, 1],
@@ -43,11 +43,23 @@ export function About() {
         </AnimatedSection>
 
         <div className="mt-14 grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
+          {/* Black & white portrait replaces the headline */}
           <AnimatedSection className="lg:col-span-6">
-            <h2 className="font-paint paint-ink text-5xl uppercase leading-[0.95] md:text-7xl">
-              An engineer who treats interfaces<br />
-              as ideas — and ideas <span className="text-white/70">as systems.</span>
-            </h2>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              className="relative aspect-[3/4] w-full max-w-md overflow-hidden rounded-2xl ring-1 ring-white/15 shadow-[0_40px_120px_-30px_rgba(0,0,0,0.6)]"
+            >
+              <img
+                src={portraitAsset.url}
+                alt="Munim Ahmed"
+                className="h-full w-full object-cover"
+                style={{ filter: "grayscale(100%) contrast(1.05)" }}
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+            </motion.div>
           </AnimatedSection>
 
           <AnimatedSection delay={0.1} className="lg:col-span-5 lg:col-start-8">
@@ -72,7 +84,7 @@ export function About() {
           </AnimatedSection>
         </div>
 
-        {/* Skills — modern visualization (black & white) */}
+        {/* Skills */}
         <AnimatedSection delay={0.15}>
           <div className="mt-28 flex items-baseline justify-between">
             <h3 className="font-display text-3xl uppercase tracking-[0.02em] md:text-5xl">
@@ -112,37 +124,6 @@ export function About() {
                   ))}
                 </div>
               </motion.div>
-            </AnimatedSection>
-          ))}
-        </div>
-
-        {/* Education embedded */}
-        <AnimatedSection delay={0.1}>
-          <div className="mt-28 flex items-baseline justify-between">
-            <h3 className="font-display text-3xl uppercase tracking-[0.02em] md:text-5xl">
-              <span className="text-white/70">/</span> Education
-            </h3>
-            <span className="text-[10px] uppercase tracking-[0.25em] text-white/40">
-              Academic Background
-            </span>
-          </div>
-        </AnimatedSection>
-
-        <div className="mt-10 divide-y divide-white/10 border-y border-white/10">
-          {resume.education.map((e, i) => (
-            <AnimatedSection key={e.degree} delay={i * 0.08}>
-              <div className="group grid grid-cols-12 items-baseline gap-6 py-8 transition-colors hover:bg-white/[0.03] md:py-10">
-                <div className="col-span-12 text-[11px] uppercase tracking-[0.25em] text-white/70 md:col-span-2">
-                  {e.period}
-                </div>
-                <div className="col-span-12 md:col-span-6">
-                  <h4 className="font-display text-2xl uppercase tracking-wide md:text-3xl">
-                    {e.degree}
-                  </h4>
-                  <div className="mt-2 text-sm text-white/60">{e.school}</div>
-                </div>
-                <div className="col-span-12 text-sm text-white/65 md:col-span-4">{e.detail}</div>
-              </div>
             </AnimatedSection>
           ))}
         </div>

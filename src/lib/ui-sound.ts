@@ -39,18 +39,36 @@ function blip(freq: number, duration = 0.08, type: OscillatorType = "sine", gain
   osc.stop(t + duration + 0.02);
 }
 
+// Nikon "chit" tick — ultra-short high-freq square pop
+function tick(freq: number, gain = 0.5) {
+  const ac = ensureCtx();
+  if (!ac || !master) return;
+  const t = ac.currentTime;
+  const osc = ac.createOscillator();
+  const g = ac.createGain();
+  osc.type = "square";
+  osc.frequency.setValueAtTime(freq, t);
+  g.gain.setValueAtTime(0, t);
+  g.gain.linearRampToValueAtTime(gain, t + 0.002);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + 0.018);
+  osc.connect(g);
+  g.connect(master);
+  osc.start(t);
+  osc.stop(t + 0.03);
+}
+
 export function playHover() {
   if (!enabled) return;
   const now = performance.now();
-  if (now - lastHoverAt < 60) return; // throttle
+  if (now - lastHoverAt < 80) return; // throttle
   lastHoverAt = now;
-  blip(1800, 0.05, "sine", 0.35);
+  tick(3200, 0.18);
 }
 
 export function playClick() {
   if (!enabled) return;
-  blip(880, 0.07, "triangle", 0.7);
-  setTimeout(() => blip(1320, 0.06, "sine", 0.4), 18);
+  tick(3600, 0.4);
+  setTimeout(() => tick(2400, 0.3), 22);
 }
 
 export function setSoundEnabled(v: boolean) {
