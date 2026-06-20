@@ -1,15 +1,6 @@
 import { motion, useAnimationControls } from "motion/react";
 import { useEffect } from "react";
-import {
-  User,
-  Briefcase,
-  Award,
-  Newspaper,
-  GraduationCap,
-  Mail,
-  Download,
-  type LucideIcon,
-} from "lucide-react";
+import { User, Briefcase, Award, Newspaper, GraduationCap, Mail, Download, type LucideIcon } from "lucide-react";
 import portraitAsset from "@/assets/munim-formal.jpg.asset.json";
 const portrait = portraitAsset.url;
 import daily23 from "@/assets/press/Daily_23.png.asset.json";
@@ -26,24 +17,23 @@ type Floater = { src: string; alt: string; w: number; baseAngle: number; delay: 
 
 // Non-sequential base angles so pieces fly out from different sides (not in order).
 const RAW: { src: string; alt: string; w: number; baseAngle: number }[] = [
-  { src: nsac.url,     alt: "NASA Space Apps Challenge 2022", w: 360, baseAngle: -70 },
-  { src: prothom.url,  alt: "Prothom Alo",                    w: 350, baseAngle: 140 },
-  { src: nasa.url,     alt: "NASA Earth Data",                w: 340, baseAngle: 30 },
-  { src: samakal.url,  alt: "Samakal",                        w: 360, baseAngle: -150 },
-  { src: daily24.url,  alt: "The Daily Star 2024",            w: 380, baseAngle: 75 },
-  { src: kaler.url,    alt: "Kaler Kantho",                   w: 360, baseAngle: -20 },
-  { src: observer.url, alt: "Daily Observer",                 w: 340, baseAngle: 165 },
-  { src: daily23.url,  alt: "The Daily Star 2023",            w: 330, baseAngle: -110 },
-  { src: news24.url,   alt: "NEWS24",                         w: 320, baseAngle: 105 },
+  { src: nsac.url, alt: "NASA Space Apps Challenge 2022", w: 360, baseAngle: -70 },
+  { src: prothom.url, alt: "Prothom Alo", w: 350, baseAngle: 140 },
+  { src: nasa.url, alt: "NASA Earth Data", w: 340, baseAngle: 30 },
+  { src: samakal.url, alt: "Samakal", w: 360, baseAngle: -150 },
+  { src: daily24.url, alt: "The Daily Star 2024", w: 380, baseAngle: 75 },
+  { src: kaler.url, alt: "Kaler Kantho", w: 360, baseAngle: -20 },
+  { src: observer.url, alt: "Daily Observer", w: 340, baseAngle: 165 },
+  { src: daily23.url, alt: "The Daily Star 2023", w: 330, baseAngle: -110 },
+  { src: news24.url, alt: "NEWS24", w: 320, baseAngle: 105 },
 ];
 
 const PER_IMAGE_DURATION = 7.5; // seconds: one image travels center → fully off page (constant speed)
-const STAGGER = 3.2;            // ~2-3 alive at once
+const STAGGER = 3.2; // ~2-3 alive at once
 const LOOP_GAP = 0;
 
 const FLOATERS: Floater[] = RAW.map((f, i) => ({ ...f, delay: i * STAGGER }));
-const LOOP_DURATION =
-  RAW.length * STAGGER + PER_IMAGE_DURATION + LOOP_GAP;
+const LOOP_DURATION = RAW.length * STAGGER + PER_IMAGE_DURATION + LOOP_GAP;
 
 function FloatingPiece({ f }: { f: Floater }) {
   const controls = useAnimationControls();
@@ -57,7 +47,7 @@ function FloatingPiece({ f }: { f: Floater }) {
       let cycle = 0;
       while (!cancelled) {
         // Shuffle: jitter angle each loop so order/direction varies, but style stays same
-        const jitter = (Math.sin((f.baseAngle + cycle * 47.3) * 0.91) * 35);
+        const jitter = Math.sin((f.baseAngle + cycle * 47.3) * 0.91) * 35;
         const angle = f.baseAngle + jitter;
         const rad = (angle * Math.PI) / 180;
         const tx = `${Math.cos(rad) * dist}vmin`;
@@ -78,9 +68,7 @@ function FloatingPiece({ f }: { f: Floater }) {
         // reset to center invisibly for next cycle
         await controls.set({ x: "-50%", y: "-50%", scale: 0.2, opacity: 0 });
         cycle++;
-        await new Promise((r) =>
-          setTimeout(r, (LOOP_DURATION - PER_IMAGE_DURATION) * 1000)
-        );
+        await new Promise((r) => setTimeout(r, (LOOP_DURATION - PER_IMAGE_DURATION) * 1000));
       }
     };
 
@@ -107,19 +95,19 @@ function FloatingPiece({ f }: { f: Floater }) {
 
 // Orbit nav — icon buttons with tooltip on hover, no orbit ring line, very slow rotation
 const ORBIT_LINKS: { href: string; label: string; Icon: LucideIcon }[] = [
-  { href: "#bio",      label: "Bio",        Icon: User },
-  { href: "#projects", label: "Project",    Icon: Briefcase },
-  { href: "#awards",   label: "Award",      Icon: Award },
-  { href: "#media",    label: "Media",      Icon: Newspaper },
-  { href: "#work",     label: "Experience", Icon: GraduationCap },
-  { href: "#contact",  label: "Contact",    Icon: Mail },
+  { href: "#bio", label: "Bio", Icon: User },
+  { href: "#projects", label: "Project", Icon: Briefcase },
+  { href: "#awards", label: "Award", Icon: Award },
+  { href: "#media", label: "Media", Icon: Newspaper },
+  { href: "#work", label: "Experience", Icon: GraduationCap },
+  { href: "#contact", label: "Contact", Icon: Mail },
 ];
 
 // Static orbit nav — interactive icon buttons with tooltip on hover, no rotation
 function OrbitRing({ radius = 215 }: { radius?: number }) {
   return (
     <div
-      className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+      className="pointer-events-none absolute left-2 top-2 -translate-x-1/2 -translate-y-1/2"
       style={{ width: radius * 2, height: radius * 2 }}
     >
       {ORBIT_LINKS.map((l, i) => {
@@ -150,22 +138,19 @@ function OrbitRing({ radius = 215 }: { radius?: number }) {
   );
 }
 
-
 export function Hero() {
   return (
     <section
       id="top"
       className="relative flex min-h-screen flex-col items-center justify-start overflow-hidden px-6 pt-24 pb-16"
       style={{
-        background:
-          "radial-gradient(130% 90% at 50% 0%, #FFFDF8 0%, #FFF7DF 55%, #FCEBB0 120%)",
+        background: "radial-gradient(130% 90% at 50% 0%, #FFFDF8 0%, #FFF7DF 55%, #FCEBB0 120%)",
       }}
     >
       <div
         className="pointer-events-none absolute inset-0 -z-0"
         style={{
-          background:
-            "radial-gradient(55% 45% at 50% 55%, rgba(255,206,0,0.10), rgba(255,206,0,0) 70%)",
+          background: "radial-gradient(55% 45% at 50% 55%, rgba(255,206,0,0.10), rgba(255,206,0,0) 70%)",
         }}
       />
 
@@ -184,10 +169,8 @@ export function Hero() {
         style={{
           backdropFilter: "blur(8px)",
           WebkitBackdropFilter: "blur(8px)",
-          maskImage:
-            "radial-gradient(closest-side, rgba(0,0,0,1) 55%, rgba(0,0,0,0.6) 75%, rgba(0,0,0,0) 100%)",
-          WebkitMaskImage:
-            "radial-gradient(closest-side, rgba(0,0,0,1) 55%, rgba(0,0,0,0.6) 75%, rgba(0,0,0,0) 100%)",
+          maskImage: "radial-gradient(closest-side, rgba(0,0,0,1) 55%, rgba(0,0,0,0.6) 75%, rgba(0,0,0,0) 100%)",
+          WebkitMaskImage: "radial-gradient(closest-side, rgba(0,0,0,1) 55%, rgba(0,0,0,0.6) 75%, rgba(0,0,0,0) 100%)",
         }}
       />
 
@@ -239,52 +222,44 @@ export function Hero() {
               transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
               className="relative size-36 overflow-hidden rounded-full bg-ink ring-[6px] ring-ink shadow-[0_30px_80px_-25px_rgba(0,0,0,0.55)] md:size-48"
             >
-              <img
-                src={portrait}
-                alt="Munim Ahmed"
-                width={560}
-                height={560}
-                className="h-full w-full object-cover"
-              />
+              <img src={portrait} alt="Munim Ahmed" width={560} height={560} className="h-full w-full object-cover" />
             </motion.div>
           </motion.div>
         </div>
-
-
       </div>
 
-        {/* Resume download — highlighted, animated, unmistakable */}
-        <motion.a
-          href="/resume.pdf"
-          download
-          aria-label="Download resume"
-          title="Download Resume"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.6, duration: 0.8 }}
-          className="group relative mt-28 flex size-14 items-center justify-center rounded-full bg-sun text-ink shadow-[0_14px_40px_-10px_rgba(255,206,0,0.85)] ring-2 ring-ink/15 transition-transform hover:scale-110 md:mt-36"
+      {/* Resume download — highlighted, animated, unmistakable */}
+      <motion.a
+        href="/resume.pdf"
+        download
+        aria-label="Download resume"
+        title="Download Resume"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.6, duration: 0.8 }}
+        className="group relative mt-28 flex size-14 items-center justify-center rounded-full bg-sun text-ink shadow-[0_14px_40px_-10px_rgba(255,206,0,0.85)] ring-2 ring-ink/15 transition-transform hover:scale-110 md:mt-36"
+      >
+        {/* pulsing halo */}
+        <span className="pointer-events-none absolute inset-0 -z-10 animate-ping rounded-full bg-sun/70" />
+        <span className="pointer-events-none absolute -inset-1 -z-10 rounded-full bg-sun/40 blur-md animate-pulse" />
+        {/* rotating dashed ring */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute -inset-1 rounded-full border-2 border-dashed border-ink/60"
+          style={{ animation: "spin 8s linear infinite" }}
+        />
+        <motion.span
+          animate={{ y: [0, 3, 0] }}
+          transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+          className="relative inline-flex"
         >
-          {/* pulsing halo */}
-          <span className="pointer-events-none absolute inset-0 -z-10 animate-ping rounded-full bg-sun/70" />
-          <span className="pointer-events-none absolute -inset-1 -z-10 rounded-full bg-sun/40 blur-md animate-pulse" />
-          {/* rotating dashed ring */}
-          <span
-            aria-hidden
-            className="pointer-events-none absolute -inset-1 rounded-full border-2 border-dashed border-ink/60"
-            style={{ animation: "spin 8s linear infinite" }}
-          />
-          <motion.span
-            animate={{ y: [0, 3, 0] }}
-            transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
-            className="relative inline-flex"
-          >
-            <Download className="size-5" strokeWidth={2.4} />
-          </motion.span>
-          {/* hover label */}
-          <span className="pointer-events-none absolute right-[110%] top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-ink px-3 py-1 font-sans text-[10px] font-bold uppercase tracking-[0.22em] text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-            Resume
-          </span>
-        </motion.a>
+          <Download className="size-5" strokeWidth={2.4} />
+        </motion.span>
+        {/* hover label */}
+        <span className="pointer-events-none absolute right-[110%] top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-ink px-3 py-1 font-sans text-[10px] font-bold uppercase tracking-[0.22em] text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+          Resume
+        </span>
+      </motion.a>
     </section>
   );
 }
