@@ -26,7 +26,7 @@ const GALLERY = [
   { src: prothom.url, title: "Prothom Alo",            note: "National daily feature",     href: "#" },
   { src: nasa.url,    title: "NASA Earth Data",        note: "Project highlight",          href: "#" },
   { src: nsac.url,    title: "NASA Space Apps",        note: "Global Champion 2022",       href: "#" },
-  { src: kaler.url,   title: "Kaler Kantho",           title2: "",                          note: "Engineer spotlight", href: "#" },
+  { src: kaler.url,   title: "Kaler Kantho",           note: "Engineer spotlight",         href: "#" },
   { src: samakal.url, title: "Samakal",                note: "Youth in STEM",              href: "#" },
   { src: observer.url,title: "Daily Observer",         note: "Innovation column",          href: "#" },
   { src: daily23.url, title: "The Daily Star — 2023",  note: "Featured story",             href: "#" },
