@@ -42,10 +42,10 @@ const schema = z.object({
 type FormState = { name: string; email: string; subject: string; message: string };
 
 const socials = [
-  { href: `mailto:${resume.email}`, label: "Email", Icon: Mail, variant: "white" as const },
-  { href: resume.github, label: "GitHub", Icon: Github, variant: "yellow" as const },
-  { href: "https://linkedin.com/in/ayonmunim", label: "LinkedIn", Icon: Linkedin, variant: "white" as const },
-  { href: "https://twitter.com/ayonmunim", label: "Twitter", Icon: Twitter, variant: "yellow" as const },
+  { href: `mailto:${resume.email}`, label: "Email", Icon: Mail },
+  { href: resume.github, label: "GitHub", Icon: Github },
+  { href: "https://linkedin.com/in/ayonmunim", label: "LinkedIn", Icon: Linkedin },
+  { href: "https://twitter.com/ayonmunim", label: "Twitter", Icon: Twitter },
 ];
 
 export function Footer() {
@@ -192,7 +192,7 @@ export function Footer() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   disabled={loading}
-                  className="inline-flex items-center gap-2 rounded-full bg-ink px-8 py-4 text-sm font-semibold text-sun shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)] transition hover:bg-ink/90 disabled:opacity-60"
+                  className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-semibold text-ink ring-2 ring-ink/15 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.35)] transition hover:bg-sun hover:text-white hover:ring-ink/30 disabled:opacity-60"
                 >
                   {loading ? <Loader2 className="size-4 animate-spin" /> : <Send className="size-4" />}
                   {loading ? "Sending..." : "Send message"}
@@ -237,19 +237,14 @@ export function Footer() {
           </div>
 
           <div className="mt-8 flex items-center gap-4">
-            {socials.map(({ href, label, Icon, variant }) => (
+            {socials.map(({ href, label, Icon }) => (
               <a
                 key={label}
                 href={href}
                 target={href.startsWith("http") ? "_blank" : undefined}
                 rel="noreferrer"
                 aria-label={label}
-                className={
-                  "group inline-flex size-12 items-center justify-center rounded-full ring-2 ring-ink/15 transition-all hover:scale-110 hover:ring-ink/40 " +
-                  (variant === "white"
-                    ? "bg-white text-ink hover:bg-ink hover:text-sun"
-                    : "bg-sun-deep text-ink hover:bg-ink hover:text-sun")
-                }
+                className="group inline-flex size-12 items-center justify-center rounded-full bg-white text-ink ring-2 ring-ink/15 transition-all hover:scale-110 hover:bg-sun hover:text-white hover:ring-ink/30"
               >
                 <Icon className="size-5" />
               </a>
