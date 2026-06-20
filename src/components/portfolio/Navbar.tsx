@@ -101,99 +101,113 @@ function MenuOverlay({ onClose }: { onClose: () => void }) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      className="fixed inset-0 z-[60] overflow-y-auto bg-sun text-white"
+      className="fixed inset-0 z-[60] overflow-y-auto text-white backdrop-blur-xl"
+      style={{ background: "rgba(255, 206, 0, 0.92)" }}
     >
       <button
         onClick={onClose}
         aria-label="Close menu"
         className="group fixed right-5 top-5 z-10 flex size-11 items-center justify-center overflow-hidden rounded-full bg-white text-ink shadow-[0_10px_30px_-12px_rgba(0,0,0,0.3)] transition-colors"
       >
-        <span className="absolute inset-0 scale-0 rounded-full bg-sun transition-transform duration-500 ease-out group-hover:scale-100" />
+        <span className="absolute inset-0 scale-0 rounded-full bg-ink transition-transform duration-500 ease-out group-hover:scale-100" />
         <X className="relative size-5 transition-colors group-hover:text-white" />
       </button>
 
-      <div className="mx-auto grid min-h-screen w-full max-w-[1600px] grid-cols-1 gap-10 px-6 py-20 md:grid-cols-[1fr_1.2fr_1.3fr] md:gap-12 md:px-16 md:py-16 lg:px-24">
-        <motion.aside
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.15, duration: 0.5 }}
-          className="flex flex-col justify-end gap-8 md:pb-6"
-        >
-          <div className="space-y-3">
-            <div className="font-montreal text-[10px] uppercase tracking-[0.35em] text-white/80">
-              Get in touch
-            </div>
-            <a
-              href="mailto:ayonmunim26@gmail.com"
-              className="block font-montreal text-lg font-light text-white transition hover:text-white md:text-xl"
-            >
-              ayonmunim26@gmail.com
-            </a>
-          </div>
-          <ul className="space-y-3 font-montreal text-[11px] uppercase tracking-[0.3em] text-white/80">
-            {[
-              { label: "Facebook", href: "#" },
-              { label: "LinkedIn", href: "#" },
-              { label: "GitHub",   href: "#" },
-            ].map((s) => (
-              <li key={s.label}>
-                <a href={s.href} className="transition hover:text-white">{s.label}</a>
-              </li>
+      <div className="mx-auto grid min-h-screen w-full max-w-[1700px] grid-cols-1 gap-8 px-5 py-20 md:grid-cols-[1.1fr_1.3fr] md:gap-14 md:px-16 md:py-16 lg:px-24">
+        {/* Left: nav links + contact */}
+        <div className="flex flex-col justify-between gap-12 md:gap-8 md:py-8">
+          <nav className="flex flex-col gap-2 md:gap-3">
+            {overlayLinks.map((l, i) => (
+              <motion.a
+                key={l.href}
+                href={l.href}
+                onClick={onClose}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.15 + i * 0.06, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="group inline-block font-montreal text-3xl font-semibold leading-[1.05] tracking-[-0.02em] text-white md:text-5xl lg:text-6xl"
+              >
+                <span className="relative inline-block">
+                  {l.label}
+                  <span className="absolute -bottom-1 left-0 h-[2px] w-0 bg-white transition-all duration-500 group-hover:w-full" />
+                </span>
+              </motion.a>
             ))}
-          </ul>
-        </motion.aside>
+          </nav>
 
+          <motion.aside
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+            className="space-y-6"
+          >
+            <div className="space-y-2">
+              <div className="font-montreal text-[10px] uppercase tracking-[0.35em] text-white/80">
+                Get in touch
+              </div>
+              <a
+                href="mailto:ayonmunim26@gmail.com"
+                className="group inline-block font-montreal text-base font-light text-white md:text-lg"
+              >
+                <span className="relative inline-block">
+                  ayonmunim26@gmail.com
+                  <span className="absolute -bottom-0.5 left-0 h-[1px] w-0 bg-white transition-all duration-500 group-hover:w-full" />
+                </span>
+              </a>
+            </div>
+            <ul className="flex flex-wrap gap-x-6 gap-y-2 font-montreal text-[11px] uppercase tracking-[0.3em] text-white/85">
+              {[
+                { label: "Facebook", href: "#" },
+                { label: "LinkedIn", href: "#" },
+                { label: "GitHub",   href: "#" },
+                { label: "Twitter",  href: "#" },
+              ].map((s) => (
+                <li key={s.label}>
+                  <a href={s.href} className="group inline-block">
+                    <span className="relative">
+                      {s.label}
+                      <span className="absolute -bottom-0.5 left-0 h-[1px] w-0 bg-white transition-all duration-500 group-hover:w-full" />
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </motion.aside>
+        </div>
+
+        {/* Right: vertical scrolling image rail — visible on mobile too */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.6 }}
-          className="relative hidden h-[70vh] items-center justify-center self-center overflow-hidden md:flex"
+          className="relative flex h-[55vh] items-center justify-center self-center overflow-hidden md:h-[78vh]"
           style={{
             maskImage:
-              "linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent)",
+              "linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent)",
             WebkitMaskImage:
-              "linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent)",
+              "linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent)",
           }}
         >
           <motion.div
             animate={{ y: ["0%", "-50%"] }}
-            transition={{ duration: 50, ease: "linear", repeat: Infinity }}
-            className="flex w-full flex-col gap-5"
+            transition={{ duration: 55, ease: "linear", repeat: Infinity }}
+            className="flex w-full flex-col gap-4"
           >
             {[...NEWS_IMAGES, ...NEWS_IMAGES].map((img, i) => (
               <div
                 key={i}
-                className="overflow-hidden rounded-md ring-1 ring-white/20 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.35)]"
+                className="overflow-hidden rounded-lg ring-1 ring-white/25 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.45)]"
               >
                 <img
                   src={img.src}
                   alt={img.alt}
-                  className="block h-72 w-full object-cover md:h-80"
+                  className="block h-56 w-full object-cover md:h-80"
                   loading="lazy"
                 />
               </div>
             ))}
           </motion.div>
         </motion.div>
-
-        <nav className="flex flex-col justify-center gap-3 md:items-end md:text-right">
-          {overlayLinks.map((l, i) => (
-            <motion.a
-              key={l.href}
-              href={l.href}
-              onClick={onClose}
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 + i * 0.07, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative inline-block font-montreal text-3xl font-semibold leading-[1.1] tracking-[-0.02em] text-white transition-colors hover:text-white md:text-5xl lg:text-6xl"
-            >
-              <span className="relative">
-                {l.label}
-                <span className="absolute -bottom-1 left-0 h-[2px] w-0 bg-white transition-all duration-500 group-hover:w-full" />
-              </span>
-            </motion.a>
-          ))}
-        </nav>
       </div>
     </motion.div>
   );
