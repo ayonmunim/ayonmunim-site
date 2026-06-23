@@ -7,30 +7,6 @@ import { z } from "zod";
 import { sendContact } from "@/lib/api/contact.functions";
 import { AnimatedSection } from "./AnimatedSection";
 import { resume } from "@/data/resume";
-import daily23 from "@/assets/press/Daily_23.png.asset.json";
-import daily24 from "@/assets/press/Daily_24.png.asset.json";
-import kaler from "@/assets/press/Kaler_Kantho.png.asset.json";
-import nasa from "@/assets/press/NASA.png.asset.json";
-import observer from "@/assets/press/Observer.png.asset.json";
-import samakal from "@/assets/press/Samakal.png.asset.json";
-import prothom from "@/assets/press/Prothom_Alo_2023_2.png.asset.json";
-import news24 from "@/assets/press/NEWS24.png.asset.json";
-import nsac from "@/assets/press/NSAC_2022.png.asset.json";
-
-// Images drift down (top→bottom) and up (bottom→top), well spaced.
-const DOWN_DROPS = [
-  { src: daily23.url, left: "5%",  size: 110, delay: 0.0, dur: 14 },
-  { src: nasa.url,    left: "22%", size: 140, delay: 3.5, dur: 16 },
-  { src: prothom.url, left: "48%", size: 120, delay: 1.5, dur: 15 },
-  { src: news24.url,  left: "70%", size: 105, delay: 5.0, dur: 17 },
-  { src: daily24.url, left: "90%", size: 95,  delay: 2.2, dur: 14.5 },
-];
-const UP_DROPS = [
-  { src: kaler.url,    left: "13%", size: 100, delay: 1.8, dur: 16 },
-  { src: observer.url, left: "36%", size: 115, delay: 4.0, dur: 15 },
-  { src: samakal.url,  left: "60%", size: 95,  delay: 0.6, dur: 17 },
-  { src: nsac.url,     left: "82%", size: 125, delay: 3.0, dur: 14.5 },
-];
 
 const schema = z.object({
   name: z.string().trim().min(1, "Please enter your name").max(100),
@@ -91,58 +67,6 @@ export function Footer() {
           "linear-gradient(to bottom, #FFFFFF 0%, #FFF8E0 28%, #FFE57A 58%, #FFCE00 82%, #FFCE00 100%)",
       }}
     >
-      {/* Floating press images — circular, drift across the full section,
-          fade in as the section enters view, soft white gradient at top/bottom. */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: false, amount: 0.05 }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
-        className="pointer-events-none absolute inset-0 overflow-hidden"
-        style={{
-          maskImage:
-            "linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%)",
-        }}
-      >
-        {DOWN_DROPS.map((d, i) => (
-          <motion.div
-            key={`d-${i}`}
-            className="absolute -translate-x-1/2 rounded-full overflow-hidden ring-2 ring-white/70 shadow-[0_25px_60px_-20px_rgba(0,0,0,0.25)]"
-            style={{ left: d.left, width: d.size, height: d.size, top: 0 }}
-            initial={{ y: "-10%", opacity: 0 }}
-            animate={{ y: ["-10%", "150vh"], opacity: [0, 1, 1, 0], rotate: [-4, 4] }}
-            transition={{
-              duration: d.dur,
-              delay: d.delay,
-              repeat: Infinity,
-              ease: "linear",
-              times: [0, 0.12, 0.88, 1],
-            }}
-          >
-            <img src={d.src} alt="" className="size-full object-cover" />
-          </motion.div>
-        ))}
-        {UP_DROPS.map((d, i) => (
-          <motion.div
-            key={`u-${i}`}
-            className="absolute -translate-x-1/2 rounded-full overflow-hidden ring-2 ring-white/70 shadow-[0_25px_60px_-20px_rgba(0,0,0,0.25)]"
-            style={{ left: d.left, width: d.size, height: d.size, bottom: 0 }}
-            initial={{ y: "10%", opacity: 0 }}
-            animate={{ y: ["10%", "-150vh"], opacity: [0, 1, 1, 0], rotate: [4, -4] }}
-            transition={{
-              duration: d.dur,
-              delay: d.delay,
-              repeat: Infinity,
-              ease: "linear",
-              times: [0, 0.12, 0.88, 1],
-            }}
-          >
-            <img src={d.src} alt="" className="size-full object-cover" />
-          </motion.div>
-        ))}
-      </motion.div>
 
 
       {/* Contact form */}
@@ -227,14 +151,20 @@ export function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="font-paint text-5xl md:text-7xl uppercase tracking-tight"
+            className="font-edo text-6xl font-bold uppercase tracking-tight md:text-8xl"
+            style={{ fontFamily: '"UnifrakturCook", "UnifrakturMaguntia", "Cinzel", serif', fontWeight: 700 }}
           >
             AyonMunim
           </motion.div>
 
           <div className="mt-5 text-sm md:text-base font-medium tracking-wide">
-            Address: Washington DC, USA
+            Washington DC, USA
           </div>
+
+          <div className="mt-3 text-xs md:text-sm italic font-medium tracking-wide opacity-80">
+            Stay Positive, Stay Love.
+          </div>
+
 
           <div className="mt-8 flex items-center gap-4">
             {socials.map(({ href, label, Icon }) => (

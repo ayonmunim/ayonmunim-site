@@ -1,7 +1,12 @@
-import { motion } from "motion/react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { AnimatedSection } from "./AnimatedSection";
 import { resume } from "@/data/resume";
-import certificate from "@/assets/diu-certificate.jpg.asset.json";
+import diuDegree from "@/assets/awards/DIU_Degree.jpg.asset.json";
+import ca from "@/assets/awards/CA.png.asset.json";
+
+// Two rows — one cert image per education entry
+const CERTS = [ca.url, diuDegree.url];
 
 export function Education() {
   return (
@@ -16,81 +21,66 @@ export function Education() {
           </h2>
         </AnimatedSection>
 
-        <div className="mt-20 grid grid-cols-1 gap-14 lg:grid-cols-2 lg:gap-20">
-          {/* Left — education list */}
-          <div className="divide-y divide-white/10 border-y border-white/10">
-            {resume.education.map((e, i) => (
-              <AnimatedSection key={e.degree} delay={i * 0.08}>
-                <div className="group grid grid-cols-12 items-baseline gap-4 py-8 transition-colors hover:bg-white/[0.03] md:py-10">
-                  <div className="col-span-12 text-[11px] uppercase tracking-[0.25em] text-white/70 md:col-span-3">
-                    {e.period}
-                  </div>
-                  <div className="col-span-12 md:col-span-9">
-                    <h3 className="font-display text-2xl uppercase tracking-wide md:text-3xl">
-                      {e.degree}
-                    </h3>
-                    <div className="mt-2 text-sm text-white/60">{e.school}</div>
-                    <div className="mt-1 text-sm text-white/55">{e.detail}</div>
-                  </div>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-
-          {/* Right — sticky certificate with animated silver/black border */}
-          <div className="relative">
-            <div className="lg:sticky lg:top-24">
-              <motion.div
-                initial={{ opacity: 0, x: 60, scale: 0.95 }}
-                whileInView={{ opacity: 1, x: 0, scale: 1 }}
-                viewport={{ once: false, margin: "-120px" }}
-                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-                className="relative"
-              >
-                {/* Animated silver-black conic border */}
-                <div
-                  aria-hidden
-                  className="cert-border absolute -inset-[3px] rounded-2xl"
-                />
-                <div className="relative overflow-hidden rounded-2xl bg-black p-2 shadow-[0_40px_120px_-30px_rgba(255,255,255,0.25)]">
-                  <img
-                    src={certificate.url}
-                    alt="Bachelor of Science in Software Engineering — Daffodil International University"
-                    className="block h-auto w-full rounded-xl"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="mt-5 text-center text-[11px] uppercase tracking-[0.3em] text-white/50">
-                  Daffodil International University · 2024
-                </div>
-              </motion.div>
-            </div>
-          </div>
+        <div className="mt-20 divide-y divide-white/10 border-y border-white/10">
+          {resume.education.map((e, i) => (
+            <EducationRow key={e.degree} item={e} cert={CERTS[i % CERTS.length]} delay={i * 0.08} />
+          ))}
         </div>
       </div>
-
-      <style>{`
-        .cert-border {
-          background: conic-gradient(
-            from 0deg,
-            #1a1a1a 0%,
-            #c0c0c0 20%,
-            #ffffff 30%,
-            #c0c0c0 40%,
-            #1a1a1a 50%,
-            #c0c0c0 70%,
-            #ffffff 80%,
-            #c0c0c0 90%,
-            #1a1a1a 100%
-          );
-          animation: cert-spin 6s linear infinite;
-          border-radius: 1rem;
-        }
-        @keyframes cert-spin {
-          from { transform: rotate(0deg); }
-          to   { transform: rotate(360deg); }
-        }
-      `}</style>
     </section>
+  );
+}
+
+function EducationRow({
+  item, cert, delay,
+}: {
+  item: { degree: string; school: string; period: string; detail: string };
+  cert: string;
+  delay: number;
+}) {
+  const [hover, setHover] = useState(false);
+  return (
+    <AnimatedSection delay={delay}>
+      <div
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+        className="group relative grid grid-cols-12 items-center gap-4 py-10 transition-colors hover:bg-white/[0.03] md:py-14"
+      >
+        <div className="col-span-12 text-[11px] uppercase tracking-[0.25em] text-white/70 md:col-span-3">
+          {item.period}
+        </div>
+        <div className="col-span-12 md:col-span-6">
+          <h3 className="font-display text-2xl uppercase tracking-wide md:text-4xl">
+            {item.degree}
+          </h3>
+          <div className="mt-2 text-sm text-white/60">{item.school}</div>
+          <div className="mt-1 text-sm text-white/55">{item.detail}</div>
+        </div>
+        <div className="col-span-12 md:col-span-3 flex justify-end">
+          <span className="text-[10px] uppercase tracking-[0.28em] text-white/40">
+            Hover →
+          </span>
+        </div>
+
+        {/* Floating certificate that appears on hover */}
+        <AnimatePresence>
+          {hover && (
+            <motion.div
+              key="cert"
+              initial={{ opacity: 0, scale: 0.85, y: 30, rotate: -3 }}
+              animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20, rotate: 2 }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              className="pointer-events-none absolute right-4 top-1/2 z-20 hidden -translate-y-1/2 md:block"
+              style={{ width: 380 }}
+            >
+              <div className="overflow-hidden rounded-xl bg-white p-2 shadow-[0_40px_120px_-20px_rgba(255,255,255,0.35)] ring-1 ring-white/20">
+                <img src={cert} alt={item.degree} className="block h-auto w-full rounded-md" />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </AnimatedSection>
   );
 }
