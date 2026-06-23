@@ -7,30 +7,6 @@ import { z } from "zod";
 import { sendContact } from "@/lib/api/contact.functions";
 import { AnimatedSection } from "./AnimatedSection";
 import { resume } from "@/data/resume";
-import daily23 from "@/assets/press/Daily_23.png.asset.json";
-import daily24 from "@/assets/press/Daily_24.png.asset.json";
-import kaler from "@/assets/press/Kaler_Kantho.png.asset.json";
-import nasa from "@/assets/press/NASA.png.asset.json";
-import observer from "@/assets/press/Observer.png.asset.json";
-import samakal from "@/assets/press/Samakal.png.asset.json";
-import prothom from "@/assets/press/Prothom_Alo_2023_2.png.asset.json";
-import news24 from "@/assets/press/NEWS24.png.asset.json";
-import nsac from "@/assets/press/NSAC_2022.png.asset.json";
-
-// Images drift down (top→bottom) and up (bottom→top), well spaced.
-const DOWN_DROPS = [
-  { src: daily23.url, left: "5%",  size: 110, delay: 0.0, dur: 14 },
-  { src: nasa.url,    left: "22%", size: 140, delay: 3.5, dur: 16 },
-  { src: prothom.url, left: "48%", size: 120, delay: 1.5, dur: 15 },
-  { src: news24.url,  left: "70%", size: 105, delay: 5.0, dur: 17 },
-  { src: daily24.url, left: "90%", size: 95,  delay: 2.2, dur: 14.5 },
-];
-const UP_DROPS = [
-  { src: kaler.url,    left: "13%", size: 100, delay: 1.8, dur: 16 },
-  { src: observer.url, left: "36%", size: 115, delay: 4.0, dur: 15 },
-  { src: samakal.url,  left: "60%", size: 95,  delay: 0.6, dur: 17 },
-  { src: nsac.url,     left: "82%", size: 125, delay: 3.0, dur: 14.5 },
-];
 
 const schema = z.object({
   name: z.string().trim().min(1, "Please enter your name").max(100),

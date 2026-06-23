@@ -142,7 +142,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-screen flex-col items-center justify-start overflow-hidden px-6 pt-24 pb-16"
+      className="relative flex h-[100svh] min-h-[640px] flex-col items-center justify-between overflow-hidden px-4 pt-16 pb-6 md:px-6 md:pt-20 md:pb-10"
       style={{
         background: "radial-gradient(130% 90% at 50% 0%, #FFFDF8 0%, #FFF7DF 55%, #FCEBB0 120%)",
       }}
@@ -154,15 +154,14 @@ export function Hero() {
         }}
       />
 
-      {/* Floating press collage — SHARP outside the central content area */}
+      {/* Floating press collage */}
       <div className="pointer-events-none absolute inset-0 z-0">
         {FLOATERS.map((f, i) => (
           <FloatingPiece key={i} f={f} />
         ))}
       </div>
 
-      {/* Blur lens — only blurs floaters that pass behind the central content
-          column (name / orbit nav / portrait / resume button). */}
+      {/* Blur lens */}
       <div
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-1/2 z-[2] h-[92%] w-[640px] max-w-[88vw] -translate-x-1/2 -translate-y-1/2 rounded-[40%]"
@@ -174,61 +173,56 @@ export function Hero() {
         }}
       />
 
-      {/* Soft focal halo */}
-      <div
-        className="pointer-events-none absolute left-1/2 top-[58%] z-[1] size-[820px] -translate-x-1/2 -translate-y-1/2 rounded-full"
-        style={{
-          background:
-            "radial-gradient(closest-side, rgba(255,253,248,0.55) 0%, rgba(255,253,248,0.25) 45%, rgba(255,253,248,0) 80%)",
-        }}
-      />
-
-      {/* Name — sharp, sans, in front of the floaters */}
+      {/* Top: Name + tagline */}
       <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center text-center">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="font-montreal text-[15vw] font-black leading-[0.88] tracking-[-0.03em] text-ink md:text-[8rem]"
+          className="font-montreal text-[12vw] font-black leading-[0.88] tracking-[-0.03em] text-ink sm:text-[10vw] md:text-[6.5rem]"
         >
           Munim Ahmed
         </motion.h1>
-
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.7 }}
-          className="mt-5 max-w-3xl font-sans text-sm font-bold uppercase tracking-[0.3em] text-ink/80 md:text-base"
+          className="mt-3 max-w-3xl font-sans text-[10px] font-bold uppercase tracking-[0.3em] text-ink/80 md:text-sm"
         >
           A footslogger who wants to aid with his hand
         </motion.p>
-
-        {/* Portrait with orbit nav around it — pushed further down from tagline */}
-        <div className="relative mt-24 flex items-center justify-center md:mt-32">
-          <OrbitRing radius={150} />
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.85 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-            className="relative"
-          >
-            <div
-              className="absolute inset-0 -z-10 rounded-full bg-sun/30 blur-3xl glow-pulse"
-              style={{ transform: "scale(1.9)" }}
-            />
-            <motion.div
-              animate={{ y: [0, -8, 0], scale: [1, 1.02, 1] }}
-              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-              className="relative size-36 overflow-hidden rounded-full bg-ink ring-[6px] ring-ink shadow-[0_30px_80px_-25px_rgba(0,0,0,0.55)] md:size-48"
-            >
-              <img src={portrait} alt="Munim Ahmed" width={560} height={560} className="h-full w-full object-cover" />
-            </motion.div>
-          </motion.div>
-        </div>
       </div>
 
-      {/* Resume download — highlighted, animated, unmistakable */}
+      {/* Middle: portrait with orbit nav around it */}
+      <div className="relative z-10 flex items-center justify-center">
+        <div className="md:hidden">
+          <OrbitRing radius={105} />
+        </div>
+        <div className="hidden md:block">
+          <OrbitRing radius={150} />
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute"
+        >
+          <div
+            className="absolute inset-0 -z-10 rounded-full bg-sun/30 blur-3xl glow-pulse"
+            style={{ transform: "scale(1.9)" }}
+          />
+          <motion.div
+            animate={{ y: [0, -8, 0], scale: [1, 1.02, 1] }}
+            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+            className="relative size-24 overflow-hidden rounded-full bg-ink ring-[5px] ring-ink shadow-[0_30px_80px_-25px_rgba(0,0,0,0.55)] sm:size-28 md:size-44"
+          >
+            <img src={portrait} alt="Munim Ahmed" width={560} height={560} className="h-full w-full object-cover" />
+          </motion.div>
+        </motion.div>
+      </div>
+
+      {/* Bottom: Resume download */}
       <motion.a
         href="/resume.pdf"
         download
@@ -237,12 +231,10 @@ export function Hero() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.6, duration: 0.8 }}
-        className="group relative mt-28 flex size-14 items-center justify-center rounded-full bg-sun text-ink shadow-[0_14px_40px_-10px_rgba(39, 34, 31)] ring-2 ring-ink/15 transition-transform hover:scale-110 md:mt-36"
+        className="group relative z-10 flex size-12 items-center justify-center rounded-full bg-sun text-ink shadow-[0_14px_40px_-10px_rgba(39,34,31,0.45)] ring-2 ring-ink/15 transition-transform hover:scale-110 md:size-14"
       >
-        {/* pulsing halo */}
         <span className="pointer-events-none absolute inset-0 -z-10 animate-ping rounded-full bg-sun/70" />
         <span className="pointer-events-none absolute -inset-1 -z-10 rounded-full bg-sun/40 blur-md animate-pulse" />
-        {/* rotating dashed ring */}
         <span
           aria-hidden
           className="pointer-events-none absolute -inset-1 rounded-full border-2 border-dashed border-ink"
@@ -253,9 +245,8 @@ export function Hero() {
           transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
           className="relative inline-flex"
         >
-          <Download className="size-5" strokeWidth={2.4} />
+          <Download className="size-4 md:size-5" strokeWidth={2.4} />
         </motion.span>
-        {/* hover label */}
         <span className="pointer-events-none absolute right-[110%] top-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-ink px-3 py-1 font-sans text-[10px] font-bold uppercase tracking-[0.22em] text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
           Resume
         </span>

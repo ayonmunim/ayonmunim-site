@@ -13,24 +13,43 @@ import news24 from "@/assets/press/NEWS24.png.asset.json";
 import nsac from "@/assets/press/NSAC_2022.png.asset.json";
 
 const VIDEO_CARDS = [
-  { src: nsac.url,    tag: "NASA Space Apps", title: "Global Champion '22", who: "Team Diamonds, Bangladesh" },
-  { src: nasa.url,    tag: "NASA Feature",     title: "Earth Data Project", who: "Featured by NASA" },
-  { src: prothom.url, tag: "Prothom Alo",      title: "Front-page Coverage", who: "National daily" },
-  { src: daily24.url, tag: "The Daily Star",   title: "Tech Innovator '24",  who: "English daily" },
-  { src: kaler.url,   tag: "Kaler Kantho",     title: "Engineer Spotlight",  who: "National feature" },
-  { src: samakal.url, tag: "Samakal",          title: "Youth in STEM",       who: "Profile piece" },
+  { src: nsac.url, tag: "NASA Space Apps", title: "Global Champion '22", who: "Team Diamonds, Bangladesh" },
+  { src: nasa.url, tag: "NASA Feature", title: "Earth Data Project", who: "Featured by NASA" },
+  { src: prothom.url, tag: "Prothom Alo", title: "Front-page Coverage", who: "National daily" },
+  { src: daily24.url, tag: "The Daily Star", title: "Tech Innovator '24", who: "English daily" },
+  { src: kaler.url, tag: "Kaler Kantho", title: "Engineer Spotlight", who: "National feature" },
+  { src: samakal.url, tag: "Samakal", title: "Youth in STEM", who: "Profile piece" },
 ];
 
-const GALLERY = [
-  { src: daily24.url, title: "The Daily Star — 2024", note: "Tech innovator profile",     href: "#" },
-  { src: prothom.url, title: "Prothom Alo",            note: "National daily feature",     href: "#" },
-  { src: nasa.url,    title: "NASA Earth Data",        note: "Project highlight",          href: "#" },
-  { src: nsac.url,    title: "NASA Space Apps",        note: "Global Champion 2022",       href: "#" },
-  { src: kaler.url,   title: "Kaler Kantho",           note: "Engineer spotlight",         href: "#" },
-  { src: samakal.url, title: "Samakal",                note: "Youth in STEM",              href: "#" },
-  { src: observer.url,title: "Daily Observer",         note: "Innovation column",          href: "#" },
-  { src: daily23.url, title: "The Daily Star — 2023",  note: "Featured story",             href: "#" },
-  { src: news24.url,  title: "NEWS24",                 note: "Broadcast appearance",       href: "#" },
+// Tetris-style staggered gallery — center column tall hero, bottom-center stays static.
+// columns: 5 across desktop. Each tile: src, title, note, href + col span & row offset.
+type Tile = {
+  src: string; title: string; note: string; href: string;
+  // animation: should it pop in?
+  pop?: boolean;
+  // vertical offset (px) to stagger like reference
+  offset?: number;
+  // span (column width units, default 1)
+  span?: number;
+  // aspect ratio for the tile
+  aspect?: string;
+};
+
+const TILES: Tile[] = [
+  { src: daily23.url, title: "The Daily Star — 2023", note: "Featured story", href: "#", pop: true, offset: 60, aspect: "3/4" },
+  { src: prothom.url, title: "Prothom Alo", note: "National daily feature", href: "#", pop: true, offset: 0, aspect: "3/4" },
+  // Center column tall — does NOT pop, stays static
+  { src: nsac.url, title: "NASA Space Apps", note: "Global Champion 2022", href: "#", pop: false, offset: -40, aspect: "3/5" },
+  { src: nasa.url, title: "NASA Earth Data", note: "Project highlight", href: "#", pop: true, offset: 0, aspect: "3/4" },
+  { src: news24.url, title: "NEWS24", note: "Broadcast appearance", href: "#", pop: true, offset: 60, aspect: "3/4" },
+
+  // Second row
+  { src: kaler.url, title: "Kaler Kantho", note: "Engineer spotlight", href: "#", pop: true, offset: 30, aspect: "4/5" },
+  { src: samakal.url, title: "Samakal", note: "Youth in STEM", href: "#", pop: true, offset: 80, aspect: "4/5" },
+  // Bottom-center stays static (no pop) per reference
+  { src: daily24.url, title: "The Daily Star — 2024", note: "Tech innovator profile", href: "#", pop: false, offset: 20, aspect: "4/5" },
+  { src: observer.url, title: "Daily Observer", note: "Innovation column", href: "#", pop: true, offset: 80, aspect: "4/5" },
+  { src: prothom.url, title: "Prothom Alo · Cover", note: "Editorial spread", href: "#", pop: true, offset: 30, aspect: "4/5" },
 ];
 
 export function Media() {
@@ -59,14 +78,10 @@ export function Media() {
 
       {/* Horizontal auto-scroll video cards */}
       <div className="relative mt-16 overflow-hidden">
-        <div
-          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24"
-          style={{ background: "linear-gradient(to right, #FFF7DF, transparent)" }}
-        />
-        <div
-          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24"
-          style={{ background: "linear-gradient(to left, #FCEBB0, transparent)" }}
-        />
+        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24"
+          style={{ background: "linear-gradient(to right, #FFF7DF, transparent)" }} />
+        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24"
+          style={{ background: "linear-gradient(to left, #FCEBB0, transparent)" }} />
         <motion.div
           animate={{ x: ["0%", "-50%"] }}
           transition={{ duration: 45, ease: "linear", repeat: Infinity }}
@@ -99,47 +114,56 @@ export function Media() {
         </motion.div>
       </div>
 
-      {/* Press gallery — pop-up grid with hover overlay */}
-      <div className="mx-auto mt-28 max-w-7xl px-6 md:mt-36">
+      {/* Press gallery — Tetris-style pop-up grid */}
+      <div className="mx-auto mt-28 max-w-[1400px] px-6 md:mt-36">
         <AnimatedSection>
           <h3 className="font-display text-3xl uppercase tracking-tight md:text-5xl">
             <span className="text-ink/40">/</span> Press Gallery
           </h3>
           <p className="mt-4 max-w-xl text-ink/65">
-            Hover any cover to read the story — click to open the source.
+            Vertically staggered — hover any tile to read the story.
           </p>
         </AnimatedSection>
 
-        <div className="mt-14 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
-          {GALLERY.map((g, i) => (
+        <div className="mt-16 grid grid-cols-2 gap-4 md:grid-cols-5 md:gap-6">
+          {TILES.map((t, i) => (
             <motion.a
               key={i}
-              href={g.href}
+              href={t.href}
               target="_blank"
               rel="noreferrer"
-              initial={{ opacity: 0, y: 40, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.6, delay: (i % 4) * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ y: -6 }}
-              className="group relative block aspect-[3/4] overflow-hidden rounded-2xl bg-white shadow-[0_25px_60px_-25px_rgba(0,0,0,0.25)] ring-1 ring-ink/10"
+              initial={t.pop ? { opacity: 0, y: 80, scale: 0.85 } : { opacity: 0, scale: 0.98 }}
+              whileInView={t.pop ? { opacity: 1, y: 0, scale: 1 } : { opacity: 1, scale: 1 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{
+                duration: t.pop ? 0.8 : 0.6,
+                delay: (i % 5) * 0.1,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              whileHover={{ y: -8 }}
+              style={{ marginTop: `${t.offset ?? 0}px` }}
+              className="group relative block overflow-hidden rounded-2xl bg-white shadow-[0_30px_70px_-25px_rgba(0,0,0,0.3)] ring-1 ring-ink/10"
             >
-              <img
-                src={g.src}
-                alt={g.title}
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                loading="lazy"
-              />
-              {/* Dark hover overlay with description */}
-              <div className="pointer-events-none absolute inset-0 flex flex-col justify-end p-5 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                style={{
-                  background: "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0) 100%)",
-                }}
-              >
-                <h4 className="font-display text-base font-semibold leading-tight text-white md:text-lg">
-                  {g.title}
-                </h4>
-                <p className="mt-1 text-[11px] uppercase tracking-[0.18em] text-white/75">{g.note}</p>
+              <div style={{ aspectRatio: t.aspect ?? "3/4" }} className="relative">
+                <img
+                  src={t.src}
+                  alt={t.title}
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
+                />
+                {/* Dark gradient hover card */}
+                <div
+                  className="pointer-events-none absolute inset-0 flex flex-col justify-end p-5 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  style={{
+                    background:
+                      "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0) 100%)",
+                  }}
+                >
+                  <h4 className="font-display text-base font-semibold leading-tight text-white md:text-lg">
+                    {t.title}
+                  </h4>
+                  <p className="mt-1 text-[11px] uppercase tracking-[0.18em] text-white/75">{t.note}</p>
+                </div>
               </div>
             </motion.a>
           ))}
