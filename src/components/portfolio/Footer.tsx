@@ -151,14 +151,20 @@ export function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="font-paint text-5xl md:text-7xl uppercase tracking-tight"
+            className="font-edo text-6xl font-bold uppercase tracking-tight md:text-8xl"
+            style={{ fontFamily: '"UnifrakturCook", "UnifrakturMaguntia", "Cinzel", serif', fontWeight: 700 }}
           >
             AyonMunim
           </motion.div>
 
           <div className="mt-5 text-sm md:text-base font-medium tracking-wide">
-            Address: Washington DC, USA
+            Washington DC, USA
           </div>
+
+          <div className="mt-3 text-xs md:text-sm italic font-medium tracking-wide opacity-80">
+            Stay Positive, Stay Love.
+          </div>
+
 
           <div className="mt-8 flex items-center gap-4">
             {socials.map(({ href, label, Icon }) => (
