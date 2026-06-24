@@ -193,7 +193,7 @@ export function Hero() {
         </motion.p>
       </div>
 
-      {/* Middle: portrait with orbit nav around it */}
+      {/* Middle: portrait centered with orbit nav around it */}
       <div className="relative z-10 flex items-center justify-center">
         <div className="md:hidden">
           <OrbitRing radius={105} />
@@ -206,7 +206,7 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.85 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute"
+          className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
         >
           <div
             className="absolute inset-0 -z-10 rounded-full bg-sun/30 blur-3xl glow-pulse"
