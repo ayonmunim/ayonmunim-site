@@ -122,48 +122,55 @@ export function Media() {
           </p>
         </AnimatedSection>
 
-        <div className="mt-16 grid grid-cols-2 gap-4 md:grid-cols-5 md:gap-6">
-          {TILES.map((t, i) => (
-            <motion.a
-              key={i}
-              href={t.href}
-              target="_blank"
-              rel="noreferrer"
-              initial={t.pop ? { opacity: 0, y: 80, scale: 0.85 } : { opacity: 0, scale: 0.98 }}
-              whileInView={t.pop ? { opacity: 1, y: 0, scale: 1 } : { opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{
-                duration: t.pop ? 0.8 : 0.6,
-                delay: (i % 5) * 0.1,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              whileHover={{ y: -8 }}
-              style={{ marginTop: `${t.offset ?? 0}px` }}
-              className="group relative block overflow-hidden rounded-2xl bg-white shadow-[0_30px_70px_-25px_rgba(0,0,0,0.3)] ring-1 ring-ink/10"
-            >
-              <div style={{ aspectRatio: t.aspect ?? "3/4" }} className="relative">
-                <img
-                  src={t.src}
-                  alt={t.title}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  loading="lazy"
-                />
-                {/* Dark gradient hover card */}
-                <div
-                  className="pointer-events-none absolute inset-0 flex flex-col justify-end p-5 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                  style={{
-                    background:
-                      "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0) 100%)",
-                  }}
-                >
-                  <h4 className="font-display text-base font-semibold leading-tight text-white md:text-lg">
-                    {t.title}
-                  </h4>
-                  <p className="mt-1 text-[11px] uppercase tracking-[0.18em] text-white/75">{t.note}</p>
+        <div className="mt-16 grid grid-cols-3 gap-1.5 md:grid-cols-5 md:gap-2">
+          {TILES.map((t, i) => {
+            // Outer columns slide in from sides, inner from below
+            const dir = t.col === 0 ? -1 : t.col === 4 ? 1 : 0;
+            const initial = dir !== 0
+              ? { opacity: 0, x: dir * 120, scale: 0.9 }
+              : { opacity: 0, y: 80, scale: 0.92 };
+            const inView = { opacity: 1, x: 0, y: 0, scale: 1 };
+            return (
+              <motion.a
+                key={i}
+                href={t.href}
+                target="_blank"
+                rel="noreferrer"
+                initial={initial}
+                whileInView={inView}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{
+                  duration: 0.9,
+                  delay: (i % 5) * 0.08,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                whileHover={{ y: -6 }}
+                style={{ marginTop: `${t.offset ?? 0}px` }}
+                className="group relative block overflow-hidden rounded-xl bg-white shadow-[0_18px_50px_-20px_rgba(0,0,0,0.35)] ring-1 ring-ink/10"
+              >
+                <div style={{ aspectRatio: t.aspect ?? "3/4" }} className="relative">
+                  <img
+                    src={t.src}
+                    alt={t.title}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    loading="lazy"
+                  />
+                  <div
+                    className="pointer-events-none absolute inset-0 flex flex-col justify-end p-4 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                    style={{
+                      background:
+                        "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0) 100%)",
+                    }}
+                  >
+                    <h4 className="font-display text-base font-semibold leading-tight text-white md:text-lg">
+                      {t.title}
+                    </h4>
+                    <p className="mt-1 text-[11px] uppercase tracking-[0.18em] text-white/75">{t.note}</p>
+                  </div>
                 </div>
-              </div>
-            </motion.a>
-          ))}
+              </motion.a>
+            );
+          })}
         </div>
       </div>
     </section>
