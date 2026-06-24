@@ -151,8 +151,8 @@ export function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="font-edo text-6xl font-bold uppercase tracking-tight md:text-8xl"
-            style={{ fontFamily: '"UnifrakturCook", "UnifrakturMaguntia", "Cinzel", serif', fontWeight: 700 }}
+            className="text-6xl tracking-tight md:text-8xl"
+            style={{ fontFamily: '"Permanent Marker", "Rubik Marker Hatched", "UnifrakturCook", cursive', fontWeight: 400, letterSpacing: "0.02em" }}
           >
             AyonMunim
           </motion.div>
