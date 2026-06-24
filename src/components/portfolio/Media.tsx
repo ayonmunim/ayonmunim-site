@@ -21,35 +21,32 @@ const VIDEO_CARDS = [
   { src: samakal.url, tag: "Samakal", title: "Youth in STEM", who: "Profile piece" },
 ];
 
-// Tetris-style staggered gallery — center column tall hero, bottom-center stays static.
-// columns: 5 across desktop. Each tile: src, title, note, href + col span & row offset.
+// Dense collage — 5 columns. Side columns pop in from sides on scroll,
+// then settle into a tight aligned top row like the reference gallery.
 type Tile = {
-  src: string; title: string; note: string; href: string;
-  // animation: should it pop in?
-  pop?: boolean;
-  // vertical offset (px) to stagger like reference
-  offset?: number;
-  // span (column width units, default 1)
-  span?: number;
-  // aspect ratio for the tile
+  src: string;
+  title: string;
+  note: string;
+  href: string;
+  col: number; // 0..4
+  offset?: number; // vertical stagger px
   aspect?: string;
 };
 
 const TILES: Tile[] = [
-  { src: daily23.url, title: "The Daily Star — 2023", note: "Featured story", href: "#", pop: true, offset: 60, aspect: "3/4" },
-  { src: prothom.url, title: "Prothom Alo", note: "National daily feature", href: "#", pop: true, offset: 0, aspect: "3/4" },
-  // Center column tall — does NOT pop, stays static
-  { src: nsac.url, title: "NASA Space Apps", note: "Global Champion 2022", href: "#", pop: false, offset: -40, aspect: "3/5" },
-  { src: nasa.url, title: "NASA Earth Data", note: "Project highlight", href: "#", pop: true, offset: 0, aspect: "3/4" },
-  { src: news24.url, title: "NEWS24", note: "Broadcast appearance", href: "#", pop: true, offset: 60, aspect: "3/4" },
+  // Top row — staggered like the reference image
+  { src: daily23.url, title: "The Daily Star — 2023", note: "Featured story", href: "#", col: 0, offset: 120, aspect: "3/4" },
+  { src: prothom.url, title: "Prothom Alo", note: "National daily feature", href: "#", col: 1, offset: 40, aspect: "3/4" },
+  { src: nsac.url, title: "NASA Space Apps", note: "Global Champion 2022", href: "#", col: 2, offset: 0, aspect: "3/5" },
+  { src: nasa.url, title: "NASA Earth Data", note: "Project highlight", href: "#", col: 3, offset: 40, aspect: "3/4" },
+  { src: news24.url, title: "NEWS24", note: "Broadcast appearance", href: "#", col: 4, offset: 120, aspect: "3/4" },
 
   // Second row
-  { src: kaler.url, title: "Kaler Kantho", note: "Engineer spotlight", href: "#", pop: true, offset: 30, aspect: "4/5" },
-  { src: samakal.url, title: "Samakal", note: "Youth in STEM", href: "#", pop: true, offset: 80, aspect: "4/5" },
-  // Bottom-center stays static (no pop) per reference
-  { src: daily24.url, title: "The Daily Star — 2024", note: "Tech innovator profile", href: "#", pop: false, offset: 20, aspect: "4/5" },
-  { src: observer.url, title: "Daily Observer", note: "Innovation column", href: "#", pop: true, offset: 80, aspect: "4/5" },
-  { src: prothom.url, title: "Prothom Alo · Cover", note: "Editorial spread", href: "#", pop: true, offset: 30, aspect: "4/5" },
+  { src: kaler.url, title: "Kaler Kantho", note: "Engineer spotlight", href: "#", col: 0, offset: 0, aspect: "4/5" },
+  { src: samakal.url, title: "Samakal", note: "Youth in STEM", href: "#", col: 1, offset: 40, aspect: "4/5" },
+  { src: daily24.url, title: "The Daily Star — 2024", note: "Tech innovator profile", href: "#", col: 2, offset: 0, aspect: "4/5" },
+  { src: observer.url, title: "Daily Observer", note: "Innovation column", href: "#", col: 3, offset: 40, aspect: "4/5" },
+  { src: prothom.url, title: "Prothom Alo · Cover", note: "Editorial spread", href: "#", col: 4, offset: 0, aspect: "4/5" },
 ];
 
 export function Media() {
