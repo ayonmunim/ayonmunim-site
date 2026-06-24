@@ -67,15 +67,15 @@ function EducationRow({
           {hover && (
             <motion.div
               key="cert"
-              initial={{ opacity: 0, scale: 0.85, y: 30, rotate: -3 }}
-              animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20, rotate: 2 }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              initial={{ opacity: 0, scale: 0.7, y: 50, rotate: -6, filter: "blur(8px)" }}
+              animate={{ opacity: 1, scale: 1, y: 0, rotate: 0, filter: "blur(0px)" }}
+              exit={{ opacity: 0, scale: 0.85, y: 30, rotate: 4, filter: "blur(6px)" }}
+              transition={{ type: "spring", stiffness: 180, damping: 22, mass: 0.9 }}
               className="pointer-events-none absolute right-4 top-1/2 z-20 hidden -translate-y-1/2 md:block"
               style={{ width: 380 }}
             >
-              <div className="overflow-hidden rounded-xl bg-white p-2 shadow-[0_40px_120px_-20px_rgba(255,255,255,0.35)] ring-1 ring-white/20">
-                <img src={cert} alt={item.degree} className="block h-auto w-full rounded-md" />
+              <div className="rainbow-border overflow-hidden rounded-2xl bg-white p-2">
+                <img src={cert} alt={item.degree} className="block h-auto w-full rounded-lg" />
               </div>
             </motion.div>
           )}
