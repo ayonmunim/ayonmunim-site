@@ -1,5 +1,5 @@
-import { motion, useAnimationControls } from "motion/react";
-import { useEffect } from "react";
+import { motion, AnimatePresence, useAnimationControls } from "motion/react";
+import { useEffect, useState } from "react";
 import { User, Briefcase, Award, Newspaper, GraduationCap, Mail, Download, type LucideIcon } from "lucide-react";
 import portraitAsset from "@/assets/munim-formal.jpg.asset.json";
 const portrait = portraitAsset.url;
@@ -105,11 +105,30 @@ const ORBIT_LINKS: { href: string; label: string; Icon: LucideIcon }[] = [
 
 // Static orbit nav — interactive icon buttons with tooltip on hover, no rotation
 function OrbitRing({ radius = 215 }: { radius?: number }) {
+  const [hovered, setHovered] = useState<string | null>(null);
   return (
     <div
       className="pointer-events-none relative"
       style={{ width: radius * 2, height: radius * 2 }}
     >
+      {/* Centered hover label — floats above portrait */}
+      <AnimatePresence mode="wait">
+        {hovered && (
+          <motion.div
+            key={hovered}
+            initial={{ opacity: 0, scale: 0.85, y: 6 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+            className="pointer-events-none absolute left-1/2 top-1/2 z-30 -translate-x-1/2 -translate-y-1/2"
+          >
+            <span className="whitespace-nowrap rounded-full bg-ink px-5 py-2 font-montreal text-sm font-bold uppercase tracking-[0.22em] text-white shadow-[0_18px_40px_-12px_rgba(0,0,0,0.55)] ring-2 ring-white/40">
+              {hovered}
+            </span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {ORBIT_LINKS.map((l, i) => {
         const a = (i * 360) / ORBIT_LINKS.length - 90;
         const rad = (a * Math.PI) / 180;
@@ -124,12 +143,13 @@ function OrbitRing({ radius = 215 }: { radius?: number }) {
             <a
               href={l.href}
               aria-label={l.label}
+              onMouseEnter={() => setHovered(l.label)}
+              onMouseLeave={() => setHovered((h) => (h === l.label ? null : h))}
+              onFocus={() => setHovered(l.label)}
+              onBlur={() => setHovered((h) => (h === l.label ? null : h))}
               className="pointer-events-auto group relative flex size-12 items-center justify-center rounded-full bg-white text-ink shadow-[0_10px_28px_-10px_rgba(0,0,0,0.4)] ring-1 ring-ink/10 transition-all duration-300 hover:scale-110 hover:bg-ink hover:text-white md:size-14"
             >
               <l.Icon className="size-5" strokeWidth={2} />
-              <span className="pointer-events-none absolute -bottom-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-ink px-3 py-1 font-sans text-[10px] font-bold uppercase tracking-[0.22em] text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                {l.label}
-              </span>
             </a>
           </div>
         );
