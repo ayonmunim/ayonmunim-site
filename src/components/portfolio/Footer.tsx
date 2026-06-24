@@ -64,7 +64,7 @@ export function Footer() {
       className="relative overflow-hidden"
       style={{
         background:
-          "linear-gradient(to bottom, #FFFFFF 0%, #FFF8E0 28%, #FFE57A 58%, #FFCE00 82%, #FFCE00 100%)",
+          "linear-gradient(to bottom, #FCEBB0 0%, #FFE57A 22%, #FFD83A 48%, #FFCE00 70%, #FFCE00 100%)",
       }}
     >
 
@@ -116,7 +116,7 @@ export function Footer() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   disabled={loading}
-                  className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-semibold text-ink ring-2 ring-ink/15 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.35)] transition hover:bg-sun hover:text-white hover:ring-ink/30 disabled:opacity-60"
+                  className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-semibold text-ink ring-2 ring-ink/15 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.35)] transition hover:bg-sun hover:text-white hover:ring-white disabled:opacity-60"
                 >
                   {loading ? <Loader2 className="size-4 animate-spin" /> : <Send className="size-4" />}
                   {loading ? "Sending..." : "Send message"}
@@ -151,8 +151,7 @@ export function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="text-6xl tracking-tight md:text-8xl"
-            style={{ fontFamily: '"Permanent Marker", "Rubik Marker Hatched", "UnifrakturCook", cursive', fontWeight: 400, letterSpacing: "0.02em" }}
+            className="font-montreal text-6xl font-black tracking-[-0.04em] md:text-8xl"
           >
             AyonMunim
           </motion.div>
@@ -174,7 +173,7 @@ export function Footer() {
                 target={href.startsWith("http") ? "_blank" : undefined}
                 rel="noreferrer"
                 aria-label={label}
-                className="group inline-flex size-12 items-center justify-center rounded-full bg-white text-ink ring-2 ring-ink/15 transition-all hover:scale-110 hover:bg-sun hover:text-white hover:ring-ink/30"
+                className="group inline-flex size-12 items-center justify-center rounded-full bg-white text-ink ring-2 ring-ink/15 transition-all hover:scale-110 hover:bg-sun hover:text-white hover:ring-white"
               >
                 <Icon className="size-5" />
               </a>
