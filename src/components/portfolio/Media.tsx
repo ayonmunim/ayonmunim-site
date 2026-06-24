@@ -21,35 +21,32 @@ const VIDEO_CARDS = [
   { src: samakal.url, tag: "Samakal", title: "Youth in STEM", who: "Profile piece" },
 ];
 
-// Tetris-style staggered gallery — center column tall hero, bottom-center stays static.
-// columns: 5 across desktop. Each tile: src, title, note, href + col span & row offset.
+// Dense collage — 5 columns. Side columns pop in from sides on scroll,
+// then settle into a tight aligned top row like the reference gallery.
 type Tile = {
-  src: string; title: string; note: string; href: string;
-  // animation: should it pop in?
-  pop?: boolean;
-  // vertical offset (px) to stagger like reference
-  offset?: number;
-  // span (column width units, default 1)
-  span?: number;
-  // aspect ratio for the tile
+  src: string;
+  title: string;
+  note: string;
+  href: string;
+  col: number; // 0..4
+  offset?: number; // vertical stagger px
   aspect?: string;
 };
 
 const TILES: Tile[] = [
-  { src: daily23.url, title: "The Daily Star — 2023", note: "Featured story", href: "#", pop: true, offset: 60, aspect: "3/4" },
-  { src: prothom.url, title: "Prothom Alo", note: "National daily feature", href: "#", pop: true, offset: 0, aspect: "3/4" },
-  // Center column tall — does NOT pop, stays static
-  { src: nsac.url, title: "NASA Space Apps", note: "Global Champion 2022", href: "#", pop: false, offset: -40, aspect: "3/5" },
-  { src: nasa.url, title: "NASA Earth Data", note: "Project highlight", href: "#", pop: true, offset: 0, aspect: "3/4" },
-  { src: news24.url, title: "NEWS24", note: "Broadcast appearance", href: "#", pop: true, offset: 60, aspect: "3/4" },
+  // Top row — staggered like the reference image
+  { src: daily23.url, title: "The Daily Star — 2023", note: "Featured story", href: "#", col: 0, offset: 120, aspect: "3/4" },
+  { src: prothom.url, title: "Prothom Alo", note: "National daily feature", href: "#", col: 1, offset: 40, aspect: "3/4" },
+  { src: nsac.url, title: "NASA Space Apps", note: "Global Champion 2022", href: "#", col: 2, offset: 0, aspect: "3/5" },
+  { src: nasa.url, title: "NASA Earth Data", note: "Project highlight", href: "#", col: 3, offset: 40, aspect: "3/4" },
+  { src: news24.url, title: "NEWS24", note: "Broadcast appearance", href: "#", col: 4, offset: 120, aspect: "3/4" },
 
   // Second row
-  { src: kaler.url, title: "Kaler Kantho", note: "Engineer spotlight", href: "#", pop: true, offset: 30, aspect: "4/5" },
-  { src: samakal.url, title: "Samakal", note: "Youth in STEM", href: "#", pop: true, offset: 80, aspect: "4/5" },
-  // Bottom-center stays static (no pop) per reference
-  { src: daily24.url, title: "The Daily Star — 2024", note: "Tech innovator profile", href: "#", pop: false, offset: 20, aspect: "4/5" },
-  { src: observer.url, title: "Daily Observer", note: "Innovation column", href: "#", pop: true, offset: 80, aspect: "4/5" },
-  { src: prothom.url, title: "Prothom Alo · Cover", note: "Editorial spread", href: "#", pop: true, offset: 30, aspect: "4/5" },
+  { src: kaler.url, title: "Kaler Kantho", note: "Engineer spotlight", href: "#", col: 0, offset: 0, aspect: "4/5" },
+  { src: samakal.url, title: "Samakal", note: "Youth in STEM", href: "#", col: 1, offset: 40, aspect: "4/5" },
+  { src: daily24.url, title: "The Daily Star — 2024", note: "Tech innovator profile", href: "#", col: 2, offset: 0, aspect: "4/5" },
+  { src: observer.url, title: "Daily Observer", note: "Innovation column", href: "#", col: 3, offset: 40, aspect: "4/5" },
+  { src: prothom.url, title: "Prothom Alo · Cover", note: "Editorial spread", href: "#", col: 4, offset: 0, aspect: "4/5" },
 ];
 
 export function Media() {
@@ -125,48 +122,55 @@ export function Media() {
           </p>
         </AnimatedSection>
 
-        <div className="mt-16 grid grid-cols-2 gap-4 md:grid-cols-5 md:gap-6">
-          {TILES.map((t, i) => (
-            <motion.a
-              key={i}
-              href={t.href}
-              target="_blank"
-              rel="noreferrer"
-              initial={t.pop ? { opacity: 0, y: 80, scale: 0.85 } : { opacity: 0, scale: 0.98 }}
-              whileInView={t.pop ? { opacity: 1, y: 0, scale: 1 } : { opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{
-                duration: t.pop ? 0.8 : 0.6,
-                delay: (i % 5) * 0.1,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              whileHover={{ y: -8 }}
-              style={{ marginTop: `${t.offset ?? 0}px` }}
-              className="group relative block overflow-hidden rounded-2xl bg-white shadow-[0_30px_70px_-25px_rgba(0,0,0,0.3)] ring-1 ring-ink/10"
-            >
-              <div style={{ aspectRatio: t.aspect ?? "3/4" }} className="relative">
-                <img
-                  src={t.src}
-                  alt={t.title}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  loading="lazy"
-                />
-                {/* Dark gradient hover card */}
-                <div
-                  className="pointer-events-none absolute inset-0 flex flex-col justify-end p-5 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                  style={{
-                    background:
-                      "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0) 100%)",
-                  }}
-                >
-                  <h4 className="font-display text-base font-semibold leading-tight text-white md:text-lg">
-                    {t.title}
-                  </h4>
-                  <p className="mt-1 text-[11px] uppercase tracking-[0.18em] text-white/75">{t.note}</p>
+        <div className="mt-16 grid grid-cols-3 gap-1.5 md:grid-cols-5 md:gap-2">
+          {TILES.map((t, i) => {
+            // Outer columns slide in from sides, inner from below
+            const dir = t.col === 0 ? -1 : t.col === 4 ? 1 : 0;
+            const initial = dir !== 0
+              ? { opacity: 0, x: dir * 120, scale: 0.9 }
+              : { opacity: 0, y: 80, scale: 0.92 };
+            const inView = { opacity: 1, x: 0, y: 0, scale: 1 };
+            return (
+              <motion.a
+                key={i}
+                href={t.href}
+                target="_blank"
+                rel="noreferrer"
+                initial={initial}
+                whileInView={inView}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{
+                  duration: 0.9,
+                  delay: (i % 5) * 0.08,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                whileHover={{ y: -6 }}
+                style={{ marginTop: `${t.offset ?? 0}px` }}
+                className="group relative block overflow-hidden rounded-xl bg-white shadow-[0_18px_50px_-20px_rgba(0,0,0,0.35)] ring-1 ring-ink/10"
+              >
+                <div style={{ aspectRatio: t.aspect ?? "3/4" }} className="relative">
+                  <img
+                    src={t.src}
+                    alt={t.title}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    loading="lazy"
+                  />
+                  <div
+                    className="pointer-events-none absolute inset-0 flex flex-col justify-end p-4 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                    style={{
+                      background:
+                        "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0) 100%)",
+                    }}
+                  >
+                    <h4 className="font-display text-base font-semibold leading-tight text-white md:text-lg">
+                      {t.title}
+                    </h4>
+                    <p className="mt-1 text-[11px] uppercase tracking-[0.18em] text-white/75">{t.note}</p>
+                  </div>
                 </div>
-              </div>
-            </motion.a>
-          ))}
+              </motion.a>
+            );
+          })}
         </div>
       </div>
     </section>

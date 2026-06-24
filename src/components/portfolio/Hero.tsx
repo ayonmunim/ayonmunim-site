@@ -107,7 +107,7 @@ const ORBIT_LINKS: { href: string; label: string; Icon: LucideIcon }[] = [
 function OrbitRing({ radius = 215 }: { radius?: number }) {
   return (
     <div
-      className="pointer-events-none relative left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+      className="pointer-events-none relative"
       style={{ width: radius * 2, height: radius * 2 }}
     >
       {ORBIT_LINKS.map((l, i) => {
@@ -124,7 +124,7 @@ function OrbitRing({ radius = 215 }: { radius?: number }) {
             <a
               href={l.href}
               aria-label={l.label}
-              className="pointer-events-auto group relative flex size-14 items-center justify-center rounded-full bg-white text-ink shadow-[0_10px_28px_-10px_rgba(0,0,0,0.4)] ring-1 ring-ink/10 transition-all duration-300 hover:scale-110 hover:bg-ink hover:text-white"
+              className="pointer-events-auto group relative flex size-12 items-center justify-center rounded-full bg-white text-ink shadow-[0_10px_28px_-10px_rgba(0,0,0,0.4)] ring-1 ring-ink/10 transition-all duration-300 hover:scale-110 hover:bg-ink hover:text-white md:size-14"
             >
               <l.Icon className="size-5" strokeWidth={2} />
               <span className="pointer-events-none absolute -bottom-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-ink px-3 py-1 font-sans text-[10px] font-bold uppercase tracking-[0.22em] text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
@@ -193,7 +193,7 @@ export function Hero() {
         </motion.p>
       </div>
 
-      {/* Middle: portrait with orbit nav around it */}
+      {/* Middle: portrait centered with orbit nav around it */}
       <div className="relative z-10 flex items-center justify-center">
         <div className="md:hidden">
           <OrbitRing radius={105} />
@@ -206,7 +206,7 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.85 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute"
+          className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
         >
           <div
             className="absolute inset-0 -z-10 rounded-full bg-sun/30 blur-3xl glow-pulse"
