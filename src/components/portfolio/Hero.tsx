@@ -47,9 +47,9 @@ function FloatingPiece({ f }: { f: Floater }) {
       await new Promise((r) => setTimeout(r, (1.2 + f.delay) * 1000));
       let cycle = 0;
       while (!cancelled) {
-        // Shuffle: jitter angle each loop so order/direction varies, but style stays same
-        const jitter = Math.sin((f.baseAngle + cycle * 47.3) * 0.91) * 35;
-        const angle = f.baseAngle + jitter;
+        // Jitter angle but stay within lower hemisphere (15..165) so pieces never fly upward
+        const jitter = Math.sin((f.baseAngle + cycle * 47.3) * 0.91) * 18;
+        const angle = Math.min(165, Math.max(15, f.baseAngle + jitter));
         const rad = (angle * Math.PI) / 180;
         const tx = `${Math.cos(rad) * dist}vmin`;
         const ty = `${Math.sin(rad) * dist * 0.95}vmin`;
