@@ -127,50 +127,97 @@ export function Media() {
           const NOTES = ["Featured story", "National daily", "Cover feature", "Broadcast", "Editorial", "Profile piece", "Spotlight", "Innovation", "Press"];
           const ROWS = 4;
           const COLS = 5;
-          const COUNT = ROWS * COLS; // 20 images exactly
-          const items = Array.from({ length: COUNT }, (_, i) => ({
-            src: POOL[i % POOL.length],
-            title: `Press Feature ${String(i + 1).padStart(2, "0")}`,
-            note: NOTES[i % NOTES.length],
-          }));
-          return (
-            <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 md:mt-16 md:grid-cols-4 md:gap-4 lg:grid-cols-5">
-              {items.map((t, i) => (
-                <motion.a
-                  key={i}
-                  href="#"
-                  initial={{ opacity: 0, y: 40, scale: 0.95 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                  viewport={{ once: true, margin: "-40px" }}
-                  transition={{ duration: 0.7, delay: (i % 5) * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                  whileHover={{ y: -4 }}
-                  className="group relative block overflow-hidden rounded-xl bg-white shadow-[0_15px_40px_-20px_rgba(0,0,0,0.25)] ring-1 ring-ink/5 md:rounded-2xl"
+          // Build column-major grid: 5 columns, 4 rows each.
+          // Middle column (index 2) is static — always shows all 4 tiles.
+          // Outer columns initially render one row less (3 tiles); the 4th
+          // row's outer tiles pop in from left/right on scroll.
+          const columns = Array.from({ length: COLS }, (_, c) =>
+            Array.from({ length: ROWS }, (_, r) => {
+              const i = r * COLS + c;
+              return {
+                src: POOL[i % POOL.length],
+                title: `Press Feature ${String(i + 1).padStart(2, "0")}`,
+                note: NOTES[i % NOTES.length],
+              };
+            })
+          );
+
+          const Tile = ({
+            t,
+            popIn,
+            fromX = 0,
+            delay = 0,
+          }: {
+            t: { src: string; title: string; note: string };
+            popIn: boolean;
+            fromX?: number;
+            delay?: number;
+          }) => (
+            <motion.a
+              href="#"
+              initial={popIn ? { opacity: 0, x: fromX, scale: 0.85 } : false}
+              whileInView={popIn ? { opacity: 1, x: 0, scale: 1 } : undefined}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ y: -4 }}
+              className="group relative block overflow-hidden rounded-xl bg-white shadow-[0_15px_40px_-20px_rgba(0,0,0,0.25)] ring-1 ring-ink/5 md:rounded-2xl"
+            >
+              <div style={{ aspectRatio: "1/1" }} className="relative">
+                <img
+                  src={t.src}
+                  alt={t.title}
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
+                />
+                <div
+                  className="pointer-events-none absolute inset-0 flex flex-col justify-end p-3 opacity-0 transition-opacity duration-500 group-hover:opacity-100 md:p-4"
+                  style={{
+                    background:
+                      "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0) 100%)",
+                  }}
                 >
-                  <div style={{ aspectRatio: "1/1" }} className="relative">
-                    <img
-                      src={t.src}
-                      alt={t.title}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      loading="lazy"
-                    />
-                    <div
-                      className="pointer-events-none absolute inset-0 flex flex-col justify-end p-3 opacity-0 transition-opacity duration-500 group-hover:opacity-100 md:p-4"
-                      style={{
-                        background:
-                          "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0) 100%)",
-                      }}
-                    >
-                      <h4 className="font-display text-sm font-semibold leading-tight text-white md:text-base">
-                        {t.title}
-                      </h4>
-                      <p className="mt-1 text-[10px] uppercase tracking-[0.18em] text-white/75">{t.note}</p>
-                    </div>
+                  <h4 className="font-display text-sm font-semibold leading-tight text-white md:text-base">
+                    {t.title}
+                  </h4>
+                  <p className="mt-1 text-[10px] uppercase tracking-[0.18em] text-white/75">{t.note}</p>
+                </div>
+              </div>
+            </motion.a>
+          );
+
+          return (
+            <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 md:mt-16 md:grid-cols-5 md:gap-4">
+              {columns.map((col, cIdx) => {
+                const isMiddle = cIdx === 2;
+                // Outer columns: rows 0-2 visible, row 3 pops in
+                const fromX = cIdx < 2 ? -80 : cIdx > 2 ? 80 : 0;
+                return (
+                  <div key={cIdx} className="flex flex-col gap-3 md:gap-4">
+                    {col.map((t, rIdx) => {
+                      if (isMiddle) {
+                        // Static — no scroll animation
+                        return <Tile key={rIdx} t={t} popIn={false} />;
+                      }
+                      // Outer columns: first 3 rows fade up subtly,
+                      // last row (rIdx === 3) pops in from the side.
+                      const isPopRow = rIdx === ROWS - 1;
+                      return (
+                        <Tile
+                          key={rIdx}
+                          t={t}
+                          popIn
+                          fromX={isPopRow ? fromX : 0}
+                          delay={isPopRow ? 0.15 : rIdx * 0.05}
+                        />
+                      );
+                    })}
                   </div>
-                </motion.a>
-              ))}
+                );
+              })}
             </div>
           );
         })()}
+
       </div>
 
       {/* White gradient fade covering the bottom ~4/5 rows of the gallery */}
