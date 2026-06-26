@@ -16,16 +16,17 @@ import prothom from "@/assets/press/Prothom_Alo_2023_2.png.asset.json";
 type Floater = { src: string; alt: string; w: number; baseAngle: number; delay: number };
 
 // Non-sequential base angles so pieces fly out from different sides (not in order).
+// Angles in [10..170] keep pieces flying sideways + downward (never above center).
 const RAW: { src: string; alt: string; w: number; baseAngle: number }[] = [
-  { src: nsac.url, alt: "NASA Space Apps Challenge 2022", w: 360, baseAngle: -70 },
-  { src: prothom.url, alt: "Prothom Alo", w: 350, baseAngle: 140 },
-  { src: nasa.url, alt: "NASA Earth Data", w: 340, baseAngle: 30 },
-  { src: samakal.url, alt: "Samakal", w: 360, baseAngle: -150 },
-  { src: daily24.url, alt: "The Daily Star 2024", w: 380, baseAngle: 75 },
-  { src: kaler.url, alt: "Kaler Kantho", w: 360, baseAngle: -20 },
-  { src: observer.url, alt: "Daily Observer", w: 340, baseAngle: 165 },
-  { src: daily23.url, alt: "The Daily Star 2023", w: 330, baseAngle: -110 },
-  { src: news24.url, alt: "NEWS24", w: 320, baseAngle: 105 },
+  { src: nsac.url, alt: "NASA Space Apps Challenge 2022", w: 30, baseAngle: 25 },
+  { src: prothom.url, alt: "Prothom Alo", w: 28, baseAngle: 155 },
+  { src: nasa.url, alt: "NASA Earth Data", w: 27, baseAngle: 60 },
+  { src: samakal.url, alt: "Samakal", w: 30, baseAngle: 120 },
+  { src: daily24.url, alt: "The Daily Star 2024", w: 32, baseAngle: 90 },
+  { src: kaler.url, alt: "Kaler Kantho", w: 28, baseAngle: 40 },
+  { src: observer.url, alt: "Daily Observer", w: 26, baseAngle: 140 },
+  { src: daily23.url, alt: "The Daily Star 2023", w: 26, baseAngle: 75 },
+  { src: news24.url, alt: "NEWS24", w: 25, baseAngle: 110 },
 ];
 
 const PER_IMAGE_DURATION = 7.5; // seconds: one image travels center → fully off page (constant speed)
