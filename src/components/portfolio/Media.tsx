@@ -125,17 +125,16 @@ export function Media() {
         {(() => {
           const POOL = [daily23.url, prothom.url, nsac.url, nasa.url, news24.url, kaler.url, samakal.url, daily24.url, observer.url];
           const NOTES = ["Featured story", "National daily", "Cover feature", "Broadcast", "Editorial", "Profile piece", "Spotlight", "Innovation", "Press"];
-          // Varied aspect ratios for masonry feel
-          const RATIOS = ["3/4", "4/5", "1/1", "3/4", "4/5", "3/4", "4/5", "1/1", "3/4", "4/5", "3/4", "1/1"];
-          const COUNT = 36; // plenty of rows so the bottom fades into white
+          const ROWS = 4;
+          const COLS = 5;
+          const COUNT = ROWS * COLS; // 20 images exactly
           const items = Array.from({ length: COUNT }, (_, i) => ({
             src: POOL[i % POOL.length],
             title: `Press Feature ${String(i + 1).padStart(2, "0")}`,
             note: NOTES[i % NOTES.length],
-            ratio: RATIOS[i % RATIOS.length],
           }));
           return (
-            <div className="mt-12 columns-2 gap-3 sm:columns-3 md:mt-16 md:columns-4 md:gap-4 lg:columns-5">
+            <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 md:mt-16 md:grid-cols-4 md:gap-4 lg:grid-cols-5">
               {items.map((t, i) => (
                 <motion.a
                   key={i}
@@ -143,11 +142,11 @@ export function Media() {
                   initial={{ opacity: 0, y: 40, scale: 0.95 }}
                   whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: true, margin: "-40px" }}
-                  transition={{ duration: 0.7, delay: (i % 6) * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.7, delay: (i % 5) * 0.06, ease: [0.22, 1, 0.36, 1] }}
                   whileHover={{ y: -4 }}
-                  className="group relative mb-3 block break-inside-avoid overflow-hidden rounded-xl bg-white shadow-[0_15px_40px_-20px_rgba(0,0,0,0.25)] ring-1 ring-ink/5 md:mb-4 md:rounded-2xl"
+                  className="group relative block overflow-hidden rounded-xl bg-white shadow-[0_15px_40px_-20px_rgba(0,0,0,0.25)] ring-1 ring-ink/5 md:rounded-2xl"
                 >
-                  <div style={{ aspectRatio: t.ratio }} className="relative">
+                  <div style={{ aspectRatio: "1/1" }} className="relative">
                     <img
                       src={t.src}
                       alt={t.title}
