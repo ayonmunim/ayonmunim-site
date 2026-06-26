@@ -16,16 +16,17 @@ import prothom from "@/assets/press/Prothom_Alo_2023_2.png.asset.json";
 type Floater = { src: string; alt: string; w: number; baseAngle: number; delay: number };
 
 // Non-sequential base angles so pieces fly out from different sides (not in order).
+// Angles in [10..170] keep pieces flying sideways + downward (never above center).
 const RAW: { src: string; alt: string; w: number; baseAngle: number }[] = [
-  { src: nsac.url, alt: "NASA Space Apps Challenge 2022", w: 360, baseAngle: -70 },
-  { src: prothom.url, alt: "Prothom Alo", w: 350, baseAngle: 140 },
-  { src: nasa.url, alt: "NASA Earth Data", w: 340, baseAngle: 30 },
-  { src: samakal.url, alt: "Samakal", w: 360, baseAngle: -150 },
-  { src: daily24.url, alt: "The Daily Star 2024", w: 380, baseAngle: 75 },
-  { src: kaler.url, alt: "Kaler Kantho", w: 360, baseAngle: -20 },
-  { src: observer.url, alt: "Daily Observer", w: 340, baseAngle: 165 },
-  { src: daily23.url, alt: "The Daily Star 2023", w: 330, baseAngle: -110 },
-  { src: news24.url, alt: "NEWS24", w: 320, baseAngle: 105 },
+  { src: nsac.url, alt: "NASA Space Apps Challenge 2022", w: 30, baseAngle: 25 },
+  { src: prothom.url, alt: "Prothom Alo", w: 28, baseAngle: 155 },
+  { src: nasa.url, alt: "NASA Earth Data", w: 27, baseAngle: 60 },
+  { src: samakal.url, alt: "Samakal", w: 30, baseAngle: 120 },
+  { src: daily24.url, alt: "The Daily Star 2024", w: 32, baseAngle: 90 },
+  { src: kaler.url, alt: "Kaler Kantho", w: 28, baseAngle: 40 },
+  { src: observer.url, alt: "Daily Observer", w: 26, baseAngle: 140 },
+  { src: daily23.url, alt: "The Daily Star 2023", w: 26, baseAngle: 75 },
+  { src: news24.url, alt: "NEWS24", w: 25, baseAngle: 110 },
 ];
 
 const PER_IMAGE_DURATION = 7.5; // seconds: one image travels center → fully off page (constant speed)
@@ -46,9 +47,9 @@ function FloatingPiece({ f }: { f: Floater }) {
       await new Promise((r) => setTimeout(r, (1.2 + f.delay) * 1000));
       let cycle = 0;
       while (!cancelled) {
-        // Shuffle: jitter angle each loop so order/direction varies, but style stays same
-        const jitter = Math.sin((f.baseAngle + cycle * 47.3) * 0.91) * 35;
-        const angle = f.baseAngle + jitter;
+        // Jitter angle but stay within lower hemisphere (15..165) so pieces never fly upward
+        const jitter = Math.sin((f.baseAngle + cycle * 47.3) * 0.91) * 18;
+        const angle = Math.min(165, Math.max(15, f.baseAngle + jitter));
         const rad = (angle * Math.PI) / 180;
         const tx = `${Math.cos(rad) * dist}vmin`;
         const ty = `${Math.sin(rad) * dist * 0.95}vmin`;
@@ -84,7 +85,7 @@ function FloatingPiece({ f }: { f: Floater }) {
       animate={controls}
       initial={{ opacity: 0, x: "-50%", y: "-50%", scale: 0.18 }}
       className="pointer-events-none absolute left-1/2 top-1/2"
-      style={{ width: `${f.w}px` }}
+      style={{ width: `clamp(140px, ${f.w}vmin, 380px)` }}
     >
       <div className="overflow-hidden rounded-2xl bg-ink ring-2 ring-ink shadow-[0_30px_80px_-25px_rgba(0,0,0,0.5)]">
         <img src={f.src} alt={f.alt} loading="lazy" className="block h-auto w-full" />
