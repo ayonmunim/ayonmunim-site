@@ -111,8 +111,8 @@ export function Media() {
         </motion.div>
       </div>
 
-      {/* Press gallery — nas.com style: sparse grid, lots of whitespace */}
-      <div className="relative mx-auto mt-28 max-w-[1200px] px-6 md:mt-36">
+      {/* Press gallery — dense packed masonry collage */}
+      <div className="relative mx-auto mt-28 max-w-[1400px] px-4 md:mt-36 md:px-6">
         <AnimatedSection>
           <h3 className="font-display text-3xl uppercase tracking-tight md:text-5xl">
             <span className="text-ink/40">/</span> Press Gallery
@@ -122,35 +122,32 @@ export function Media() {
           </p>
         </AnimatedSection>
 
-        {/* Grid: 4 columns × 2 rows. Top row: only col-2 occupied. Bottom row: cols 1, 3, 4. */}
-        <div className="relative mt-16 grid grid-cols-4 grid-rows-2 gap-3 md:mt-20 md:gap-6">
-          {(() => {
-            const items: { tile: Tile; col: number; row: number }[] = [
-              { tile: TILES[1], col: 2, row: 1 }, // top center-right
-              { tile: TILES[0], col: 1, row: 2 }, // bottom-left
-              { tile: TILES[2], col: 3, row: 2 }, // bottom-middle
-              { tile: TILES[3], col: 4, row: 2 }, // bottom-right
-            ];
-            return items.map(({ tile: t, col, row }, i) => {
-              const fromSide = col === 1 ? -1 : col === 4 ? 1 : 0;
-              const initial = fromSide !== 0
-                ? { opacity: 0, x: fromSide * 80, scale: 0.92 }
-                : { opacity: 0, y: 60, scale: 0.92 };
-              return (
+        {(() => {
+          const POOL = [daily23.url, prothom.url, nsac.url, nasa.url, news24.url, kaler.url, samakal.url, daily24.url, observer.url];
+          const NOTES = ["Featured story", "National daily", "Cover feature", "Broadcast", "Editorial", "Profile piece", "Spotlight", "Innovation", "Press"];
+          // Varied aspect ratios for masonry feel
+          const RATIOS = ["3/4", "4/5", "1/1", "3/4", "4/5", "3/4", "4/5", "1/1", "3/4", "4/5", "3/4", "1/1"];
+          const COUNT = 36; // plenty of rows so the bottom fades into white
+          const items = Array.from({ length: COUNT }, (_, i) => ({
+            src: POOL[i % POOL.length],
+            title: `Press Feature ${String(i + 1).padStart(2, "0")}`,
+            note: NOTES[i % NOTES.length],
+            ratio: RATIOS[i % RATIOS.length],
+          }));
+          return (
+            <div className="mt-12 columns-2 gap-3 sm:columns-3 md:mt-16 md:columns-4 md:gap-4 lg:columns-5">
+              {items.map((t, i) => (
                 <motion.a
                   key={i}
-                  href={t.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  initial={initial}
-                  whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
-                  viewport={{ once: true, margin: "-60px" }}
-                  transition={{ duration: 0.9, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-                  whileHover={{ y: -6 }}
-                  style={{ gridColumn: col, gridRow: row }}
-                  className="group relative block overflow-hidden rounded-2xl bg-white shadow-[0_20px_60px_-25px_rgba(0,0,0,0.35)] ring-1 ring-ink/10"
+                  href="#"
+                  initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.7, delay: (i % 6) * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                  whileHover={{ y: -4 }}
+                  className="group relative mb-3 block break-inside-avoid overflow-hidden rounded-xl bg-white shadow-[0_15px_40px_-20px_rgba(0,0,0,0.25)] ring-1 ring-ink/5 md:mb-4 md:rounded-2xl"
                 >
-                  <div style={{ aspectRatio: "4/5" }} className="relative">
+                  <div style={{ aspectRatio: t.ratio }} className="relative">
                     <img
                       src={t.src}
                       alt={t.title}
@@ -158,32 +155,32 @@ export function Media() {
                       loading="lazy"
                     />
                     <div
-                      className="pointer-events-none absolute inset-0 flex flex-col justify-end p-4 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                      className="pointer-events-none absolute inset-0 flex flex-col justify-end p-3 opacity-0 transition-opacity duration-500 group-hover:opacity-100 md:p-4"
                       style={{
                         background:
                           "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0) 100%)",
                       }}
                     >
-                      <h4 className="font-display text-base font-semibold leading-tight text-white md:text-lg">
+                      <h4 className="font-display text-sm font-semibold leading-tight text-white md:text-base">
                         {t.title}
                       </h4>
-                      <p className="mt-1 text-[11px] uppercase tracking-[0.18em] text-white/75">{t.note}</p>
+                      <p className="mt-1 text-[10px] uppercase tracking-[0.18em] text-white/75">{t.note}</p>
                     </div>
                   </div>
                 </motion.a>
-              );
-            });
-          })()}
-        </div>
+              ))}
+            </div>
+          );
+        })()}
       </div>
 
-      {/* White gradient fade at the bottom of the section (nas.com style) */}
+      {/* White gradient fade covering the bottom ~4/5 rows of the gallery */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-40 md:h-56"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[55%]"
         style={{
           background:
-            "linear-gradient(to bottom, rgba(255,253,248,0) 0%, rgba(255,255,255,0.85) 60%, #ffffff 100%)",
+            "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 25%, rgba(255,255,255,0.85) 65%, #ffffff 100%)",
         }}
       />
     </section>
