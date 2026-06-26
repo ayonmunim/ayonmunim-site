@@ -111,68 +111,81 @@ export function Media() {
         </motion.div>
       </div>
 
-      {/* Press gallery — Tetris-style pop-up grid */}
-      <div className="mx-auto mt-28 max-w-[1400px] px-6 md:mt-36">
+      {/* Press gallery — nas.com style: sparse grid, lots of whitespace */}
+      <div className="relative mx-auto mt-28 max-w-[1200px] px-6 md:mt-36">
         <AnimatedSection>
           <h3 className="font-display text-3xl uppercase tracking-tight md:text-5xl">
             <span className="text-ink/40">/</span> Press Gallery
           </h3>
           <p className="mt-4 max-w-xl text-ink/65">
-            Vertically staggered — hover any tile to read the story.
+            Hover any tile to read the story.
           </p>
         </AnimatedSection>
 
-        <div className="mt-16 grid grid-cols-3 gap-1.5 md:grid-cols-5 md:gap-2">
-          {TILES.map((t, i) => {
-            // Outer columns slide in from sides, inner from below
-            const dir = t.col === 0 ? -1 : t.col === 4 ? 1 : 0;
-            const initial = dir !== 0
-              ? { opacity: 0, x: dir * 120, scale: 0.9 }
-              : { opacity: 0, y: 80, scale: 0.92 };
-            const inView = { opacity: 1, x: 0, y: 0, scale: 1 };
-            return (
-              <motion.a
-                key={i}
-                href={t.href}
-                target="_blank"
-                rel="noreferrer"
-                initial={initial}
-                whileInView={inView}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{
-                  duration: 0.9,
-                  delay: (i % 5) * 0.08,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                whileHover={{ y: -6 }}
-                style={{ marginTop: `${t.offset ?? 0}px` }}
-                className="group relative block overflow-hidden rounded-xl bg-white shadow-[0_18px_50px_-20px_rgba(0,0,0,0.35)] ring-1 ring-ink/10"
-              >
-                <div style={{ aspectRatio: t.aspect ?? "3/4" }} className="relative">
-                  <img
-                    src={t.src}
-                    alt={t.title}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    loading="lazy"
-                  />
-                  <div
-                    className="pointer-events-none absolute inset-0 flex flex-col justify-end p-4 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                    style={{
-                      background:
-                        "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0) 100%)",
-                    }}
-                  >
-                    <h4 className="font-display text-base font-semibold leading-tight text-white md:text-lg">
-                      {t.title}
-                    </h4>
-                    <p className="mt-1 text-[11px] uppercase tracking-[0.18em] text-white/75">{t.note}</p>
+        {/* Grid: 4 columns × 2 rows. Top row: only col-2 occupied. Bottom row: cols 1, 3, 4. */}
+        <div className="relative mt-16 grid grid-cols-4 grid-rows-2 gap-3 md:mt-20 md:gap-6">
+          {(() => {
+            const items: { tile: Tile; col: number; row: number }[] = [
+              { tile: TILES[1], col: 2, row: 1 }, // top center-right
+              { tile: TILES[0], col: 1, row: 2 }, // bottom-left
+              { tile: TILES[2], col: 3, row: 2 }, // bottom-middle
+              { tile: TILES[3], col: 4, row: 2 }, // bottom-right
+            ];
+            return items.map(({ tile: t, col, row }, i) => {
+              const fromSide = col === 1 ? -1 : col === 4 ? 1 : 0;
+              const initial = fromSide !== 0
+                ? { opacity: 0, x: fromSide * 80, scale: 0.92 }
+                : { opacity: 0, y: 60, scale: 0.92 };
+              return (
+                <motion.a
+                  key={i}
+                  href={t.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  initial={initial}
+                  whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.9, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+                  whileHover={{ y: -6 }}
+                  style={{ gridColumn: col, gridRow: row }}
+                  className="group relative block overflow-hidden rounded-2xl bg-white shadow-[0_20px_60px_-25px_rgba(0,0,0,0.35)] ring-1 ring-ink/10"
+                >
+                  <div style={{ aspectRatio: "4/5" }} className="relative">
+                    <img
+                      src={t.src}
+                      alt={t.title}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      loading="lazy"
+                    />
+                    <div
+                      className="pointer-events-none absolute inset-0 flex flex-col justify-end p-4 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                      style={{
+                        background:
+                          "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0) 100%)",
+                      }}
+                    >
+                      <h4 className="font-display text-base font-semibold leading-tight text-white md:text-lg">
+                        {t.title}
+                      </h4>
+                      <p className="mt-1 text-[11px] uppercase tracking-[0.18em] text-white/75">{t.note}</p>
+                    </div>
                   </div>
-                </div>
-              </motion.a>
-            );
-          })}
+                </motion.a>
+              );
+            });
+          })()}
         </div>
       </div>
+
+      {/* White gradient fade at the bottom of the section (nas.com style) */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-40 md:h-56"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(255,253,248,0) 0%, rgba(255,255,255,0.85) 60%, #ffffff 100%)",
+        }}
+      />
     </section>
   );
 }
