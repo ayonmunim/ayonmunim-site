@@ -128,3 +128,98 @@ export function Media() {
     </section>
   );
 }
+
+function PressGallery() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  const POOL = [daily23.url, prothom.url, nsac.url, nasa.url, news24.url, kaler.url, samakal.url, daily24.url, observer.url];
+  const NOTES = ["Featured story", "National daily", "Cover feature", "Broadcast", "Editorial", "Profile piece", "Spotlight", "Innovation", "Press"];
+
+  // 6 columns of square tiles, each scrolls at a different speed and direction
+  const COLS = 6;
+  const TILES_PER_COL = 7;
+  const SPEEDS = [-120, 80, -60, 100, -90, 70]; // px parallax per column
+
+  const columns = Array.from({ length: COLS }, (_, c) =>
+    Array.from({ length: TILES_PER_COL }, (_, r) => {
+      const i = (c * TILES_PER_COL + r) % POOL.length;
+      return {
+        src: POOL[i],
+        title: `Press Feature ${String(c * TILES_PER_COL + r + 1).padStart(2, "0")}`,
+        note: NOTES[i],
+      };
+    })
+  );
+
+  return (
+    <div className="relative mx-auto mt-24 max-w-[1500px] px-4 md:mt-32 md:px-6">
+      <AnimatedSection>
+        <h3 className="font-display text-3xl uppercase tracking-tight md:text-5xl">
+          <span className="text-ink/40">/</span> Press Gallery
+        </h3>
+        <p className="mt-4 max-w-xl text-ink/65">Hover any tile to read the story.</p>
+      </AnimatedSection>
+
+      <div
+        ref={ref}
+        className="relative mt-10 grid grid-cols-3 gap-2 md:mt-14 md:grid-cols-6 md:gap-3"
+        style={{ maskImage: "linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%)" }}
+      >
+        {columns.map((col, cIdx) => (
+          <ParallaxColumn key={cIdx} progress={scrollYProgress} speed={SPEEDS[cIdx % SPEEDS.length]} offsetY={cIdx % 2 === 0 ? 0 : 40}>
+            {col.map((t, rIdx) => (
+              <a
+                key={rIdx}
+                href="#"
+                className="group relative block overflow-hidden rounded-md bg-white shadow-[0_8px_24px_-12px_rgba(0,0,0,0.25)] md:rounded-lg"
+              >
+                <div style={{ aspectRatio: "1/1" }} className="relative">
+                  <img
+                    src={t.src}
+                    alt={t.title}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    loading="lazy"
+                  />
+                  <div
+                    className="pointer-events-none absolute inset-0 flex flex-col justify-end p-2 opacity-0 transition-opacity duration-500 group-hover:opacity-100 md:p-3"
+                    style={{
+                      background:
+                        "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0) 100%)",
+                    }}
+                  >
+                    <h4 className="font-display text-xs font-semibold leading-tight text-white md:text-sm">{t.title}</h4>
+                    <p className="mt-0.5 text-[9px] uppercase tracking-[0.18em] text-white/75">{t.note}</p>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </ParallaxColumn>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ParallaxColumn({
+  children,
+  progress,
+  speed,
+  offsetY = 0,
+}: {
+  children: React.ReactNode;
+  progress: ReturnType<typeof useScroll>["scrollYProgress"];
+  speed: number;
+  offsetY?: number;
+}) {
+  const y = useTransform(progress, [0, 1], [speed, -speed]);
+  return (
+    <motion.div style={{ y, marginTop: offsetY }} className="flex flex-col gap-2 md:gap-3">
+      {children}
+    </motion.div>
+  );
+}
+
