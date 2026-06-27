@@ -1,5 +1,6 @@
-import { motion } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { Play } from "lucide-react";
+import { useRef } from "react";
 import { AnimatedSection } from "./AnimatedSection";
 import { PaintTitle } from "./PaintTitle";
 import daily23 from "@/assets/press/Daily_23.png.asset.json";
@@ -111,114 +112,9 @@ export function Media() {
         </motion.div>
       </div>
 
-      {/* Press gallery — dense packed masonry collage */}
-      <div className="relative mx-auto mt-28 max-w-[1400px] px-4 md:mt-36 md:px-6">
-        <AnimatedSection>
-          <h3 className="font-display text-3xl uppercase tracking-tight md:text-5xl">
-            <span className="text-ink/40">/</span> Press Gallery
-          </h3>
-          <p className="mt-4 max-w-xl text-ink/65">
-            Hover any tile to read the story.
-          </p>
-        </AnimatedSection>
+      {/* Press gallery — nas.com style parallax columns */}
+      <PressGallery />
 
-        {(() => {
-          const POOL = [daily23.url, prothom.url, nsac.url, nasa.url, news24.url, kaler.url, samakal.url, daily24.url, observer.url];
-          const NOTES = ["Featured story", "National daily", "Cover feature", "Broadcast", "Editorial", "Profile piece", "Spotlight", "Innovation", "Press"];
-          const ROWS = 4;
-          const COLS = 5;
-          // Build column-major grid: 5 columns, 4 rows each.
-          // Middle column (index 2) is static — always shows all 4 tiles.
-          // Outer columns initially render one row less (3 tiles); the 4th
-          // row's outer tiles pop in from left/right on scroll.
-          const columns = Array.from({ length: COLS }, (_, c) =>
-            Array.from({ length: ROWS }, (_, r) => {
-              const i = r * COLS + c;
-              return {
-                src: POOL[i % POOL.length],
-                title: `Press Feature ${String(i + 1).padStart(2, "0")}`,
-                note: NOTES[i % NOTES.length],
-              };
-            })
-          );
-
-          const Tile = ({
-            t,
-            popIn,
-            fromX = 0,
-            delay = 0,
-          }: {
-            t: { src: string; title: string; note: string };
-            popIn: boolean;
-            fromX?: number;
-            delay?: number;
-          }) => (
-            <motion.a
-              href="#"
-              initial={popIn ? { opacity: 0, x: fromX, scale: 0.85 } : false}
-              whileInView={popIn ? { opacity: 1, x: 0, scale: 1 } : undefined}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ y: -4 }}
-              className="group relative block overflow-hidden rounded-xl bg-white shadow-[0_15px_40px_-20px_rgba(0,0,0,0.25)] ring-1 ring-ink/5 md:rounded-2xl"
-            >
-              <div style={{ aspectRatio: "1/1" }} className="relative">
-                <img
-                  src={t.src}
-                  alt={t.title}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  loading="lazy"
-                />
-                <div
-                  className="pointer-events-none absolute inset-0 flex flex-col justify-end p-3 opacity-0 transition-opacity duration-500 group-hover:opacity-100 md:p-4"
-                  style={{
-                    background:
-                      "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0) 100%)",
-                  }}
-                >
-                  <h4 className="font-display text-sm font-semibold leading-tight text-white md:text-base">
-                    {t.title}
-                  </h4>
-                  <p className="mt-1 text-[10px] uppercase tracking-[0.18em] text-white/75">{t.note}</p>
-                </div>
-              </div>
-            </motion.a>
-          );
-
-          return (
-            <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 md:mt-16 md:grid-cols-5 md:gap-4">
-              {columns.map((col, cIdx) => {
-                const isMiddle = cIdx === 2;
-                // Outer columns: rows 0-2 visible, row 3 pops in
-                const fromX = cIdx < 2 ? -80 : cIdx > 2 ? 80 : 0;
-                return (
-                  <div key={cIdx} className="flex flex-col gap-3 md:gap-4">
-                    {col.map((t, rIdx) => {
-                      if (isMiddle) {
-                        // Static — no scroll animation
-                        return <Tile key={rIdx} t={t} popIn={false} />;
-                      }
-                      // Outer columns: first 3 rows fade up subtly,
-                      // last row (rIdx === 3) pops in from the side.
-                      const isPopRow = rIdx === ROWS - 1;
-                      return (
-                        <Tile
-                          key={rIdx}
-                          t={t}
-                          popIn
-                          fromX={isPopRow ? fromX : 0}
-                          delay={isPopRow ? 0.15 : rIdx * 0.05}
-                        />
-                      );
-                    })}
-                  </div>
-                );
-              })}
-            </div>
-          );
-        })()}
-
-      </div>
 
       {/* White gradient fade covering the bottom ~4/5 rows of the gallery */}
       <div
@@ -232,3 +128,98 @@ export function Media() {
     </section>
   );
 }
+
+function PressGallery() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  const POOL = [daily23.url, prothom.url, nsac.url, nasa.url, news24.url, kaler.url, samakal.url, daily24.url, observer.url];
+  const NOTES = ["Featured story", "National daily", "Cover feature", "Broadcast", "Editorial", "Profile piece", "Spotlight", "Innovation", "Press"];
+
+  // 6 columns of square tiles, each scrolls at a different speed and direction
+  const COLS = 6;
+  const TILES_PER_COL = 7;
+  const SPEEDS = [-120, 80, -60, 100, -90, 70]; // px parallax per column
+
+  const columns = Array.from({ length: COLS }, (_, c) =>
+    Array.from({ length: TILES_PER_COL }, (_, r) => {
+      const i = (c * TILES_PER_COL + r) % POOL.length;
+      return {
+        src: POOL[i],
+        title: `Press Feature ${String(c * TILES_PER_COL + r + 1).padStart(2, "0")}`,
+        note: NOTES[i],
+      };
+    })
+  );
+
+  return (
+    <div className="relative mx-auto mt-24 max-w-[1500px] px-4 md:mt-32 md:px-6">
+      <AnimatedSection>
+        <h3 className="font-display text-3xl uppercase tracking-tight md:text-5xl">
+          <span className="text-ink/40">/</span> Press Gallery
+        </h3>
+        <p className="mt-4 max-w-xl text-ink/65">Hover any tile to read the story.</p>
+      </AnimatedSection>
+
+      <div
+        ref={ref}
+        className="relative mt-10 grid grid-cols-3 gap-2 md:mt-14 md:grid-cols-6 md:gap-3"
+        style={{ maskImage: "linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%)" }}
+      >
+        {columns.map((col, cIdx) => (
+          <ParallaxColumn key={cIdx} progress={scrollYProgress} speed={SPEEDS[cIdx % SPEEDS.length]} offsetY={cIdx % 2 === 0 ? 0 : 40}>
+            {col.map((t, rIdx) => (
+              <a
+                key={rIdx}
+                href="#"
+                className="group relative block overflow-hidden rounded-md bg-white shadow-[0_8px_24px_-12px_rgba(0,0,0,0.25)] md:rounded-lg"
+              >
+                <div style={{ aspectRatio: "1/1" }} className="relative">
+                  <img
+                    src={t.src}
+                    alt={t.title}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    loading="lazy"
+                  />
+                  <div
+                    className="pointer-events-none absolute inset-0 flex flex-col justify-end p-2 opacity-0 transition-opacity duration-500 group-hover:opacity-100 md:p-3"
+                    style={{
+                      background:
+                        "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0) 100%)",
+                    }}
+                  >
+                    <h4 className="font-display text-xs font-semibold leading-tight text-white md:text-sm">{t.title}</h4>
+                    <p className="mt-0.5 text-[9px] uppercase tracking-[0.18em] text-white/75">{t.note}</p>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </ParallaxColumn>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ParallaxColumn({
+  children,
+  progress,
+  speed,
+  offsetY = 0,
+}: {
+  children: React.ReactNode;
+  progress: ReturnType<typeof useScroll>["scrollYProgress"];
+  speed: number;
+  offsetY?: number;
+}) {
+  const y = useTransform(progress, [0, 1], [speed, -speed]);
+  return (
+    <motion.div style={{ y, marginTop: offsetY }} className="flex flex-col gap-2 md:gap-3">
+      {children}
+    </motion.div>
+  );
+}
+
