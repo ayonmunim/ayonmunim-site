@@ -139,14 +139,15 @@ function PressGallery() {
   const POOL = [daily23.url, prothom.url, nsac.url, nasa.url, news24.url, kaler.url, samakal.url, daily24.url, observer.url];
   const NOTES = ["Featured story", "National daily", "Cover feature", "Broadcast", "Editorial", "Profile piece", "Spotlight", "Innovation", "Press"];
 
-  // 6 columns of square tiles, each scrolls at a different speed and direction
-  const COLS = 6;
-  const TILES_PER_COL = 7;
-  const SPEEDS = [-120, 80, -60, 100, -90, 70]; // px parallax per column
+  // 7 columns — center column appears first, columns "spread" outward
+  // from center as the user scrolls deeper into the section (nas.com style).
+  const COLS = 7;
+  const TILES_PER_COL = 8;
+  const CENTER = (COLS - 1) / 2;
 
   const columns = Array.from({ length: COLS }, (_, c) =>
     Array.from({ length: TILES_PER_COL }, (_, r) => {
-      const i = (c * TILES_PER_COL + r) % POOL.length;
+      const i = (c * 13 + r * 3) % POOL.length;
       return {
         src: POOL[i],
         title: `Press Feature ${String(c * TILES_PER_COL + r + 1).padStart(2, "0")}`,
@@ -156,70 +157,121 @@ function PressGallery() {
   );
 
   return (
-    <div className="relative mx-auto mt-24 max-w-[1500px] px-4 md:mt-32 md:px-6">
+    <div className="relative mx-auto mt-24 max-w-[1600px] px-3 md:mt-32 md:px-4">
       <AnimatedSection>
-        <h3 className="font-display text-3xl uppercase tracking-tight md:text-5xl">
+        <h3 className="font-display text-3xl uppercase tracking-tight md:text-5xl px-3 md:px-4">
           <span className="text-ink/40">/</span> Press Gallery
         </h3>
-        <p className="mt-4 max-w-xl text-ink/65">Hover any tile to read the story.</p>
+        <p className="mt-4 max-w-xl text-ink/65 px-3 md:px-4">
+          Hover any tile to read the story.
+        </p>
       </AnimatedSection>
 
-      <div
-        ref={ref}
-        className="relative mt-10 grid grid-cols-3 gap-2 md:mt-14 md:grid-cols-6 md:gap-3"
-        style={{ maskImage: "linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%)" }}
-      >
-        {columns.map((col, cIdx) => (
-          <ParallaxColumn key={cIdx} progress={scrollYProgress} speed={SPEEDS[cIdx % SPEEDS.length]} offsetY={cIdx % 2 === 0 ? 0 : 40}>
-            {col.map((t, rIdx) => (
-              <a
-                key={rIdx}
-                href="#"
-                className="group relative block overflow-hidden rounded-md bg-white shadow-[0_8px_24px_-12px_rgba(0,0,0,0.25)] md:rounded-lg"
-              >
-                <div style={{ aspectRatio: "1/1" }} className="relative">
-                  <img
-                    src={t.src}
-                    alt={t.title}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    loading="lazy"
-                  />
-                  <div
-                    className="pointer-events-none absolute inset-0 flex flex-col justify-end p-2 opacity-0 transition-opacity duration-500 group-hover:opacity-100 md:p-3"
-                    style={{
-                      background:
-                        "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0) 100%)",
-                    }}
-                  >
-                    <h4 className="font-display text-xs font-semibold leading-tight text-white md:text-sm">{t.title}</h4>
-                    <p className="mt-0.5 text-[9px] uppercase tracking-[0.18em] text-white/75">{t.note}</p>
-                  </div>
-                </div>
-              </a>
-            ))}
-          </ParallaxColumn>
-        ))}
+      {/* tall scroll track so the spread animation has room to play */}
+      <div ref={ref} className="relative mt-10 md:mt-14" style={{ height: "220vh" }}>
+        {/* sticky viewport that pins the gallery while scrolling */}
+        <div className="sticky top-0 h-screen w-full overflow-hidden">
+          <div
+            className="absolute inset-x-0 top-0 grid gap-2 px-2 md:gap-3 md:px-3"
+            style={{ gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))` }}
+          >
+            {columns.map((col, cIdx) => {
+              const dist = Math.abs(cIdx - CENTER); // 0 center → 3 edge
+              return (
+                <SpreadColumn
+                  key={cIdx}
+                  progress={scrollYProgress}
+                  dist={dist}
+                  maxDist={CENTER}
+                >
+                  {col.map((t, rIdx) => (
+                    <a
+                      key={rIdx}
+                      href="#"
+                      className="group relative block overflow-hidden rounded-md bg-white shadow-[0_8px_24px_-12px_rgba(0,0,0,0.25)] md:rounded-lg"
+                    >
+                      <div style={{ aspectRatio: "1/1" }} className="relative">
+                        <img
+                          src={t.src}
+                          alt={t.title}
+                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                          loading="lazy"
+                        />
+                        <div
+                          className="pointer-events-none absolute inset-0 flex flex-col justify-end p-2 opacity-0 transition-opacity duration-500 group-hover:opacity-100 md:p-3"
+                          style={{
+                            background:
+                              "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0) 100%)",
+                          }}
+                        >
+                          <h4 className="font-display text-xs font-semibold leading-tight text-white md:text-sm">
+                            {t.title}
+                          </h4>
+                          <p className="mt-0.5 text-[9px] uppercase tracking-[0.18em] text-white/75">
+                            {t.note}
+                          </p>
+                        </div>
+                      </div>
+                    </a>
+                  ))}
+                </SpreadColumn>
+              );
+            })}
+          </div>
+
+          {/* bottom white fade */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%]"
+            style={{
+              background:
+                "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.85) 60%, #ffffff 100%)",
+            }}
+          />
+          {/* top soft fade so tiles fade in cleanly */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-0 h-24"
+            style={{
+              background:
+                "linear-gradient(to top, rgba(255,255,255,0) 0%, #ffffff 100%)",
+            }}
+          />
+        </div>
       </div>
     </div>
   );
 }
 
-function ParallaxColumn({
+function SpreadColumn({
   children,
   progress,
-  speed,
-  offsetY = 0,
+  dist,
+  maxDist,
 }: {
   children: React.ReactNode;
   progress: ReturnType<typeof useScroll>["scrollYProgress"];
-  speed: number;
-  offsetY?: number;
+  dist: number; // 0 = center, maxDist = edge
+  maxDist: number;
 }) {
-  const y = useTransform(progress, [0, 1], [speed, -speed]);
+  // Each column starts below the viewport, then scrolls up into view.
+  // Center column (dist=0) starts highest and reveals first.
+  // Outer columns (larger dist) start further down → appear later as
+  // the user scrolls deeper, creating the "spread from center" effect.
+  const startOffset = 400 + dist * 320; // px below initial position
+  const endOffset = -1400; // travel far up off-screen by the end
+  const y = useTransform(progress, [0, 1], [startOffset, endOffset]);
+  const opacity = useTransform(
+    progress,
+    [0, 0.05 + dist * 0.04, 0.15 + dist * 0.05, 0.85, 1],
+    [0, 0, 1, 1, 0.9]
+  );
+
   return (
-    <motion.div style={{ y, marginTop: offsetY }} className="flex flex-col gap-2 md:gap-3">
+    <motion.div style={{ y, opacity }} className="flex flex-col gap-2 md:gap-3">
       {children}
     </motion.div>
   );
 }
+
 
