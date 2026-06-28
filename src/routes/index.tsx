@@ -38,9 +38,9 @@ function Index() {
       <Hero />
       <About />
       <Education />
+      <Experience />
       <Projects />
       <Achievements />
-      <Experience />
       <Media />
       <Footer />
       <Toaster position="bottom-right" richColors />
