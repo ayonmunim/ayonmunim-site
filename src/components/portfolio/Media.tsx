@@ -184,7 +184,7 @@ function PressGallery() {
                     <a
                       key={rIdx}
                       href="#"
-                      className="group relative block overflow-hidden rounded-md bg-white shadow-[0_8px_24px_-12px_rgba(0,0,0,0.25)] md:rounded-lg"
+                      className="group relative block overflow-hidden rounded-md bg-white/5 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.6)] ring-1 ring-white/10 md:rounded-lg"
                     >
                       <div style={{ aspectRatio: "1/1" }} className="relative">
                         <img
@@ -193,17 +193,20 @@ function PressGallery() {
                           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                           loading="lazy"
                         />
+                        {/* White glass hover overlay */}
                         <div
                           className="pointer-events-none absolute inset-0 flex flex-col justify-end p-2 opacity-0 transition-opacity duration-500 group-hover:opacity-100 md:p-3"
                           style={{
                             background:
-                              "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0) 100%)",
+                              "linear-gradient(to top, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.35) 55%, rgba(255,255,255,0.05) 100%)",
+                            backdropFilter: "blur(6px)",
+                            WebkitBackdropFilter: "blur(6px)",
                           }}
                         >
-                          <h4 className="font-display text-xs font-semibold leading-tight text-white md:text-sm">
+                          <h4 className="font-display text-xs font-semibold leading-tight text-ink md:text-sm">
                             {t.title}
                           </h4>
-                          <p className="mt-0.5 text-[9px] uppercase tracking-[0.18em] text-white/75">
+                          <p className="mt-0.5 text-[9px] uppercase tracking-[0.18em] text-ink/75">
                             {t.note}
                           </p>
                         </div>
