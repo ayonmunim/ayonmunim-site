@@ -156,9 +156,9 @@ function PressGallery() {
     <div className="relative mx-auto mt-24 max-w-[1600px] px-3 md:mt-32 md:px-4">
       <AnimatedSection>
         <h3 className="font-display text-3xl uppercase tracking-tight md:text-5xl px-3 md:px-4">
-          <span className="text-ink/40">/</span> Press Gallery
+          <span className="text-white/40">/</span> Press Gallery
         </h3>
-        <p className="mt-4 max-w-xl text-ink/65 px-3 md:px-4">
+        <p className="mt-4 max-w-xl text-white/65 px-3 md:px-4">
           Hover any tile to read the story.
         </p>
       </AnimatedSection>
