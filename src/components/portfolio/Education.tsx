@@ -92,7 +92,7 @@ function EduRow({
                     <Award className="size-5" />
                   </div>
                 </div>
-                <div className="cert-glow relative h-full w-full overflow-hidden rounded-xl bg-white/95 p-1.5">
+                <div className="rainbow-border relative h-full w-full overflow-hidden rounded-xl bg-white p-1.5">
                   <img
                     src={cert}
                     alt={item.degree}

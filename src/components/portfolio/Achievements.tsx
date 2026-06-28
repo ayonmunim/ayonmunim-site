@@ -138,7 +138,7 @@ function AchievementRow({
             <img
               src={item.image}
               alt={item.title}
-              className="max-h-full w-auto object-contain drop-shadow-[0_30px_80px_rgba(255,206,0,0.25)]"
+              className="max-h-full w-auto object-contain"
               loading="lazy"
             />
           </motion.div>
