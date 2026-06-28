@@ -233,14 +233,6 @@ function PressGallery() {
                 "linear-gradient(to top, rgba(255,253,245,0) 0%, #FFFDF5 100%)",
             }}
           />
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-0 h-24"
-            style={{
-              background:
-                "linear-gradient(to top, rgba(255,255,255,0) 0%, #fff 100%)",
-            }}
-          />
         </div>
       </div>
     </div>
