@@ -22,8 +22,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Munim Ahmed — Software Engineer & Full-Stack Developer" },
       {
         property: "og:description",
-        content:
-          "Designing intelligent digital experiences through code, data and human-centered design.",
+        content: "Designing intelligent digital experiences through code, data and human-centered design.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -41,11 +40,10 @@ function Index() {
       <Education />
       <Projects />
       <Achievements />
-      <Media />
       <Experience />
+      <Media />
       <Footer />
       <Toaster position="bottom-right" richColors />
     </main>
   );
 }
-
