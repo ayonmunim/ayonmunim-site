@@ -112,13 +112,13 @@ export function Media() {
       <PressGallery />
 
 
-      {/* White gradient fade covering the bottom ~4/5 rows of the gallery */}
+      {/* Bottom fade to next section (black) */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-[55%]"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[40%]"
         style={{
           background:
-            "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 25%, rgba(255,255,255,0.85) 65%, #ffffff 100%)",
+            "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 60%, #000 100%)",
         }}
       />
     </section>
