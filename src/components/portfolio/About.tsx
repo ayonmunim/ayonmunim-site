@@ -2,7 +2,7 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { AnimatedSection } from "./AnimatedSection";
 import { resume } from "@/data/resume";
-import portraitAsset from "@/assets/munim-portrait.jpg.asset.json";
+import portraitAsset from "@/assets/munim-bio.jpg.asset.json";
 import {
   Code2, Database, Brain, Palette, Wrench, Server,
   GraduationCap, MapPin, Mail as MailIcon, Briefcase,
@@ -50,13 +50,12 @@ export function About() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-              className="relative aspect-[3/4] w-full max-w-md overflow-hidden rounded-2xl ring-1 ring-white/15 shadow-[0_40px_120px_-30px_rgba(0,0,0,0.6)]"
+              className="group relative aspect-[3/4] w-full max-w-md overflow-hidden rounded-2xl ring-1 ring-white/15 shadow-[0_40px_120px_-30px_rgba(0,0,0,0.6)]"
             >
               <img
                 src={portraitAsset.url}
                 alt="Munim Ahmed"
-                className="h-full w-full object-cover"
-                style={{ filter: "grayscale(100%) contrast(1.05)" }}
+                className="h-full w-full object-cover transition-all duration-700 ease-out [filter:grayscale(100%)_contrast(1.05)] group-hover:[filter:grayscale(0%)_contrast(1)]"
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
             </motion.div>
