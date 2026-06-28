@@ -215,16 +215,24 @@ function PressGallery() {
             })}
           </div>
 
-          {/* bottom white fade */}
+          {/* bottom yellow fade syncing with contact */}
           <div
             aria-hidden
             className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%]"
             style={{
               background:
-                "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 60%, #fff 100%)",
+                "linear-gradient(to bottom, rgba(255,253,245,0) 0%, rgba(255,230,128,0.85) 55%, #FFCE00 100%)",
             }}
           />
-          {/* top white soft fade */}
+          {/* top soft fade */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-0 h-24"
+            style={{
+              background:
+                "linear-gradient(to top, rgba(255,253,245,0) 0%, #FFFDF5 100%)",
+            }}
+          />
           <div
             aria-hidden
             className="pointer-events-none absolute inset-x-0 top-0 h-24"
