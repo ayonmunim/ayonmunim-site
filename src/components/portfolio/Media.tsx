@@ -84,7 +84,7 @@ export function Media() {
           {[...VIDEO_CARDS, ...VIDEO_CARDS].map((c, i) => (
             <article
               key={i}
-              className="group relative w-[320px] shrink-0 overflow-hidden rounded-3xl bg-white shadow-[0_25px_80px_-25px_rgba(0,0,0,0.25)] ring-4 ring-sun transition-transform hover:scale-[1.02] md:w-[380px]"
+              className="group relative w-[320px] shrink-0 overflow-hidden rounded-3xl bg-white/5 backdrop-blur-md shadow-[0_25px_80px_-25px_rgba(0,0,0,0.6)] ring-1 ring-white/15 transition-all duration-500 hover:scale-[1.02] hover:bg-white/15 hover:ring-white/40 md:w-[380px]"
             >
               <div className="relative aspect-[4/3] overflow-hidden">
                 <img src={c.src} alt={c.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
