@@ -137,8 +137,8 @@ function PressGallery() {
 
   // 7 columns — center column appears first, columns "spread" outward
   // from center as the user scrolls deeper into the section (nas.com style).
-  const COLS = 7;
-  const TILES_PER_COL = 8;
+  const COLS = 5;
+  const TILES_PER_COL = 5;
   const CENTER = (COLS - 1) / 2;
 
   const columns = Array.from({ length: COLS }, (_, c) =>
