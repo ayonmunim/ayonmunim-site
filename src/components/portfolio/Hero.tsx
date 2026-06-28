@@ -41,7 +41,7 @@ function FloatingPiece({ f }: { f: Floater }) {
 
   useEffect(() => {
     let cancelled = false;
-    const dist = 78; // vmin — travel past the edge so it slides out of the page
+    const dist = 110; // vmin — travel well past the edge so it exits the section without fading
 
     const run = async () => {
       await new Promise((r) => setTimeout(r, (1.2 + f.delay) * 1000));
