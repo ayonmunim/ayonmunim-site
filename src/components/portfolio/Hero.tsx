@@ -85,7 +85,7 @@ function FloatingPiece({ f }: { f: Floater }) {
       animate={controls}
       initial={{ opacity: 0, x: "-50%", y: "-50%", scale: 0.18 }}
       className="pointer-events-none absolute left-1/2 top-1/2"
-      style={{ width: `clamp(140px, ${f.w}vmin, 380px)` }}
+      style={{ width: `clamp(180px, ${f.w}vmin, 520px)` }}
     >
       <div className="overflow-hidden rounded-2xl bg-ink ring-2 ring-ink shadow-[0_30px_80px_-25px_rgba(0,0,0,0.5)]">
         <img src={f.src} alt={f.alt} loading="lazy" className="block h-auto w-full" />
