@@ -54,21 +54,17 @@ export function Media() {
   return (
     <section
       id="media"
-      className="relative py-28 md:py-40"
-      style={{
-        background:
-          "radial-gradient(120% 90% at 50% 0%, #FFFDF8 0%, #FFF7DF 60%, #FCEBB0 130%)",
-      }}
+      className="relative bg-black py-28 text-white md:py-40"
     >
       <div className="mx-auto max-w-7xl px-6">
         <AnimatedSection>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-ink/70">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/70">
             (05) Media
           </p>
           <PaintTitle className="mt-6 text-5xl uppercase md:text-7xl">
             Media
           </PaintTitle>
-          <p className="mt-6 max-w-xl text-ink/65 md:text-lg">
+          <p className="mt-6 max-w-xl text-white/65 md:text-lg">
             Selected appearances, broadcast coverage and editorial features.
           </p>
         </AnimatedSection>
@@ -77,9 +73,9 @@ export function Media() {
       {/* Horizontal auto-scroll video cards */}
       <div className="relative mt-16 overflow-hidden">
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24"
-          style={{ background: "linear-gradient(to right, #FFF7DF, transparent)" }} />
+          style={{ background: "linear-gradient(to right, #000, transparent)" }} />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24"
-          style={{ background: "linear-gradient(to left, #FCEBB0, transparent)" }} />
+          style={{ background: "linear-gradient(to left, #000, transparent)" }} />
         <motion.div
           animate={{ x: ["0%", "-50%"] }}
           transition={{ duration: 45, ease: "linear", repeat: Infinity }}
@@ -88,7 +84,7 @@ export function Media() {
           {[...VIDEO_CARDS, ...VIDEO_CARDS].map((c, i) => (
             <article
               key={i}
-              className="group relative w-[320px] shrink-0 overflow-hidden rounded-3xl bg-white shadow-[0_25px_80px_-25px_rgba(0,0,0,0.25)] ring-4 ring-sun transition-transform hover:scale-[1.02] md:w-[380px]"
+              className="group relative w-[320px] shrink-0 overflow-hidden rounded-3xl bg-white/5 backdrop-blur-md shadow-[0_25px_80px_-25px_rgba(0,0,0,0.6)] ring-1 ring-white/15 transition-all duration-500 hover:scale-[1.02] hover:bg-white/15 hover:ring-white/40 md:w-[380px]"
             >
               <div className="relative aspect-[4/3] overflow-hidden">
                 <img src={c.src} alt={c.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
@@ -116,13 +112,13 @@ export function Media() {
       <PressGallery />
 
 
-      {/* White gradient fade covering the bottom ~4/5 rows of the gallery */}
+      {/* Bottom fade to next section (black) */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-[55%]"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[40%]"
         style={{
           background:
-            "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 25%, rgba(255,255,255,0.85) 65%, #ffffff 100%)",
+            "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 60%, #000 100%)",
         }}
       />
     </section>
@@ -141,8 +137,8 @@ function PressGallery() {
 
   // 7 columns — center column appears first, columns "spread" outward
   // from center as the user scrolls deeper into the section (nas.com style).
-  const COLS = 7;
-  const TILES_PER_COL = 8;
+  const COLS = 5;
+  const TILES_PER_COL = 5;
   const CENTER = (COLS - 1) / 2;
 
   const columns = Array.from({ length: COLS }, (_, c) =>
@@ -160,9 +156,9 @@ function PressGallery() {
     <div className="relative mx-auto mt-24 max-w-[1600px] px-3 md:mt-32 md:px-4">
       <AnimatedSection>
         <h3 className="font-display text-3xl uppercase tracking-tight md:text-5xl px-3 md:px-4">
-          <span className="text-ink/40">/</span> Press Gallery
+          <span className="text-white/40">/</span> Press Gallery
         </h3>
-        <p className="mt-4 max-w-xl text-ink/65 px-3 md:px-4">
+        <p className="mt-4 max-w-xl text-white/65 px-3 md:px-4">
           Hover any tile to read the story.
         </p>
       </AnimatedSection>
@@ -188,7 +184,7 @@ function PressGallery() {
                     <a
                       key={rIdx}
                       href="#"
-                      className="group relative block overflow-hidden rounded-md bg-white shadow-[0_8px_24px_-12px_rgba(0,0,0,0.25)] md:rounded-lg"
+                      className="group relative block overflow-hidden rounded-md bg-white/5 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.6)] ring-1 ring-white/10 md:rounded-lg"
                     >
                       <div style={{ aspectRatio: "1/1" }} className="relative">
                         <img
@@ -197,17 +193,20 @@ function PressGallery() {
                           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                           loading="lazy"
                         />
+                        {/* White glass hover overlay */}
                         <div
                           className="pointer-events-none absolute inset-0 flex flex-col justify-end p-2 opacity-0 transition-opacity duration-500 group-hover:opacity-100 md:p-3"
                           style={{
                             background:
-                              "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0) 100%)",
+                              "linear-gradient(to top, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.35) 55%, rgba(255,255,255,0.05) 100%)",
+                            backdropFilter: "blur(6px)",
+                            WebkitBackdropFilter: "blur(6px)",
                           }}
                         >
-                          <h4 className="font-display text-xs font-semibold leading-tight text-white md:text-sm">
+                          <h4 className="font-display text-xs font-semibold leading-tight text-ink md:text-sm">
                             {t.title}
                           </h4>
-                          <p className="mt-0.5 text-[9px] uppercase tracking-[0.18em] text-white/75">
+                          <p className="mt-0.5 text-[9px] uppercase tracking-[0.18em] text-ink/75">
                             {t.note}
                           </p>
                         </div>
@@ -219,22 +218,22 @@ function PressGallery() {
             })}
           </div>
 
-          {/* bottom white fade */}
+          {/* bottom black fade */}
           <div
             aria-hidden
             className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%]"
             style={{
               background:
-                "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.85) 60%, #ffffff 100%)",
+                "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 60%, #000 100%)",
             }}
           />
-          {/* top soft fade so tiles fade in cleanly */}
+          {/* top black soft fade */}
           <div
             aria-hidden
             className="pointer-events-none absolute inset-x-0 top-0 h-24"
             style={{
               background:
-                "linear-gradient(to top, rgba(255,255,255,0) 0%, #ffffff 100%)",
+                "linear-gradient(to top, rgba(0,0,0,0) 0%, #000 100%)",
             }}
           />
         </div>

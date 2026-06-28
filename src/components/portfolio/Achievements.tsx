@@ -57,15 +57,7 @@ const ACHIEVEMENTS: Achievement[] = [
 export function Achievements() {
   return (
     <section id="awards" className="relative overflow-hidden bg-black text-white">
-      {/* Star field */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-60"
-        style={{
-          backgroundImage:
-            "radial-gradient(1px 1px at 20% 30%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 60% 70%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 80% 20%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 35% 85%, #fff 50%, transparent 51%), radial-gradient(1px 1px at 10% 60%, #fff 50%, transparent 51%)",
-          backgroundSize: "400px 400px",
-        }}
-      />
+
 
       <div className="relative mx-auto max-w-7xl px-6 pt-28 md:pt-40">
         <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/70">

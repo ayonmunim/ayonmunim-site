@@ -18,15 +18,15 @@ type Floater = { src: string; alt: string; w: number; baseAngle: number; delay: 
 // Non-sequential base angles so pieces fly out from different sides (not in order).
 // Angles in [10..170] keep pieces flying sideways + downward (never above center).
 const RAW: { src: string; alt: string; w: number; baseAngle: number }[] = [
-  { src: nsac.url, alt: "NASA Space Apps Challenge 2022", w: 30, baseAngle: 25 },
-  { src: prothom.url, alt: "Prothom Alo", w: 28, baseAngle: 155 },
-  { src: nasa.url, alt: "NASA Earth Data", w: 27, baseAngle: 60 },
-  { src: samakal.url, alt: "Samakal", w: 30, baseAngle: 120 },
-  { src: daily24.url, alt: "The Daily Star 2024", w: 32, baseAngle: 90 },
-  { src: kaler.url, alt: "Kaler Kantho", w: 28, baseAngle: 40 },
-  { src: observer.url, alt: "Daily Observer", w: 26, baseAngle: 140 },
-  { src: daily23.url, alt: "The Daily Star 2023", w: 26, baseAngle: 75 },
-  { src: news24.url, alt: "NEWS24", w: 25, baseAngle: 110 },
+  { src: nsac.url, alt: "NASA Space Apps Challenge 2022", w: 38, baseAngle: 25 },
+  { src: prothom.url, alt: "Prothom Alo", w: 36, baseAngle: 155 },
+  { src: nasa.url, alt: "NASA Earth Data", w: 35, baseAngle: 60 },
+  { src: samakal.url, alt: "Samakal", w: 38, baseAngle: 120 },
+  { src: daily24.url, alt: "The Daily Star 2024", w: 40, baseAngle: 90 },
+  { src: kaler.url, alt: "Kaler Kantho", w: 36, baseAngle: 40 },
+  { src: observer.url, alt: "Daily Observer", w: 34, baseAngle: 140 },
+  { src: daily23.url, alt: "The Daily Star 2023", w: 34, baseAngle: 75 },
+  { src: news24.url, alt: "NEWS24", w: 33, baseAngle: 110 },
 ];
 
 const PER_IMAGE_DURATION = 7.5; // seconds: one image travels center → fully off page (constant speed)
@@ -41,7 +41,7 @@ function FloatingPiece({ f }: { f: Floater }) {
 
   useEffect(() => {
     let cancelled = false;
-    const dist = 78; // vmin — travel past the edge so it slides out of the page
+    const dist = 110; // vmin — travel well past the edge so it exits the section without fading
 
     const run = async () => {
       await new Promise((r) => setTimeout(r, (1.2 + f.delay) * 1000));
@@ -85,7 +85,7 @@ function FloatingPiece({ f }: { f: Floater }) {
       animate={controls}
       initial={{ opacity: 0, x: "-50%", y: "-50%", scale: 0.18 }}
       className="pointer-events-none absolute left-1/2 top-1/2"
-      style={{ width: `clamp(140px, ${f.w}vmin, 380px)` }}
+      style={{ width: `clamp(180px, ${f.w}vmin, 520px)` }}
     >
       <div className="overflow-hidden rounded-2xl bg-ink ring-2 ring-ink shadow-[0_30px_80px_-25px_rgba(0,0,0,0.5)]">
         <img src={f.src} alt={f.alt} loading="lazy" className="block h-auto w-full" />
