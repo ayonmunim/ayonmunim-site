@@ -130,7 +130,7 @@ function PressGallery() {
   const POOL = [daily23.url, prothom.url, nsac.url, nasa.url, news24.url, kaler.url, samakal.url, daily24.url, observer.url];
   const NOTES = ["Featured story", "National daily", "Cover feature", "Broadcast", "Editorial", "Profile piece", "Spotlight", "Innovation", "Press"];
 
-  // 7 columns — center column appears first, columns "spread" outward
+  // 5 columns — center column appears first, columns "spread" outward
   // from center as the user scrolls deeper into the section (nas.com style).
   const COLS = 5;
   const TILES_PER_COL = 5;
@@ -148,7 +148,7 @@ function PressGallery() {
   );
 
   return (
-    <div className="relative mx-auto mt-24 max-w-[1600px] px-3 py-20 text-ink md:mt-32 md:px-4 md:py-28 rounded-3xl" style={{ background: "linear-gradient(to bottom, #FFFDF8 0%, #FDF8EE 45%, #FAF3E5 75%, #F7F3E8 100%)" }}>
+    <div className="relative mx-auto mt-12 max-w-[1600px] px-3 py-12 text-ink md:mt-16 md:px-4 md:py-16 rounded-3xl" style={{ background: "linear-gradient(to bottom, #FFFDF8 0%, #FDF8EE 45%, #FAF3E5 75%, #F7F3E8 100%)" }}>
       <AnimatedSection>
         <h3 className="font-display text-3xl uppercase tracking-tight md:text-5xl px-3 md:px-4">
           <span className="text-ink/40">/</span> Press Gallery
@@ -158,8 +158,8 @@ function PressGallery() {
         </p>
       </AnimatedSection>
 
-      {/* tall scroll track so the spread animation has room to play */}
-      <div ref={ref} className="relative mt-10 md:mt-14" style={{ height: "220vh" }}>
+      {/* scroll track — shorter so the gallery flows directly into the footer */}
+      <div ref={ref} className="relative mt-10 md:mt-14" style={{ height: "130vh" }}>
         {/* sticky viewport that pins the gallery while scrolling */}
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <div
@@ -167,7 +167,7 @@ function PressGallery() {
             style={{ gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))` }}
           >
             {columns.map((col, cIdx) => {
-              const dist = Math.abs(cIdx - CENTER); // 0 center → 3 edge
+              const dist = Math.abs(cIdx - CENTER); // 0 center → 2 edge
               return (
                 <SpreadColumn
                   key={cIdx}
@@ -179,7 +179,7 @@ function PressGallery() {
                     <a
                       key={rIdx}
                       href="#"
-                      className="group relative block overflow-hidden rounded-md bg-ink/5 shadow-[0_8px_24px_-12px_rgba(80,60,20,0.18)] ring-1 ring-ink/10 md:rounded-lg"
+                      className="group relative block overflow-hidden rounded-md bg-black/5 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.15)] ring-1 ring-black/10 md:rounded-lg"
                     >
                       <div style={{ aspectRatio: "1/1" }} className="relative">
                         <img
@@ -192,7 +192,7 @@ function PressGallery() {
                           className="pointer-events-none absolute inset-0 flex flex-col justify-end p-2 opacity-0 transition-opacity duration-500 group-hover:opacity-100 md:p-3"
                           style={{
                             background:
-                              "linear-gradient(to top, rgba(60,45,15,0.82) 0%, rgba(60,45,15,0.35) 55%, rgba(60,45,15,0.05) 100%)",
+                              "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.05) 100%)",
                           }}
                         >
                           <h4 className="font-display text-xs font-semibold leading-tight text-white md:text-sm">
@@ -213,7 +213,7 @@ function PressGallery() {
           {/* bottom cream fade */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%]"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-[35%]"
             style={{
               background:
                 "linear-gradient(to bottom, rgba(247,243,232,0) 0%, rgba(247,243,232,0.9) 60%, #F7F3E8 100%)",
@@ -228,8 +228,6 @@ function PressGallery() {
                 "linear-gradient(to top, rgba(255,253,248,0) 0%, #FFFDF8 100%)",
             }}
           />
-
-
         </div>
       </div>
     </div>
@@ -251,8 +249,8 @@ function SpreadColumn({
   // Center column (dist=0) starts highest and reveals first.
   // Outer columns (larger dist) start further down → appear later as
   // the user scrolls deeper, creating the "spread from center" effect.
-  const startOffset = 400 + dist * 320; // px below initial position
-  const endOffset = -1400; // travel far up off-screen by the end
+  const startOffset = 180 + dist * 160; // px below initial position
+  const endOffset = -600; // travel up off-screen by the end
   const y = useTransform(progress, [0, 1], [startOffset, endOffset]);
   const opacity = useTransform(
     progress,
