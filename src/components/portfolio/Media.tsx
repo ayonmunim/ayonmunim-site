@@ -141,7 +141,7 @@ function PressGallery() {
   );
 
   return (
-    <div className="relative mx-auto mt-12 max-w-[1600px] px-3 py-12 text-ink md:mt-16 md:px-4 md:py-16 rounded-3xl" style={{ background: "linear-gradient(to bottom, #FFFDF8 0%, #FDF8EE 45%, #FAF3E5 75%, #F7F3E8 100%)" }}>
+    <div className="relative mx-auto mt-12 max-w-[1600px] px-3 pt-12 pb-6 text-ink md:mt-16 md:px-4 md:pt-16 md:pb-8 rounded-3xl" style={{ background: "linear-gradient(to bottom, #FFFDF8 0%, #FDF8EE 45%, #FAF3E5 75%, #F7F3E8 100%)" }}>
       <AnimatedSection>
         <h3 className="font-display text-3xl uppercase tracking-tight md:text-5xl px-3 md:px-4">
           <span className="text-ink/40">/</span> Press Gallery
