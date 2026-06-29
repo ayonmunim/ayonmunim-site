@@ -249,8 +249,8 @@ function SpreadColumn({
   // Center column (dist=0) starts highest and reveals first.
   // Outer columns (larger dist) start further down → appear later as
   // the user scrolls deeper, creating the "spread from center" effect.
-  const startOffset = 180 + dist * 160; // px below initial position
-  const endOffset = -600; // travel up off-screen by the end
+  const startOffset = 150 + dist * 140; // px below initial position
+  const endOffset = -400; // travel up off-screen by the end
   const y = useTransform(progress, [0, 1], [startOffset, endOffset]);
   const opacity = useTransform(
     progress,
