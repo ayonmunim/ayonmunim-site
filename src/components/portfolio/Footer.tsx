@@ -74,18 +74,18 @@ export function Footer() {
       <section className="relative z-10 px-6 pt-28 pb-20 md:pt-40 md:pb-28">
         <div className="mx-auto max-w-3xl text-center">
           <AnimatedSection>
-            <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-ink/55">
+            <p className="text-[11px] font-medium uppercase tracking-[0.28em] opacity-55">
               (07) Contact
             </p>
             <h2 className="mt-6 font-paint paint-ink text-5xl font-medium leading-[0.95] tracking-[-0.03em] md:text-7xl">
               Have a problem worth solving?
             </h2>
-            <p className="mx-auto mt-6 max-w-lg text-ink/70 md:text-lg">
+            <p className="mx-auto mt-6 max-w-lg opacity-70 md:text-lg">
               Tell me about your project or just say hi. I usually reply within 24 hours.
             </p>
             <a
               href={`mailto:${resume.email}`}
-              className="mt-6 inline-flex items-center gap-1.5 text-sm text-ink/75 transition hover:text-ink story-link"
+              className="mt-6 inline-flex items-center gap-1.5 text-sm opacity-75 transition hover:opacity-100 story-link"
             >
               {resume.email} <ArrowUpRight className="size-3.5" />
             </a>
