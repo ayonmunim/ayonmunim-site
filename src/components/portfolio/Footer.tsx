@@ -117,7 +117,7 @@ export function Footer() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   disabled={loading}
-                  className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-semibold text-ink ring-2 ring-ink/15 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.35)] transition hover:bg-sun hover:text-white hover:ring-white disabled:opacity-60"
+                  className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-semibold ring-2 ring-[#3C2D0F]/15 shadow-[0_10px_30px_-10px_rgba(80,60,20,0.25)] transition hover:bg-sun hover:text-white hover:ring-white disabled:opacity-60"
                 >
                   {loading ? <Loader2 className="size-4 animate-spin" /> : <Send className="size-4" />}
                   {loading ? "Sending..." : "Send message"}
@@ -129,15 +129,15 @@ export function Footer() {
                   width: 100%;
                   background: transparent;
                   border: 0;
-                  border-bottom: 1px solid rgba(0,0,0,0.18);
+                  border-bottom: 1px solid rgba(60,45,15,0.18);
                   padding: 0.85rem 0.25rem;
-                  color: #000;
+                  color: #3C2D0F;
                   font-size: 0.95rem;
                   transition: border-color .25s ease;
                   outline: none;
                 }
-                .input-line::placeholder { color: rgba(0,0,0,0.4); }
-                .input-line:focus { border-color: #000; }
+                .input-line::placeholder { color: rgba(60,45,15,0.4); }
+                .input-line:focus { border-color: #3C2D0F; }
               `}</style>
             </form>
           </AnimatedSection>
