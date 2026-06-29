@@ -53,7 +53,7 @@ export function Media() {
   return (
     <section
       id="media"
-      className="relative py-28 md:py-40"
+      className="relative pt-28 pb-12 md:pt-40 md:pb-20"
       style={{
         color: "#000000",
         background:
