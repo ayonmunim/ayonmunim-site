@@ -112,15 +112,17 @@ export function Media() {
       <PressGallery />
 
 
-      {/* Bottom fade to next section (black) */}
+      {/* Bottom fade to next dark section */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-[40%]"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[25%]"
         style={{
           background:
             "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 60%, #000 100%)",
         }}
       />
+
+
     </section>
   );
 }
@@ -153,7 +155,7 @@ function PressGallery() {
   );
 
   return (
-    <div className="relative mx-auto mt-24 max-w-[1600px] px-3 py-20 text-ink md:mt-32 md:px-4 md:py-28 rounded-3xl" style={{ background: "linear-gradient(to bottom, #FFFDF5 0%, #FFF8DC 60%, #FFE680 90%, #FFCE00 100%)" }}>
+    <div className="relative mx-auto mt-24 max-w-[1600px] px-3 py-20 text-ink md:mt-32 md:px-4 md:py-28 rounded-3xl" style={{ background: "linear-gradient(to bottom, #ffffff 0%, #FAFAF7 60%, #F4F4F0 100%)" }}>
       <AnimatedSection>
         <h3 className="font-display text-3xl uppercase tracking-tight md:text-5xl px-3 md:px-4">
           <span className="text-ink/40">/</span> Press Gallery
@@ -215,13 +217,13 @@ function PressGallery() {
             })}
           </div>
 
-          {/* bottom yellow fade syncing with contact */}
+          {/* bottom white fade */}
           <div
             aria-hidden
             className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%]"
             style={{
               background:
-                "linear-gradient(to bottom, rgba(255,253,245,0) 0%, rgba(255,230,128,0.85) 55%, #FFCE00 100%)",
+                "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 60%, #ffffff 100%)",
             }}
           />
           {/* top soft fade */}
@@ -230,9 +232,10 @@ function PressGallery() {
             className="pointer-events-none absolute inset-x-0 top-0 h-24"
             style={{
               background:
-                "linear-gradient(to top, rgba(255,253,245,0) 0%, #FFFDF5 100%)",
+                "linear-gradient(to top, rgba(255,255,255,0) 0%, #ffffff 100%)",
             }}
           />
+
         </div>
       </div>
     </div>
