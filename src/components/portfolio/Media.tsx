@@ -1,6 +1,5 @@
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion } from "motion/react";
 import { Play } from "lucide-react";
-import { useRef } from "react";
 import { AnimatedSection } from "./AnimatedSection";
 import { PaintTitle } from "./PaintTitle";
 import daily23 from "@/assets/press/Daily_23.png.asset.json";
