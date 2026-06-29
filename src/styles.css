@@ -182,10 +182,7 @@
 }
 
 
-/* Multi-color rotating glow border for certificate cards */
-@keyframes rainbow-spin {
-  to { transform: rotate(360deg); }
-}
+/* Multi-color solid border for certificate images (static, no animation) */
 .rainbow-border {
   position: relative;
   border-radius: 1rem;
@@ -204,7 +201,7 @@
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
           mask-composite: exclude;
-  animation: rainbow-spin 6s linear infinite;
   z-index: 1;
   pointer-events: none;
 }
+
