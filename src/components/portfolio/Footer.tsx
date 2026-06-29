@@ -64,7 +64,7 @@ export function Footer() {
       className="relative overflow-hidden"
       style={{
         background:
-          "linear-gradient(to bottom, #F7F3E8 0%, #F4EBD1 22%, #F5E8C4 48%, #FCEBB0 70%, #FCEBB0 100%)",
+          "linear-gradient(to bottom, #FBF6EC 0%, #FCEBB0 18%, #F9D452 45%, #F9CE34 70%, #F9C91E 100%)",
       }}
     >
 
