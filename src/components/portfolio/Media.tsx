@@ -89,17 +89,18 @@ export function Media() {
           {[...VIDEO_CARDS, ...VIDEO_CARDS].map((c, i) => (
             <article
               key={i}
-              className="group relative w-[320px] shrink-0 overflow-hidden rounded-3xl bg-[#F7F3E8]/80 backdrop-blur-md shadow-[0_25px_80px_-25px_rgba(80,60,20,0.15)] ring-1 ring-ink/10 transition-all duration-500 hover:scale-[1.02] hover:bg-[#FFFDF8] hover:ring-ink/25 md:w-[380px]"
+              className="group relative w-[320px] shrink-0 overflow-hidden rounded-3xl bg-[#F7F3E8]/80 backdrop-blur-md shadow-[0_25px_80px_-25px_rgba(80,60,20,0.15)] ring-1 ring-[#3C2D0F]/10 transition-all duration-500 hover:scale-[1.02] hover:bg-[#FFFDF8] hover:ring-[#3C2D0F]/25 md:w-[380px]"
             >
               <div className="relative aspect-[4/3] overflow-hidden">
                 <img src={c.src} alt={c.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#3C2D0F]/70 via-[#3C2D0F]/10 to-transparent" />
-                <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-ink">
+                <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em]" style={{ color: "#3C2D0F" }}>
                   {c.tag}
                 </span>
                 <button
                   aria-label={`Play ${c.title}`}
-                  className="absolute bottom-4 right-4 grid size-12 place-items-center rounded-full bg-white/95 text-ink shadow-lg transition-transform hover:scale-110"
+                  className="absolute bottom-4 right-4 grid size-12 place-items-center rounded-full bg-white/95 shadow-lg transition-transform hover:scale-110"
+                  style={{ color: "#3C2D0F" }}
                 >
                   <Play className="size-5 fill-current" />
                 </button>
