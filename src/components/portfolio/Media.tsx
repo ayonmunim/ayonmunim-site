@@ -112,15 +112,16 @@ export function Media() {
       <PressGallery />
 
 
-      {/* Bottom fade to next section (black) */}
+      {/* Bottom fade into next section */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-[40%]"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[30%]"
         style={{
           background:
-            "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 60%, #000 100%)",
+            "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 70%, #ffffff 100%)",
         }}
       />
+
     </section>
   );
 }
