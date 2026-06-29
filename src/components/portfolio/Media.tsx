@@ -223,7 +223,7 @@ function PressGallery() {
             className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%]"
             style={{
               background:
-                "linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 60%, #ffffff 100%)",
+                "linear-gradient(to bottom, rgba(252,235,176,0) 0%, rgba(252,235,176,0.9) 60%, #FCEBB0 100%)",
             }}
           />
           {/* top soft fade */}
@@ -232,9 +232,10 @@ function PressGallery() {
             className="pointer-events-none absolute inset-x-0 top-0 h-24"
             style={{
               background:
-                "linear-gradient(to top, rgba(255,255,255,0) 0%, #ffffff 100%)",
+                "linear-gradient(to top, rgba(251,246,236,0) 0%, #FBF6EC 100%)",
             }}
           />
+
 
         </div>
       </div>
