@@ -54,17 +54,21 @@ export function Media() {
   return (
     <section
       id="media"
-      className="relative bg-black py-28 text-white md:py-40"
+      className="relative py-28 text-ink md:py-40"
+      style={{
+        background:
+          "linear-gradient(to bottom, #FFFDF8 0%, #FDF8EE 35%, #F7F3E8 70%, #F5EFDF 100%)",
+      }}
     >
       <div className="mx-auto max-w-7xl px-6">
         <AnimatedSection>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/70">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-ink/55">
             (05) Media
           </p>
           <PaintTitle className="mt-6 text-5xl uppercase md:text-7xl">
             Media
           </PaintTitle>
-          <p className="mt-6 max-w-xl text-white/65 md:text-lg">
+          <p className="mt-6 max-w-xl text-ink/65 md:text-lg">
             Selected appearances, broadcast coverage and editorial features.
           </p>
         </AnimatedSection>
@@ -73,9 +77,9 @@ export function Media() {
       {/* Horizontal auto-scroll video cards */}
       <div className="relative mt-16 overflow-hidden">
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24"
-          style={{ background: "linear-gradient(to right, #000, transparent)" }} />
+          style={{ background: "linear-gradient(to right, #FFFDF8, transparent)" }} />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24"
-          style={{ background: "linear-gradient(to left, #000, transparent)" }} />
+          style={{ background: "linear-gradient(to left, #F5EFDF, transparent)" }} />
         <motion.div
           animate={{ x: ["0%", "-50%"] }}
           transition={{ duration: 45, ease: "linear", repeat: Infinity }}
@@ -84,11 +88,11 @@ export function Media() {
           {[...VIDEO_CARDS, ...VIDEO_CARDS].map((c, i) => (
             <article
               key={i}
-              className="group relative w-[320px] shrink-0 overflow-hidden rounded-3xl bg-white/5 backdrop-blur-md shadow-[0_25px_80px_-25px_rgba(0,0,0,0.6)] ring-1 ring-white/15 transition-all duration-500 hover:scale-[1.02] hover:bg-white/15 hover:ring-white/40 md:w-[380px]"
+              className="group relative w-[320px] shrink-0 overflow-hidden rounded-3xl bg-[#F7F3E8]/80 backdrop-blur-md shadow-[0_25px_80px_-25px_rgba(80,60,20,0.15)] ring-1 ring-ink/10 transition-all duration-500 hover:scale-[1.02] hover:bg-[#FFFDF8] hover:ring-ink/25 md:w-[380px]"
             >
               <div className="relative aspect-[4/3] overflow-hidden">
                 <img src={c.src} alt={c.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent" />
                 <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-ink">
                   {c.tag}
                 </span>
