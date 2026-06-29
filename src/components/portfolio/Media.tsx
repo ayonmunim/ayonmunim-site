@@ -159,7 +159,7 @@ function PressGallery() {
       </AnimatedSection>
 
       {/* scroll track — shorter so the gallery flows directly into the footer */}
-      <div ref={ref} className="relative mt-10 md:mt-14" style={{ height: "130vh" }}>
+      <div ref={ref} className="relative mt-10 md:mt-14" style={{ height: "110vh" }}>
         {/* sticky viewport that pins the gallery while scrolling */}
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <div
