@@ -54,21 +54,22 @@ export function Media() {
   return (
     <section
       id="media"
-      className="relative py-28 text-ink md:py-40"
+      className="relative py-28 md:py-40"
       style={{
+        color: "#3C2D0F",
         background:
           "linear-gradient(to bottom, #FFFDF8 0%, #FDF8EE 35%, #F7F3E8 70%, #F5EFDF 100%)",
       }}
     >
       <div className="mx-auto max-w-7xl px-6">
         <AnimatedSection>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-ink/55">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] opacity-55">
             (05) Media
           </p>
           <PaintTitle className="mt-6 text-5xl uppercase md:text-7xl">
             Media
           </PaintTitle>
-          <p className="mt-6 max-w-xl text-ink/65 md:text-lg">
+          <p className="mt-6 max-w-xl opacity-65 md:text-lg">
             Selected appearances, broadcast coverage and editorial features.
           </p>
         </AnimatedSection>
