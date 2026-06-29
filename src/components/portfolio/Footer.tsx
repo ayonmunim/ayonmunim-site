@@ -63,8 +63,9 @@ export function Footer() {
       id="contact"
       className="relative overflow-hidden"
       style={{
+        color: "#3C2D0F",
         background:
-          "linear-gradient(to bottom, #FBF6EC 0%, #FCEBB0 18%, #F9D452 45%, #F9CE34 70%, #F9C91E 100%)",
+          "linear-gradient(to bottom, #F5EFDF 0%, #FBF6EC 10%, #FCEBB0 28%, #F9D452 50%, #F9CE34 75%, #F9C91E 100%)",
       }}
     >
 
