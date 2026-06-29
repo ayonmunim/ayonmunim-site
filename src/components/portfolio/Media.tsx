@@ -182,7 +182,7 @@ function PressGallery() {
                     <a
                       key={rIdx}
                       href="#"
-                      className="group relative block overflow-hidden rounded-md bg-black/5 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.25)] ring-1 ring-black/10 md:rounded-lg"
+                      className="group relative block overflow-hidden rounded-md bg-ink/5 shadow-[0_8px_24px_-12px_rgba(80,60,20,0.18)] ring-1 ring-ink/10 md:rounded-lg"
                     >
                       <div style={{ aspectRatio: "1/1" }} className="relative">
                         <img
@@ -195,7 +195,7 @@ function PressGallery() {
                           className="pointer-events-none absolute inset-0 flex flex-col justify-end p-2 opacity-0 transition-opacity duration-500 group-hover:opacity-100 md:p-3"
                           style={{
                             background:
-                              "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.05) 100%)",
+                              "linear-gradient(to top, rgba(60,45,15,0.82) 0%, rgba(60,45,15,0.35) 55%, rgba(60,45,15,0.05) 100%)",
                           }}
                         >
                           <h4 className="font-display text-xs font-semibold leading-tight text-white md:text-sm">
