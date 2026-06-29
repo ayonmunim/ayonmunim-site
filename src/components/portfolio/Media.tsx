@@ -158,110 +158,49 @@ function PressGallery() {
         </p>
       </AnimatedSection>
 
-      {/* scroll track — shorter so the gallery flows directly into the footer */}
-      <div ref={ref} className="relative mt-10 md:mt-14" style={{ height: "110vh" }}>
-        {/* sticky viewport that pins the gallery while scrolling */}
-        <div className="sticky top-0 h-screen w-full overflow-hidden">
-          <div
-            className="absolute inset-x-0 top-0 grid gap-2 px-2 md:gap-3 md:px-3"
-            style={{ gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))` }}
-          >
-            {columns.map((col, cIdx) => {
-              const dist = Math.abs(cIdx - CENTER); // 0 center → 2 edge
-              return (
-                <SpreadColumn
-                  key={cIdx}
-                  progress={scrollYProgress}
-                  dist={dist}
-                  maxDist={CENTER}
+      {/* responsive grid collage — flows directly into the footer */}
+      <div className="relative mt-10 px-2 md:mt-14 md:px-3">
+        <div
+          className="grid gap-2 md:gap-3"
+          style={{ gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))` }}
+        >
+          {columns.map((col) => (
+            <div key={crypto.randomUUID()} className="flex flex-col gap-2 md:gap-3">
+              {col.map((t) => (
+                <a
+                  key={crypto.randomUUID()}
+                  href="#"
+                  className="group relative block overflow-hidden rounded-md bg-black/5 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.15)] ring-1 ring-black/10 md:rounded-lg"
                 >
-                  {col.map((t, rIdx) => (
-                    <a
-                      key={rIdx}
-                      href="#"
-                      className="group relative block overflow-hidden rounded-md bg-black/5 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.15)] ring-1 ring-black/10 md:rounded-lg"
+                  <div style={{ aspectRatio: "1/1" }} className="relative">
+                    <img
+                      src={t.src}
+                      alt={t.title}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      loading="lazy"
+                    />
+                    <div
+                      className="pointer-events-none absolute inset-0 flex flex-col justify-end p-2 opacity-0 transition-opacity duration-500 group-hover:opacity-100 md:p-3"
+                      style={{
+                        background:
+                          "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.05) 100%)",
+                      }}
                     >
-                      <div style={{ aspectRatio: "1/1" }} className="relative">
-                        <img
-                          src={t.src}
-                          alt={t.title}
-                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                          loading="lazy"
-                        />
-                        <div
-                          className="pointer-events-none absolute inset-0 flex flex-col justify-end p-2 opacity-0 transition-opacity duration-500 group-hover:opacity-100 md:p-3"
-                          style={{
-                            background:
-                              "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.05) 100%)",
-                          }}
-                        >
-                          <h4 className="font-display text-xs font-semibold leading-tight text-white md:text-sm">
-                            {t.title}
-                          </h4>
-                          <p className="mt-0.5 text-[9px] uppercase tracking-[0.18em] text-white/80">
-                            {t.note}
-                          </p>
-                        </div>
-                      </div>
-                    </a>
-                  ))}
-                </SpreadColumn>
-              );
-            })}
-          </div>
-
-          {/* bottom cream fade */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-[35%]"
-            style={{
-              background:
-                "linear-gradient(to bottom, rgba(247,243,232,0) 0%, rgba(247,243,232,0.9) 60%, #F7F3E8 100%)",
-            }}
-          />
-          {/* top soft fade */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-0 h-24"
-            style={{
-              background:
-                "linear-gradient(to top, rgba(255,253,248,0) 0%, #FFFDF8 100%)",
-            }}
-          />
+                      <h4 className="font-display text-xs font-semibold leading-tight text-white md:text-sm">
+                        {t.title}
+                      </h4>
+                      <p className="mt-0.5 text-[9px] uppercase tracking-[0.18em] text-white/80">
+                        {t.note}
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          ))}
         </div>
       </div>
     </div>
-  );
-}
-
-function SpreadColumn({
-  children,
-  progress,
-  dist,
-  maxDist,
-}: {
-  children: React.ReactNode;
-  progress: ReturnType<typeof useScroll>["scrollYProgress"];
-  dist: number; // 0 = center, maxDist = edge
-  maxDist: number;
-}) {
-  // Each column starts below the viewport, then scrolls up into view.
-  // Center column (dist=0) starts highest and reveals first.
-  // Outer columns (larger dist) start further down → appear later as
-  // the user scrolls deeper, creating the "spread from center" effect.
-  const startOffset = 150 + dist * 140; // px below initial position
-  const endOffset = -400; // travel up off-screen by the end
-  const y = useTransform(progress, [0, 1], [startOffset, endOffset]);
-  const opacity = useTransform(
-    progress,
-    [0, 0.05 + dist * 0.04, 0.15 + dist * 0.05, 0.85, 1],
-    [0, 0, 1, 1, 0.9]
-  );
-
-  return (
-    <motion.div style={{ y, opacity }} className="flex flex-col gap-2 md:gap-3">
-      {children}
-    </motion.div>
   );
 }
 
