@@ -145,7 +145,7 @@ export function Footer() {
       </section>
 
       {/* Brand / address / socials sitting on solid yellow */}
-      <section className="relative z-10 text-ink">
+      <section className="relative z-10">
         <div className="mx-auto max-w-5xl px-6 pb-16 pt-8 flex flex-col items-center text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -174,7 +174,7 @@ export function Footer() {
                 target={href.startsWith("http") ? "_blank" : undefined}
                 rel="noreferrer"
                 aria-label={label}
-                className="group inline-flex size-12 items-center justify-center rounded-full bg-white text-ink ring-2 ring-ink/15 transition-all hover:scale-110 hover:bg-sun hover:text-white hover:ring-white"
+                className="group inline-flex size-12 items-center justify-center rounded-full bg-white ring-2 ring-[#3C2D0F]/15 transition-all hover:scale-110 hover:bg-sun hover:text-white hover:ring-white"
               >
                 <Icon className="size-5" />
               </a>
