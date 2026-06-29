@@ -63,7 +63,7 @@ export function Footer() {
       id="contact"
       className="relative overflow-hidden"
       style={{
-        color: "#3C2D0F",
+        color: "#000000",
         background:
           "linear-gradient(to bottom, #F5EFDF 0%, #FBF6EC 10%, #FCEBB0 28%, #F9D452 50%, #F9CE34 75%, #F9C91E 100%)",
       }}
@@ -71,7 +71,7 @@ export function Footer() {
 
 
       {/* Contact form */}
-      <section className="relative z-10 px-6 pt-28 pb-20 md:pt-40 md:pb-28">
+      <section className="relative z-10 px-6 pt-16 pb-20 md:pt-24 md:pb-28">
         <div className="mx-auto max-w-3xl text-center">
           <AnimatedSection>
             <p className="text-[11px] font-medium uppercase tracking-[0.28em] opacity-55">
@@ -117,7 +117,7 @@ export function Footer() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   disabled={loading}
-                  className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-semibold ring-2 ring-[#3C2D0F]/15 shadow-[0_10px_30px_-10px_rgba(80,60,20,0.25)] transition hover:bg-sun hover:text-white hover:ring-white disabled:opacity-60"
+                  className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-semibold text-black ring-2 ring-black/15 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.18)] transition hover:bg-sun hover:text-white hover:ring-white disabled:opacity-60"
                 >
                   {loading ? <Loader2 className="size-4 animate-spin" /> : <Send className="size-4" />}
                   {loading ? "Sending..." : "Send message"}
@@ -129,15 +129,15 @@ export function Footer() {
                   width: 100%;
                   background: transparent;
                   border: 0;
-                  border-bottom: 1px solid rgba(60,45,15,0.18);
+                  border-bottom: 1px solid rgba(0,0,0,0.18);
                   padding: 0.85rem 0.25rem;
-                  color: #3C2D0F;
+                  color: #000000;
                   font-size: 0.95rem;
                   transition: border-color .25s ease;
                   outline: none;
                 }
-                .input-line::placeholder { color: rgba(60,45,15,0.4); }
-                .input-line:focus { border-color: #3C2D0F; }
+                .input-line::placeholder { color: rgba(0,0,0,0.4); }
+                .input-line:focus { border-color: #000000; }
               `}</style>
             </form>
           </AnimatedSection>
@@ -174,7 +174,7 @@ export function Footer() {
                 target={href.startsWith("http") ? "_blank" : undefined}
                 rel="noreferrer"
                 aria-label={label}
-                className="group inline-flex size-12 items-center justify-center rounded-full bg-white ring-2 ring-[#3C2D0F]/15 transition-all hover:scale-110 hover:bg-sun hover:text-white hover:ring-white"
+                className="group inline-flex size-12 items-center justify-center rounded-full bg-white text-black ring-2 ring-black/15 transition-all hover:scale-110 hover:bg-sun hover:text-white hover:ring-white"
               >
                 <Icon className="size-5" />
               </a>
