@@ -157,11 +157,11 @@ function PressGallery() {
           className="grid gap-2 md:gap-3"
           style={{ gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))` }}
         >
-          {columns.map((col) => (
-            <div key={crypto.randomUUID()} className="flex flex-col gap-2 md:gap-3">
-              {col.map((t) => (
+          {columns.map((col, cIdx) => (
+            <div key={`col-${cIdx}`} className="flex flex-col gap-2 md:gap-3">
+              {col.map((t, rIdx) => (
                 <a
-                  key={crypto.randomUUID()}
+                  key={`tile-${cIdx}-${rIdx}`}
                   href="#"
                   className="group relative block overflow-hidden rounded-md bg-black/5 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.15)] ring-1 ring-black/10 md:rounded-lg"
                 >
