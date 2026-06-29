@@ -209,13 +209,13 @@ function PressGallery() {
             })}
           </div>
 
-          {/* bottom white fade */}
+          {/* bottom cream fade */}
           <div
             aria-hidden
             className="pointer-events-none absolute inset-x-0 bottom-0 h-[45%]"
             style={{
               background:
-                "linear-gradient(to bottom, rgba(252,235,176,0) 0%, rgba(252,235,176,0.9) 60%, #FCEBB0 100%)",
+                "linear-gradient(to bottom, rgba(247,243,232,0) 0%, rgba(247,243,232,0.9) 60%, #F7F3E8 100%)",
             }}
           />
           {/* top soft fade */}
@@ -224,7 +224,7 @@ function PressGallery() {
             className="pointer-events-none absolute inset-x-0 top-0 h-24"
             style={{
               background:
-                "linear-gradient(to top, rgba(251,246,236,0) 0%, #FBF6EC 100%)",
+                "linear-gradient(to top, rgba(255,253,248,0) 0%, #FFFDF8 100%)",
             }}
           />
 
