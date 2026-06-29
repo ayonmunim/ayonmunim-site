@@ -112,15 +112,7 @@ export function Media() {
       <PressGallery />
 
 
-      {/* Bottom fade to next dark section */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-[25%]"
-        style={{
-          background:
-            "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 60%, #000 100%)",
-        }}
-      />
+      {/* Press gallery flows directly into the warm contact footer */}
 
 
     </section>
