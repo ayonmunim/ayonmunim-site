@@ -193,9 +193,9 @@ export function Footer() {
 function Field({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
   return (
     <label className="block text-left">
-      <span className="mb-2 block text-[10px] uppercase tracking-[0.22em] text-ink/55">{label}</span>
+      <span className="mb-2 block text-[10px] uppercase tracking-[0.22em] opacity-55">{label}</span>
       {children}
-      {error && <span className="mt-2 block text-xs text-ink/70">{error}</span>}
+      {error && <span className="mt-2 block text-xs opacity-70">{error}</span>}
     </label>
   );
 }
