@@ -231,8 +231,10 @@ function PressGallery() {
         </div>
       </div>
     </div>
+    </div>
   );
 }
+
 
 function SpreadColumn({
   children,
