@@ -63,29 +63,28 @@ export function Footer() {
       id="contact"
       className="relative overflow-hidden"
       style={{
-        color: "#000000",
         background:
-          "linear-gradient(to bottom, #F5EFDF 0%, #FBF6EC 10%, #FCEBB0 28%, #F9D452 50%, #F9CE34 75%, #F9C91E 100%)",
+          "linear-gradient(to bottom, #FBF6EC 0%, #FCEBB0 18%, #F9D452 45%, #F9CE34 70%, #F9C91E 100%)",
       }}
     >
 
 
       {/* Contact form */}
-      <section className="relative z-10 px-6 pt-16 pb-20 md:pt-24 md:pb-28">
+      <section className="relative z-10 px-6 pt-28 pb-20 md:pt-40 md:pb-28">
         <div className="mx-auto max-w-3xl text-center">
           <AnimatedSection>
-            <p className="text-[11px] font-medium uppercase tracking-[0.28em] opacity-55">
+            <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-ink/55">
               (07) Contact
             </p>
             <h2 className="mt-6 font-paint paint-ink text-5xl font-medium leading-[0.95] tracking-[-0.03em] md:text-7xl">
               Have a problem worth solving?
             </h2>
-            <p className="mx-auto mt-6 max-w-lg opacity-70 md:text-lg">
+            <p className="mx-auto mt-6 max-w-lg text-ink/70 md:text-lg">
               Tell me about your project or just say hi. I usually reply within 24 hours.
             </p>
             <a
               href={`mailto:${resume.email}`}
-              className="mt-6 inline-flex items-center gap-1.5 text-sm opacity-75 transition hover:opacity-100 story-link"
+              className="mt-6 inline-flex items-center gap-1.5 text-sm text-ink/75 transition hover:text-ink story-link"
             >
               {resume.email} <ArrowUpRight className="size-3.5" />
             </a>
@@ -117,7 +116,7 @@ export function Footer() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   disabled={loading}
-                  className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-semibold text-black ring-2 ring-black/15 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.18)] transition hover:bg-sun hover:text-white hover:ring-white disabled:opacity-60"
+                  className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-semibold text-ink ring-2 ring-ink/15 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.35)] transition hover:bg-sun hover:text-white hover:ring-white disabled:opacity-60"
                 >
                   {loading ? <Loader2 className="size-4 animate-spin" /> : <Send className="size-4" />}
                   {loading ? "Sending..." : "Send message"}
@@ -131,13 +130,13 @@ export function Footer() {
                   border: 0;
                   border-bottom: 1px solid rgba(0,0,0,0.18);
                   padding: 0.85rem 0.25rem;
-                  color: #000000;
+                  color: #000;
                   font-size: 0.95rem;
                   transition: border-color .25s ease;
                   outline: none;
                 }
                 .input-line::placeholder { color: rgba(0,0,0,0.4); }
-                .input-line:focus { border-color: #000000; }
+                .input-line:focus { border-color: #000; }
               `}</style>
             </form>
           </AnimatedSection>
@@ -145,7 +144,7 @@ export function Footer() {
       </section>
 
       {/* Brand / address / socials sitting on solid yellow */}
-      <section className="relative z-10">
+      <section className="relative z-10 text-ink">
         <div className="mx-auto max-w-5xl px-6 pb-16 pt-8 flex flex-col items-center text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -174,7 +173,7 @@ export function Footer() {
                 target={href.startsWith("http") ? "_blank" : undefined}
                 rel="noreferrer"
                 aria-label={label}
-                className="group inline-flex size-12 items-center justify-center rounded-full bg-white text-black ring-2 ring-black/15 transition-all hover:scale-110 hover:bg-sun hover:text-white hover:ring-white"
+                className="group inline-flex size-12 items-center justify-center rounded-full bg-white text-ink ring-2 ring-ink/15 transition-all hover:scale-110 hover:bg-sun hover:text-white hover:ring-white"
               >
                 <Icon className="size-5" />
               </a>
@@ -193,9 +192,9 @@ export function Footer() {
 function Field({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
   return (
     <label className="block text-left">
-      <span className="mb-2 block text-[10px] uppercase tracking-[0.22em] opacity-55">{label}</span>
+      <span className="mb-2 block text-[10px] uppercase tracking-[0.22em] text-ink/55">{label}</span>
       {children}
-      {error && <span className="mt-2 block text-xs opacity-70">{error}</span>}
+      {error && <span className="mt-2 block text-xs text-ink/70">{error}</span>}
     </label>
   );
 }
