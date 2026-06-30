@@ -1,4 +1,5 @@
-import { motion } from "motion/react";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { Play } from "lucide-react";
 import { AnimatedSection } from "./AnimatedSection";
 import { PaintTitle } from "./PaintTitle";
