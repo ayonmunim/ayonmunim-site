@@ -55,9 +55,8 @@ export function Media() {
       id="media"
       className="relative pt-28 pb-12 md:pt-40 md:pb-20"
       style={{
-        color: "#000000",
-        background:
-          "linear-gradient(to bottom, #FFFDF8 0%, #FDF8EE 35%, #F7F3E8 70%, #F5EFDF 100%)",
+        color: "#ffffff",
+        background: "#000000",
       }}
     >
       <div className="mx-auto max-w-7xl px-6">
