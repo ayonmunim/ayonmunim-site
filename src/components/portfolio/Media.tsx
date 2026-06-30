@@ -88,12 +88,12 @@ export function Media() {
           {[...VIDEO_CARDS, ...VIDEO_CARDS].map((c, i) => (
             <article
               key={i}
-              className="group relative w-[320px] shrink-0 overflow-hidden rounded-3xl bg-[#F7F3E8]/80 backdrop-blur-md shadow-[0_25px_80px_-25px_rgba(0,0,0,0.12)] ring-1 ring-black/10 transition-all duration-500 hover:scale-[1.02] hover:bg-[#FFFDF8] hover:ring-black/25 md:w-[380px]"
+              className="group relative w-[320px] shrink-0 overflow-hidden rounded-3xl bg-white/5 backdrop-blur-md shadow-[0_25px_80px_-25px_rgba(0,0,0,0.5)] ring-1 ring-white/15 transition-all duration-500 hover:scale-[1.02] hover:bg-white/10 hover:ring-white/40 md:w-[380px]"
             >
               <div className="relative aspect-[4/3] overflow-hidden">
                 <img src={c.src} alt={c.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-black">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent" />
+                <span className="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-black">
                   {c.tag}
                 </span>
                 <button
