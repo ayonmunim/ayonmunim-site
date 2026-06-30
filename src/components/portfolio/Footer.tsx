@@ -70,7 +70,7 @@ export function Footer() {
 
 
       {/* Contact form */}
-      <section className="relative z-10 px-6 pt-28 pb-20 md:pt-40 md:pb-28">
+      <section className="relative z-10 px-6 pt-16 pb-20 md:pt-20 md:pb-28">
         <div className="mx-auto max-w-3xl text-center">
           <AnimatedSection>
             <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-ink/55">
