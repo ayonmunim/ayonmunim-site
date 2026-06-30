@@ -77,9 +77,9 @@ export function Media() {
       {/* Horizontal auto-scroll video cards */}
       <div className="relative mt-16 overflow-hidden">
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24"
-          style={{ background: "linear-gradient(to right, #FFFDF8, transparent)" }} />
+          style={{ background: "linear-gradient(to right, #000, transparent)" }} />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24"
-          style={{ background: "linear-gradient(to left, #F5EFDF, transparent)" }} />
+          style={{ background: "linear-gradient(to left, #000, transparent)" }} />
         <motion.div
           animate={{ x: ["0%", "-50%"] }}
           transition={{ duration: 45, ease: "linear", repeat: Infinity }}
