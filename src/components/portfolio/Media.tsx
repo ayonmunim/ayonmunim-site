@@ -52,12 +52,10 @@ const TILES: Tile[] = [
 
 export function Media() {
   return (
-    <section
-      id="media"
-      className="relative bg-gradient-to-b from-black via-black via-[30%] to-[#FBF6EC] text-white"
-    >
-      {/* Header + video carousel */}
-      <div className="py-28 md:py-40">
+    <section id="media" className="relative text-white">
+      {/* Header + video carousel — black only behind this block */}
+      <div className="bg-black py-28 md:py-40">
+
         <div className="mx-auto max-w-7xl px-6">
           <AnimatedSection>
             <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/70">
