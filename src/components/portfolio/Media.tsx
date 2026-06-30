@@ -1,4 +1,5 @@
-import { motion } from "motion/react";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { Play } from "lucide-react";
 import { AnimatedSection } from "./AnimatedSection";
 import { PaintTitle } from "./PaintTitle";
@@ -55,9 +56,8 @@ export function Media() {
       id="media"
       className="relative pt-28 pb-12 md:pt-40 md:pb-20"
       style={{
-        color: "#000000",
-        background:
-          "linear-gradient(to bottom, #FFFDF8 0%, #FDF8EE 35%, #F7F3E8 70%, #F5EFDF 100%)",
+        color: "#ffffff",
+        background: "#000000",
       }}
     >
       <div className="mx-auto max-w-7xl px-6">
@@ -77,9 +77,9 @@ export function Media() {
       {/* Horizontal auto-scroll video cards */}
       <div className="relative mt-16 overflow-hidden">
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24"
-          style={{ background: "linear-gradient(to right, #FFFDF8, transparent)" }} />
+          style={{ background: "linear-gradient(to right, #000, transparent)" }} />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24"
-          style={{ background: "linear-gradient(to left, #F5EFDF, transparent)" }} />
+          style={{ background: "linear-gradient(to left, #000, transparent)" }} />
         <motion.div
           animate={{ x: ["0%", "-50%"] }}
           transition={{ duration: 45, ease: "linear", repeat: Infinity }}
@@ -88,12 +88,12 @@ export function Media() {
           {[...VIDEO_CARDS, ...VIDEO_CARDS].map((c, i) => (
             <article
               key={i}
-              className="group relative w-[320px] shrink-0 overflow-hidden rounded-3xl bg-[#F7F3E8]/80 backdrop-blur-md shadow-[0_25px_80px_-25px_rgba(0,0,0,0.12)] ring-1 ring-black/10 transition-all duration-500 hover:scale-[1.02] hover:bg-[#FFFDF8] hover:ring-black/25 md:w-[380px]"
+              className="group relative w-[320px] shrink-0 overflow-hidden rounded-3xl bg-white/5 backdrop-blur-md shadow-[0_25px_80px_-25px_rgba(0,0,0,0.5)] ring-1 ring-white/15 transition-all duration-500 hover:scale-[1.02] hover:bg-white/10 hover:ring-white/40 md:w-[380px]"
             >
               <div className="relative aspect-[4/3] overflow-hidden">
                 <img src={c.src} alt={c.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-black">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent" />
+                <span className="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-black">
                   {c.tag}
                 </span>
                 <button
@@ -123,8 +123,6 @@ function PressGallery() {
   const POOL = [daily23.url, prothom.url, nsac.url, nasa.url, news24.url, kaler.url, samakal.url, daily24.url, observer.url];
   const NOTES = ["Featured story", "National daily", "Cover feature", "Broadcast", "Editorial", "Profile piece", "Spotlight", "Innovation", "Press"];
 
-  // 5 columns — center column appears first, columns "spread" outward
-  // from center as the user scrolls deeper into the section (nas.com style).
   const COLS = 5;
   const TILES_PER_COL = 5;
   const CENTER = (COLS - 1) / 2;
@@ -140,61 +138,96 @@ function PressGallery() {
     })
   );
 
+  const trackRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: trackRef,
+    offset: ["start end", "end start"],
+  });
+
   return (
-    <div className="relative mx-auto mt-12 max-w-[1600px] px-3 pt-12 pb-6 text-ink md:mt-16 md:px-4 md:pt-16 md:pb-8 rounded-3xl" style={{ background: "linear-gradient(to bottom, #FFFDF8 0%, #FDF8EE 45%, #FAF3E5 75%, #F7F3E8 100%)" }}>
+    <div ref={trackRef} className="relative mx-auto mt-12 max-w-[1600px] px-3 pt-12 pb-6 text-ink md:mt-16 md:px-4 md:pt-16 md:pb-8 rounded-3xl" style={{ background: "linear-gradient(to bottom, #FFFDF8 0%, #FDF8EE 45%, #FAF3E5 75%, #F7F3E8 100%)" }}>
       <AnimatedSection>
         <h3 className="font-display text-3xl uppercase tracking-tight md:text-5xl px-3 md:px-4">
           <span className="text-ink/40">/</span> Press Gallery
         </h3>
         <p className="mt-4 max-w-xl text-ink/65 px-3 md:px-4">
-          Hover any tile to read the story.
+          Scroll — tiles spread outward from the center.
         </p>
       </AnimatedSection>
 
-      {/* responsive grid collage — flows directly into the footer */}
       <div className="relative mt-10 px-2 md:mt-14 md:px-3">
         <div
           className="grid gap-2 md:gap-3"
           style={{ gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))` }}
         >
-          {columns.map((col, cIdx) => (
-            <div key={`col-${cIdx}`} className="flex flex-col gap-2 md:gap-3">
-              {col.map((t, rIdx) => (
-                <a
-                  key={`tile-${cIdx}-${rIdx}`}
-                  href="#"
-                  className="group relative block overflow-hidden rounded-md bg-black/5 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.15)] ring-1 ring-black/10 md:rounded-lg"
-                >
-                  <div style={{ aspectRatio: "1/1" }} className="relative">
-                    <img
-                      src={t.src}
-                      alt={t.title}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      loading="lazy"
-                    />
-                    <div
-                      className="pointer-events-none absolute inset-0 flex flex-col justify-end p-2 opacity-0 transition-opacity duration-500 group-hover:opacity-100 md:p-3"
-                      style={{
-                        background:
-                          "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.05) 100%)",
-                      }}
-                    >
-                      <h4 className="font-display text-xs font-semibold leading-tight text-white md:text-sm">
-                        {t.title}
-                      </h4>
-                      <p className="mt-0.5 text-[9px] uppercase tracking-[0.18em] text-white/80">
-                        {t.note}
-                      </p>
+          {columns.map((col, cIdx) => {
+            const distance = Math.abs(cIdx - CENTER); // 0 center, up to 2 edges
+            const dir = cIdx < CENTER ? -1 : cIdx > CENTER ? 1 : 0;
+            return (
+              <ColumnParallax key={`col-${cIdx}`} progress={scrollYProgress} distance={distance} dir={dir}>
+                {col.map((t, rIdx) => (
+                  <a
+                    key={`tile-${cIdx}-${rIdx}`}
+                    href="#"
+                    className="group relative block overflow-hidden rounded-md bg-black/5 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.15)] ring-1 ring-black/10 md:rounded-lg"
+                  >
+                    <div style={{ aspectRatio: "1/1" }} className="relative">
+                      <img
+                        src={t.src}
+                        alt={t.title}
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        loading="lazy"
+                      />
+                      <div
+                        className="pointer-events-none absolute inset-0 flex flex-col justify-end p-2 opacity-0 transition-opacity duration-500 group-hover:opacity-100 md:p-3"
+                        style={{
+                          background:
+                            "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.05) 100%)",
+                        }}
+                      >
+                        <h4 className="font-display text-xs font-semibold leading-tight text-white md:text-sm">
+                          {t.title}
+                        </h4>
+                        <p className="mt-0.5 text-[9px] uppercase tracking-[0.18em] text-white/80">
+                          {t.note}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </a>
-              ))}
-            </div>
-          ))}
+                  </a>
+                ))}
+              </ColumnParallax>
+            );
+          })}
         </div>
       </div>
     </div>
   );
 }
+
+function ColumnParallax({
+  progress,
+  distance,
+  dir,
+  children,
+}: {
+  progress: ReturnType<typeof useScroll>["scrollYProgress"];
+  distance: number;
+  dir: number;
+  children: React.ReactNode;
+}) {
+  // Tiles start tucked behind the center, then spread outward + upward as the
+  // user scrolls deeper into the section.
+  const xStart = dir * distance * 60; // start pulled toward center (opposite of final)
+  const x = useTransform(progress, [0, 0.5], [-xStart, 0]);
+  const y = useTransform(progress, [0, 0.5], [distance * 80, 0]);
+  const opacity = useTransform(progress, [0, 0.2, 0.5], [distance === 0 ? 1 : 0, 0.5, 1]);
+
+  return (
+    <motion.div style={{ x, y, opacity }} className="flex flex-col gap-2 md:gap-3">
+      {children}
+    </motion.div>
+  );
+}
+
 
 
