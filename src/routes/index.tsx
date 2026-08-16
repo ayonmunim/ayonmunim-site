@@ -22,7 +22,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Munim Ahmed — Software Engineer & Full-Stack Developer" },
       {
         property: "og:description",
-        content: "Designing intelligent digital experiences through code, data and human-centered design.",
+        content: "Portfolio of Munim Ahmed — software engineer working at the intersection of full-stack development, design systems and applied data science. NASA Space Apps Global Champion '22.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
